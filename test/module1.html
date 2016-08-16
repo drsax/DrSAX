@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>i have a dreamdddddd
+    </title>
+  </head>
+  <body>
+
+ 
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<p id="name">홍길동</p>
+  <input type="button" value=" drhong"onclick="hello();" />
+
+    <script>
+
+
+////array///////array///////array///////array///////array///////array///
+
+
+
+ var member = ['egoing', 'k8805', 'sorialgi']
+  document.write(member[0] +'<br />');  
+    document.write(member[1]+'<br />');
+      document.write(member[2]+'<br />');
+
+
+
+
+
+/////////////////////array 2//////////////
+function get_members(){
+    return ['good', 'dsadsa', 'hong'];
+}
+members = get_members();
+// members.length는 배열에 담긴 값의 숫자를 알려준다. 
+for(i = 0; i < members.length; i++){
+    // members[i].toUpperCase()는 members[i]에 담긴 문자를 대문자로 변환해준다.
+    document.write(members[i].toUpperCase());   
+    document.write('<br />');
+}
+
+///////////////////////////////////////////////
+
+
+
+
+for(var i = 0; i < 10; i++){
+    if(i === 5) {
+        break;
+    }
+    document.write('my name is drhong'+i+'<br />');
+}
+
+////////////////////////////////////////////
+
+var drhong1 = { }
+
+drhong1['face'] = 'good'
+
+document.write( drhong1.face);
+
+
+
+
+
+
+
+
+var drhong = { 'kind': ' object', 'hi' : 20}
+document.write( drhong.kind);
+
+////////////////////////////////////////////////////////////
+
+
+var grades = {
+    'list': {'egoing': 10, 'k8805': 6, 'sorialgi': 80},
+    'show' : function(){
+        for(var name in this.list){
+            document.write(name+':'+this.list[name]+"<br />");
+        }
+    }
+};
+
+grades.show();
+
+
+
+////////////////////////////////////////////////////////////
+
+var vscope = 'global';
+function fscope(){
+    vscope = 'local';
+    document.write('함수안'+vscope);
+}
+fscope();
+document.write('함수밖'+vscope);
+
+
+
+
+
+sax = new window.AudioContext();
+//////////////////////////////////
+var c ;
+(function () {
+ document.getElementById('name').innerHTML="hi"; 
+})();
+//////////////////////////
+var drsax= {
+   type: "macintosh",
+    color: "red",
+     sine:  function(a, b){
+    osc = sax.createOscillator();
+    gain = sax.createGain();
+  osc.type =2;
+    gain.gain.value = a;
+    osc.frequency.value = b;
+    osc.connect(gain);
+    gain.connect(sax.destination);
+    osc.start();
+    c =gain.gain.value ;
+     alert(this.color); // this is "drsax"
+for(var name in this.type) {
+//alert(name, this.type[name]);
+}
+     return { c};
+           
+}
+};
+drsax.color = "reddish";
+drsax.sine(0.001, 100);
+document.getElementById('name').innerHTML=drsax.color;
+////////////////////////  function = variable //////
+function cal(a, num){
+    return a(num)
+      
+}
+function increase(num){
+    return num+1
+}
+    document.write(cal(increase, 3)+'<br />');
+////////////////////////  grobal, local .property, method//////////
+     
+///////////////////
+(function(){
+    var MYAPP = {}
+    MYAPP.calculator = {
+        'left' : null,
+        'right' : null
+    }
+    MYAPP.coordinate = {
+        'left' : null,
+        'right' : null
+    }
+    MYAPP.calculator.left = 10;
+    MYAPP.calculator.right = 60;
+    function sum(){
+        return MYAPP.calculator.left + MYAPP.calculator.right;
+    }
+   document.write(sum()+'<br />');  
+   
+}())
+///////////////
+o1 = {val1:1, val2:2, val3:3}
+o2 = {v1:10, v2:50, v3:100, v4:25}
+function sum(){
+var _sum = 0;
+for(name in this){
+_sum += this[name];
+}
+return _sum;
+}
+     document.write(sum.apply(o1)+'<br />'); // 6
+         document.write(sum.apply(o2)+'<br />');// 185
+
+////////////////////////////////// local variable ///////////////
+
+(function(){
+    var MYAPP = {}
+    MYAPP.calculator = {
+        'left' : null,
+        'right' : null
+    }
+    MYAPP.coordinate = {
+        'left' : null,
+        'right' : null
+    }
+    MYAPP.calculator.left = 101;
+    MYAPP.calculator.right = 20;
+    function sum(){
+        return MYAPP.calculator.left + MYAPP.calculator.right;
+    }
+    document.write(sum());
+}())
+/////////////////////////////////////////////////////////
+
+function cal1(func, num){
+    return func(num);
+}
+function increase(num){
+    return num+1;
+}
+
+alert(cal1(increase, 1));  //function can be  variable
+
+
+//////////////////////////////////////////////////////////////
+
+
+
+
+function cal(mode){
+    var funcs = {
+        'plus' : function(left, right){return left + right},
+        'minus' : function(left, right){return left - right}
+    }
+    return funcs[mode];
+}
+alert(cal('plus')(2,1));
+ 
+
+
+////////////////////////////function is used return value     /////
+////////////important/////////////
+
+
+var process = [
+    function(input){ return input + 10;},  
+    function(input){ return input - 10;},  
+        function(input){ return input *10;},
+ 
+  
+];
+var input = 1;
+for(var i = 0; i < process.length; i++){
+    input = process[i](input);
+}
+alert(input);
+
+
+///////////////////////////function is used value of array///////////
+
+
+
+
+
+///////////////////////////closer///////////////////////
+function outter(){
+    var title = 'coding everybody';  
+    return function(){        
+        alert(title);
+    }
+}
+inner = outter(); ///good
+abc    = inner(); /////good
+cnd =    abc();   /////good
+cnd();         /////////good
+///////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////
+
+    </script>
+  </body>
+</html>

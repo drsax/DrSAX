@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>i have a dreamdddddd
+    </title>
+  </head>
+  <body>
+
+ 
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<p id="name">홍길동</p>
+  <input type="button" value=" drhong"onclick="hello();" />
+
+    <script>
+
+
+
+sax = new window.AudioContext();
+//////////////////////////////////
+var c ;
+(function () {
+ document.getElementById('name').innerHTML="hi"; 
+})();
+//////////////////////////
+function drsax() {
+  this.type= "macintosh",
+   this.color= "red",
+    this.sine=  function(a, b){
+    osc = sax.createOscillator();
+    gain = sax.createGain();
+  osc.type =2;
+
+    gain.gain.value = a;
+    osc.frequency.value = b;
+
+
+    osc.connect(gain);
+    gain.connect(sax.destination);
+
+
+    osc.start();
+
+
+    c =gain.gain.value ;
+     // this is "drsax"
+
+     return { c};
+           
+}
+
+
+};
+
+
+
+var awe =new drsax();
+awe.sine(0.1, 400);
+alert(awe.type);
+document.getElementById('name').innerHTML=c;
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+<script src="cont/js/platform.js"></script>
+<link rel="import" href="cont/webcomponents/polymer.html">
+<link rel="import" href="cont/webcomponents/controls.html">
+    <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ </head>
+  <body>
+ <input class="button1" type="button"  value="Stop" onclick="qqqq();" style="position:absolute;left:140px;top:140px;">
+  <h3 id="text" style="position:absolute;left:50px;top:45px"> Interactive Web-Music</h3>
+
+
+     <input class="ver" type="range"  value="100" style="position:absolute;left:20px;top:250px" step="0.1" id = "monet2" min="00" max="26" ></input>
+
+       <input class="ver" type="range"  value="100" style="position:absolute;left:20px;top:450px" step="1" id = "monet" min="00" max="100" ></input>
+
+     <BR><BR>     
+
+</body>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+
+  <script >
+   
+ var socket = io();
+ var qq =0;
+
+ 
+      ///////////////// stop////////
+    function qqqq(){
+         str = 7;
+       socket.emit('message', "70" );
+      }
+   socket.on('message', function(data) {
+        document.getElementById("text").innerText = data;
+    });
+   /////////////////////////////////////  mute//////////////
+ 
+  var monet2 = document.getElementById('monet2');
+       monet2.addEventListener("change",knob_2);
+       function knob_2(data) {
+        var str= 0;
+  
+           str= data.target.value ; 
+             var c = str;
+            socket.emit('20', str);
+
+
+    
+}
+
+
+
+  var monet = document.getElementById('monet');
+       monet.addEventListener("change",knob);
+       function knob(data) {
+        var str= 0;
+  
+           str= data.target.value ; 
+             var c = str;
+            socket.emit('21', str);
+
+            socket.emit('message', str);
+
+
+}
+
+
+
+   socket.on('21', function(str) {
+        document.getElementById("text").innerText = str;
+    });
+
+
+
+
+
+   socket.on('20', function(buffer) {
+     qq = buffer.charCodeAt() - 98
+   
+    document.getElementById("text").innerText = qq;
+ document.getElementById("monet2").value = qq;
+var abc = document.getElementById("text").innerText 
+    //if ( buffer <"d" &&  buffer >"c"    )/////////////// if buffer data is " c"  
+   // { 
+ // alert(buffer); }
+   if ( abc == "-65"    )/////////////// if buffer data is " c"  
+    { 
+ alert(abc);
+}
+   
+
+
+
+
+
+    });
+  
+</script>
+
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>i have a dreamdddddd
+    </title>
+  </head>
+  <body>
+
+ 
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<p id="name">홍길동</p>
+  <input type="button" value=" drhong"onclick="hello();" />
+
+    <script>
+sax = new window.AudioContext();
+//////////////////////////////////
+var c ;
+
+
+(function () {
+
+ document.getElementById('name').innerHTML="hi";
+
+})();
+
+//////////////////////////
+
+
+var drsax= {
+
+   type: "macintosh",
+
+    color: "red",
+
+     sine:  function(a, b){
+    osc = sax.createOscillator();
+    gain = sax.createGain();
+  osc.type =2;
+    gain.gain.value = a;
+    osc.frequency.value = b;
+
+
+    osc.connect(gain);
+    gain.connect(sax.destination);
+    osc.start();
+    c =gain.gain.value ;
+
+
+     alert(this.color); // this is "drsax"
+
+for(var name in this.type) {
+
+//alert(name, this.type[name]);
+
+}
+
+
+
+
+     return { c};
+
+           
+}
+
+};
+
+
+
+drsax.color = "reddish";
+drsax.sine(0.001, 100);
+
+document.getElementById('name').innerHTML=drsax.color;
+
+////////////////////////  function = variable //////
+
+
+function cal(a, num){
+
+
+    return a(num)
+      
+}
+function increase(num){
+    return num+1
+}
+
+
+alert(cal(increase, 3));
+
+////////////////////////  grobal, local .property, method//////////
+     
+
+
+///////////////////
+(function(){
+    var MYAPP = {}
+    MYAPP.calculator = {
+        'left' : null,
+        'right' : null
+    }
+    MYAPP.coordinate = {
+        'left' : null,
+        'right' : null
+    }
+    MYAPP.calculator.left = 10;
+    MYAPP.calculator.right = 60;
+    function sum(){
+        return MYAPP.calculator.left + MYAPP.calculator.right;
+    }
+   document.write(sum());  
+   
+}())
+
+
+///////////////
+
+
+
+
+o1 = {val1:1, val2:2, val3:3}
+o2 = {v1:10, v2:50, v3:100, v4:25}
+function sum(){
+var _sum = 0;
+for(name in this){
+_sum += this[name];
+}
+return _sum;
+}
+alert(sum.apply(o1)) // 6
+alert(sum.apply(o2)) // 185
+
+
+    </script>
+  </body>
+</html>

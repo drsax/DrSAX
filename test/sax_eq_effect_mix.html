@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+   
+  </head>
+  <body>
+      <div id="page-wrap">
+      <div id="controls" class="panel">
+        <div class="strip dark">
+          <h1>Web Audio Loop Mixer</h1>
+        </div>
+
+    <div class="stripTransport">
+          <input id="inputSource1" type="file" accept="audio/*">
+        
+      
+        </div>  
+
+
+
+
+        <div class="stripTransport">
+          <button onclick="playSound()" disabled>Play</button>
+          <button onclick="stopSound()" disabled>Stop</button>
+        </div>    
+
+
+        <div class="strip">
+          
+            <p class="label"><h3>Ch 1</h3></p>
+            
+          <div class="stripSection">      
+            <p class="knobContainer label"><span class="green">Gain</span>
+
+              <input id="gain-1" class="slider" type="range" min="0" max="1" step="0.1" value="0.5"/> 
+          </p>
+          </div>
+          <div class="stripSection">
+            <p class="label"><span class="checkbox-label">EQ</span><input type="checkbox" id="eq-1" /><label for="eq-1"><span></span></label></p>
+      
+            <p class="knobContainer label"><span class="yellow">High</span>
+    <input id="high-1" class="slider" type="range" min="-15" max="15" step="1" value="0"/></p>
+
+
+
+            <p class="knobContainer label"><span class="orangeLight">Mid</span>
+        
+              <input id="mid-1" class="slider" type="range" min="-15" max="15" step="1" value="0"/></p>
+
+
+
+
+            <p class="knobContainer label"><span class="orangeDark">Low</span>
+
+              <input id="low-1" class="slider" type="range" min="-15" max="15" step="1" value="0"/></p>
+
+          </div>
+        
+          </div>
+
+
+      <span>Vol</span>
+          <input id="volume-1" class="slider" type="range" min="0" max="1" step="0.1" value="1"/>
+          
+          </div>
+    
+
+
+
+
+
+            <p class="label"><span class="checkbox-label">Mute</span><input type="checkbox" id="mute-1" /><label for="mute-1"><span></span></label></p>
+    
+
+
+          
+        </div>
+
+
+
+
+
+
+
+
+    
+          <span class="pink">delay</span>
+        
+
+              <input id="delay-1" class="slider" type="range" min="0" max="10" step="1" value="0"/>
+
+
+
+
+        <span class="purple">Distortion</span>
+        
+
+       <input id="distortion-1" class="slider" type="range" min="0" max="10" step="1" value="0"/>
+
+
+
+
+
+
+        <h3 class="pink">Delay</h3></p>
+      
+        <span class="pink">Level</span>
+        <input id="delayLevel" class="slider" type="range" min="0" max="1" step="0.1" value="1"/>           
+    <span class="pink">Delay Time</span>
+    <input id="delayTime" class="slider" type="range" min="0.05" max="1" step="0.05" value="0.5"/>
+      <span class="pink">Feedback</span>
+      <input id="delayFeedback" class="slider" type="range" min="0" max="0.95" step="0.05" value="0.8"/>
+        <span class="pink">Cutoff Freq</span>
+      <input id="delayFilter" class="slider" type="range" min="0" max="4000" step="100" value="1000"/>
+
+
+
+
+  
+    <script >
+
+var context = new (window.AudioContext || window.webkitAudioContext)(); // Create audio container with webkit fallback
+
+
+var source1 = null; // Create empty audio source 1
+
+// Reverb
+var reverb = context.createConvolver(); // Create convolver node for reverb fx
+
+
+
+// Convolver - Reverb - load the impulse response asynchronously
+var impulse; // Create the Impulse Sound 
+var getImpulse = new XMLHttpRequest(); // Load the Impulse Sound with XMLHttpRequest
+getImpulse.open("GET", "", true); // Path to Audio File
+getImpulse.responseType = "arraybuffer"; // Read as Binary Data
+getImpulse.onload = function() {
+  context.decodeAudioData(getImpulse.response, function(buffer){
+    impulse = buffer; // Decode the Audio Data and Store it in a Variable
+  });
+}
+getImpulse.send(); // Send the Request and Load the impulse File
+// Allow user to select source file for channel 1
+
+
+
+function initSound1(arrayBuffer) {
+  context.decodeAudioData(arrayBuffer, function(buffer) {
+    audioBuffer1 = buffer;
+    var buttons = document.querySelectorAll('button');
+    buttons[0].disabled = false;
+    buttons[1].disabled = false;
+  }, function(e) {
+    console.log('Error decoding file', e);
+  }); 
+}
+
+
+
+// Read user selected file as ArrayBuffer and pass it to the API
+var fileInput1 = document.querySelector('#inputSource1');
+fileInput1.addEventListener('change', function(e) {  
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    initSound1(this.result);
+  };
+  reader.readAsArrayBuffer(this.files[0]);
+}, false);
+
+function playSound() {
+  source1 = context.createBufferSource(); // Create a sound source 1
+  source1.buffer = audioBuffer1; // Add the buffered data to our object
+  source1.loop = true; // Make it loop
+  source1.connect(gain_1);
+  source1.start(0); // Play immediately
+
+  
+  $(function () {
+    document.getElementById('delayTime').addEventListener('change', function() {
+      delay.delayTime.value = this.value;
+    });
+  })
+  $(function () {
+    document.getElementById('delayFeedback').addEventListener('change', function() {
+      delayFeedback.gain.value = this.value;
+    });
+  })
+  $(function () {
+    document.getElementById('delayFilter').addEventListener('change', function() {
+      delayFilter.frequency.value = this.value;
+    });
+  })
+  $(function () {
+    document.getElementById('delayLevel').addEventListener('change', function() {
+      send2.gain.value = this.value;
+    });
+  })
+
+
+
+}
+function stopSound() {
+    delayFeedback.gain.value = 0;
+    delayFilter.frequency.value = 0;
+  
+  if (source1) {
+    source1.stop(0); // Stop source 1 immediately
+  }
+
+
+
+}
+// Create Audio Nodes
+var gain_1 = context.createGain(); // Create source gain node for channel 1
+
+var vol_1 = context.createGain(); // Create volume gain node for channel 1
+var mute_1 = context.createGain(); // Create mute routing gain node channel 1
+var send1_1 = context.createGain(); // Create routing gain node for send 1 for channel 1
+var send2_1 = context.createGain(); // Create routing gain node for send 2 for channel 1
+var send3_1 = context.createGain(); // Create routing gain node for send 3 for channel 1
+var sendmain_1 = context.createGain(); // Create routing gain node for main bus for channel 1
+
+
+
+// Distortion
+var distortion = context.createWaveShaper(); // Create waveshaper node for distortion fx
+function makeDistortionCurve( amount ) {
+  var k = typeof amount === 'number' ? amount : 50,
+    n_samples = 44100,
+    curve = new Float32Array(n_samples),
+    deg = Math.PI / 180,
+    i = 0,
+    x;
+  for ( ; i < n_samples; ++i ) {
+    x = i * 2 / n_samples - 1;
+    curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+  }
+  return curve;
+};
+distortion.curve = makeDistortionCurve(400);
+distortion.oversample = '4x';
+
+
+// Delay
+var delay = context.createDelay(); // Create delay node for delay fx
+  delay.delayTime.value = 0.5;
+    delayFeedback = context.createGain();
+    delayFeedback.gain.value = 0.8;
+ 
+    delayFilter = context.createBiquadFilter();
+    delayFilter.frequency.value = 1000;
+    delay.connect(delayFeedback);
+    delayFeedback.connect(delayFilter);
+    delayFilter.connect(delay);
+  
+ $(function () {
+  document.getElementById('delayTime').addEventListener('change', function() {
+    delay.delayTime.value = this.value;
+  });
+})
+$(function () {
+  document.getElementById('delayFeedback').addEventListener('change', function() {
+    delayFeedback.gain.value = this.value;
+  });
+})
+$(function () {
+  document.getElementById('delayFilter').addEventListener('change', function() {
+    delayFilter.frequency.value = this.value;
+  });
+})  
+  
+var send1 = context.createGain(); // Create routing gain node for send 1 (reverb)
+send1.gain.value = 1;
+var send2 = context.createGain(); // Create routing gain node for send 2 (delay)
+send2.gain.value = 1;
+$(function () {
+  document.getElementById('delayLevel').addEventListener('change', function() {
+    send2.gain.value = this.value;
+  });
+})
+var send3 = context.createGain(); // Create routing gain node for send 3 (distortion)
+send3.gain.value = 0.3;
+var comp_global = context.createDynamicsCompressor(); // Create global compressor node
+var gain_master = context.createGain(); // Create master gain node
+// EQ settings
+var makeHigh_1 = function () {
+  var high1 = context.createBiquadFilter();
+  high1.type = "highshelf"; // Highshelf filter
+  high1.frequency.value = 6000;
+  high1.gain.value = $('#high-1').val();
+  return high1;
+}
+var makeMid_1 = function () {
+  var mid1 = context.createBiquadFilter();
+  mid1.type = "peaking"; // Peaking filter
+  mid1.frequency.value = 1000;
+  mid1.Q.value = 1;
+  mid1.gain.value = $('#mid-1').val();
+  return mid1;
+}
+var makeLow_1 = function () {
+  var low1 = context.createBiquadFilter();
+  low1.type = "lowshelf"; // Lowshelf filter
+  low1.frequency.value = 440;
+  low1.gain.value = $('#low-1').val();
+  return low1;
+}
+// High EQ
+high_1 = makeHigh_1(),
+// Mid EQ
+mid_1 = makeMid_1(),
+// Low EQ
+low_1 = makeLow_1(),
+// Volume
+vol_1.gain.value = 1; // Initial volume is 100% for channel 1
+$(function () {
+  document.getElementById('volume-1').addEventListener('change', function() {
+    vol_1.gain.value = this.value;
+  });
+})
+
+
+// Wiring
+// Channel One Main Bus
+
+gain_1.connect(vol_1);
+vol_1.connect(sendmain_1);
+sendmain_1.connect(comp_global);
+// Channel One Reverb Send
+
+// Channel One Delay Send
+vol_1.connect(send2_1);
+send2_1.connect(delay);
+// Channel One Distortion Send
+vol_1.connect(send3_1);
+send3_1.connect(distortion);
+// Channel Two Main Bus
+
+delay.connect(send2);
+send2.connect(comp_global);
+distortion.connect(send3);
+send3.connect(comp_global);
+// Final Mastering
+comp_global.connect(gain_master);
+gain_master.connect(context.destination);
+
+
+
+
+  $(function () {
+    document.getElementById('gain-1').addEventListener('change', function() {
+      gain_1.gain.value = this.value;
+    });
+  document.getElementById('high-1').addEventListener('change', function() {
+      high_1.gain.value = this.value;
+    });
+  document.getElementById('mid-1').addEventListener('change', function() {
+      mid_1.gain.value = this.value;
+    });
+    document.getElementById('low-1').addEventListener('change', function() {
+      low_1.gain.value= this.value;
+    });
+
+
+    send2_1.gain.value = 0; // 0% for channel 1
+    document.getElementById('delay-1').addEventListener('change', function() {
+      send2_1.gain.value= this.value;
+    });
+
+  // Send3 (Distortion) Initial Channel gains
+  send3_1.gain.value = 0; 
+document.getElementById('distortion-1').addEventListener('change', function() {
+      send3_1.gain.value= this.value;
+    });
+  })
+ 
+
+
+
+
+
+// Mute
+mute_1.gain.value = 0; // Muted Volume is 0% for channel 1
+
+
+
+
+// EQ wiring
+$('#eq-1').change(function () {
+  if ($(this).attr('checked') === 'checked') {
+    gain_1.disconnect(0);
+    gain_1.connect(high_1);
+    high_1.connect(mid_1);
+    mid_1.connect(low_1);
+  low_1.connect(vol_1); 
+   vol_1.connect(sendmain_1); 
+  } else {
+    gain_1.disconnect(0);
+    high_1.disconnect(0);
+    mid_1.disconnect(0);
+    low_1.disconnect(0); 
+    gain_1.connect(vol_1);   
+
+  }
+})
+// Mute wiring
+$('#mute-1').change(function () {
+  if ($(this).attr('checked') === 'checked') {
+    vol_1.disconnect(0);
+    vol_1.connect(mute_1);
+    mute_1.connect(sendmain_1);
+  } else {
+    vol_1.disconnect(0);
+    mute_1.disconnect(0);
+    vol_1.connect(sendmain_1);
+ 
+    vol_1.connect(send2_1);
+    vol_1.connect(send3_1);   
+  }
+})
+</script>
+    
+  </body>
+</html>

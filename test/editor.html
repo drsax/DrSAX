@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<body>
+<style>
+
+
+
+.ver {
+display:block;
+font-size: 15px;
+color: white;
+font-family: sans-serif;
+background: gray;
+
+position:relative;
+width: 600px;
+height: 600px;
+left: 50px;
+border-radius: 5px;
+white-space:pre
+
+
+}
+
+
+</style>
+
+
+  <input   type="button" value=" play"onclick="executeCode();" />
+   <input   type="button" value=" stop"onclick="  osc.stop();" />
+<h1>DrSAX JavaScript real-time  execution on the web </h1>
+
+<script class="ver" id="js" contenteditable>
+
+
+    var DSX = new window.AudioContext();//
+
+    osc = DSX.createOscillator(); 
+
+    gain = DSX.createGain();
+
+
+    osc.frequency.value = 500;
+    gain.gain.value = 0.1;
+
+
+
+
+    osc.connect(gain);
+    gain.connect(DSX.destination);
+    osc.start();
+  
+
+
+</script>
+
+<script>
+
+
+
+
+  var js = document.getElementById('js');
+      
+ function executeCode() {
+    var script = document.createElement("script");
+    script.innerHTML = js.innerHTML;
+    js.parentNode.insertBefore(script, js);
+ }
+
+
+
+
+
+</script>
+
+</body>
+</html>
