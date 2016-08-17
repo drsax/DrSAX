@@ -47,3 +47,18 @@ OS1.type = b;
 } 
 
 
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+function we(b,c){
+
+var dial_10 = document.getElementById(b);
+    dial_10.addEventListener("change",_dial10,false);
+
+  function _dial10(dial_data){      
+c.value= dial_data.target.value;
+}
+
+}
