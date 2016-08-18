@@ -34,29 +34,30 @@
     <script>
 
 
-DrSAX.get();
-function simple(){
+alert(DSX.get(5,6));
 
-   OSval(100,'triangle');
-   OS1val(900,'triangle');
+
+
+
+   OSval(600,'triangle');
+   //OS1val(900,'triangle');
     //OS1freq.value = 600; 
     //OS1.type = 'sine';
-    SPgain.value= 0.05;
+     SPgain.value= 0.05;
 
-    OS1.connect(SP);
+   // OS1.connect(SP);
     OS.connect(SP);
     SP.connect(DAC);
 
     OS.start();
-    OS1.start();
-}
-
-simple();
+   // OS1.start();
 
 
 
-DrSAX.dial("di",SPgain);
-DrSAX.dial("dial",SPgain);
+
+
+AA("di",SPgain);
+AA("dial",SPgain);
 
 
     </script>

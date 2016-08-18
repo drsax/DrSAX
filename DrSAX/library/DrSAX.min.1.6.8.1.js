@@ -1,6 +1,6 @@
 
 
- var sax = new window.AudioContext();
+var sax  = new window.AudioContext();
  var DAC = sax.destination;
 
   
@@ -8,10 +8,6 @@
 //////////////////////////////////
 
 
-OS = sax.createOscillator();
-OS1 = sax.createOscillator();
-OS2 = sax.createOscillator();
-OS3 = sax.createOscillator();
 
 SP = sax.createGain();
 SP1 = sax.createGain();
@@ -58,28 +54,41 @@ OS1.type = b;
 
     var root = this;
     var version = '1.0';
-    var DrSAX;
-  
+   
+    var DSX;
+    var SPgain = SP.gain;
 
     if(typeof exports !== 'undefined') {
-        DrSAX= exports;
+        DSX= exports;
     } else {
-        DrSAX = root.DrSAX = {};
+        DSX = root.DSX = {};
 
 
     }
 
-  DrSAX.abc ="dsdd"
+//////////////////////////////////////////////////
+
+DSX.sp1 = SPgain = SP.gain;
 
 
-  DrSAX.get = function(a,b) {
+
+
+ OS = DSX.os0 = sax.createOscillator();
+
+  DSX.os1 =OS1 = sax.createOscillator();
+  DSX.os2 =OS2 = sax.createOscillator();
+  DSX.os3 =OS3 = sax.createOscillator();
+
+ 
+
+  DSX.get = function(a,b) {
        var sum =  a+b
-        return sum;
+        return version;
     }
     
 ////////////////////////dial control///////////////
 
- DrSAX.dial = function(b,c){
+ DSX.dial = AA = function(b,c){
 
 var dial_10 = document.getElementById(b);
     dial_10.addEventListener("change",_dial10,false);
