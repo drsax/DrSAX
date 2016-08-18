@@ -1,28 +1,69 @@
 
 
 var sax  = new window.AudioContext();
- var DAC = sax.destination;
+
 
   
-
-//////////////////////////////////
-
-
-
-SP = sax.createGain();
-SP1 = sax.createGain();
-SP2 = sax.createGain();
-SP3 = sax.createGain();
-
-
-SPgain = SP.gain;
-SPgain1 = SP.gain;
-SPgain2 = SP.gain;
-SPgain3 = SP.gain;
+(function() {
 
 
 
-function OSval(a,b){  
+    var root = this;
+    var version = '1.0';
+   
+    var DSX;
+  
+
+    if(typeof exports !== 'undefined') {
+        DSX= exports;
+    } else {
+        DSX = root.DSX = {};
+
+
+    }
+
+//////////////////////////////////////////////////
+ DSX.dac = DAC = sax.destination;
+
+
+ OS = DSX.os0 = sax.createOscillator();
+  DSX.os1 =OS1 = sax.createOscillator();
+  DSX.os2 =OS2 = sax.createOscillator();
+  DSX.os3 =OS3 = sax.createOscillator();
+
+
+
+
+
+DSX.sp0 = SP = sax.createGain();
+DSX.sp1= SP1 = sax.createGain();
+DSX.sp2= SP2 = sax.createGain();
+DSX.sp3 = SP3 = sax.createGain();
+
+
+
+DSX.spg0 = SPgain = SP.gain;
+DSX.spg1 =SPgain1 = SP.gain;
+DSX.spg2 =SPgain2 = SP.gain;
+DSX.spg3 =SPgain3 = SP.gain;
+
+
+
+
+ 
+
+  DSX.get = function(a,b) {
+       var sum =  a+b
+        return version;
+    }
+    
+
+
+/////////////////////////OSC INPUT /////////////////
+
+
+
+ DSX.osval0= OSval = function(a,b){  
 
 OSfreq = OS.frequency;
 
@@ -31,7 +72,9 @@ OS.type = b;
 
 } 
 
-function OS1val(a,b){ 
+
+
+DSX.osval1= OS1val = function OS1val(a,b){ 
 
 OS1freq = OS1.frequency; 
 OS1freq.value = a;
@@ -43,49 +86,20 @@ OS1.type = b;
 
 
 
-/////////////////////////////////////////////////////////////////////////////
 
 
 
 
-(function() {
-
-
-
-    var root = this;
-    var version = '1.0';
-   
-    var DSX;
-    var SPgain = SP.gain;
-
-    if(typeof exports !== 'undefined') {
-        DSX= exports;
-    } else {
-        DSX = root.DSX = {};
-
-
-    }
-
-//////////////////////////////////////////////////
-
-DSX.sp1 = SPgain = SP.gain;
 
 
 
 
- OS = DSX.os0 = sax.createOscillator();
 
-  DSX.os1 =OS1 = sax.createOscillator();
-  DSX.os2 =OS2 = sax.createOscillator();
-  DSX.os3 =OS3 = sax.createOscillator();
 
- 
 
-  DSX.get = function(a,b) {
-       var sum =  a+b
-        return version;
-    }
-    
+
+
+
 ////////////////////////dial control///////////////
 
  DSX.dial = AA = function(b,c){
