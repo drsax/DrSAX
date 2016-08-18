@@ -29,19 +29,19 @@
 
 
 
-<script src="DrSAX.min.1.6.8.js"></script>
+<script src="DrSAX.min.1.6.8.1.js"></script>
   
     <script>
 
 
-
+DrSAX.get();
 function simple(){
 
    OSval(100,'triangle');
    OS1val(900,'triangle');
     //OS1freq.value = 600; 
     //OS1.type = 'sine';
-    SPgain.value= 0.3;
+    SPgain.value= 0.05;
 
     OS1.connect(SP);
     OS.connect(SP);
@@ -55,9 +55,9 @@ simple();
 
 
 
-var ds = new we("di",SPgain);
+DrSAX.dial("di",SPgain);
+DrSAX.dial("dial",SPgain);
 
-var dssda = new we("dial",SPgain);
 
     </script>
 
