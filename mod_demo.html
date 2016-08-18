@@ -7,27 +7,22 @@
   </head>
   <body>
 
-<script src="mod_demo.js"></script>
-
+    <script src="mod_demo.js"></script>
     <script>
-
-
 //////////////////////////////////
 
+alert(DrSAX.get(4,7));
+alert(DrSAX.abc);
 
-
-alert(DrSAX.get());
-
-osc = DAX.createOscillator();
+   
     gain = DAX.createGain();
  
     gain.gain.value = 0.2;
     osc.frequency.value = 400;
-
-
     osc.connect(gain);
     gain.connect(DAX.destination);
     osc.start();
+
 
 
 
@@ -37,4 +32,3 @@ osc = DAX.createOscillator();
 
   </body>
 </html>
-
