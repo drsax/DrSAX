@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="/application.css" media="all" rel="stylesheet" type="text/css" />
+
+ 
+</head>
+<body>
+
+<input type="range"  value="100" step="1"id = "ver" min="0" max="1000" ></input>
+
+
+   <input type="button"  value="Stop" onclick="bbb();">
+<input type="button"  value="Stp" onclick="aaa();">
+
+<canvas id="canvas" style="width:500px; height:200px; background:black; float:left;" width="500" height="256" ></canvas>
+
+
+<script>
+
+    // Hacks to deal with different function names in different browsers
+    window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       ||
+              window.webkitRequestAnimationFrame ||
+      
+              function(callback, element){
+                window.setTimeout(callback, 1000 / 60);
+              };
+    })();
+
+    
+
+    // Global Variables for Audio
+    var audioContext,osc,gain,analyserNode,javascriptNode,frequencyArray,ctx, gradient;
+    var audioPlaying = false;
+    var sampleSize = 1024;  // number of samples to collect before analyzing data
+    var fftSize = 1024;    // must be power of two
+         
+    var canvasWidth  = 512;
+    var canvasHeight = 256;
+
+
+    window.onload = function() {
+
+        canvas = document.getElementById('canvas');
+ctx = canvas.getContext('2d');
+        gradient = ctx.createLinearGradient(0,0,512,0);
+        gradient.addColorStop(0.0,'#ff0000');
+        gradient.addColorStop(0.25,'#ffff00');
+        gradient.addColorStop(0.5,'#ffffff');
+        gradient.addColorStop(1.0,'#ffffff');
+
+        // the AudioContext is the primary 'container' for all your audio node objects
+        try {
+            audioContext = new AudioContext();
+        } catch(e) {
+            alert('Web Audio API is not supported in this browser');
+        }
+
+        
+}
+//////////////////////////////////////////////
+
+function aaa() {
+
+           setupAudioNodes();
+            javascriptNode.onaudioprocess = function () {
+                if (audioPlaying == true) {
+                    requestAnimFrame(drawFrequencyDomain);
+                                         }
+                                            }
+
+                     }
+
+
+
+
+function bbb() {
+            osc.stop(0);
+            audioPlaying = false;
+
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        }                 
+
+function setupAudioNodes() {
+           gain = audioContext.createGain();
+           osc = audioContext.createOscillator();
+           osc.type = 'sawtooth';
+           osc.frequency.value = 100;
+           gain.gain.value = 0.2;
+
+         osc.connect(gain);
+         gain.connect(audioContext.destination);
+
+         osc.start(0);
+         audioPlaying = true;
+
+       
+        analyserNode   = audioContext.createAnalyser();
+        javascriptNode = audioContext.createScriptProcessor(sampleSize, 1, 1);
+
+        frequencyArray = new Uint8Array(analyserNode.frequencyBinCount); 
+
+        gain.connect(analyserNode);
+        analyserNode.connect(javascriptNode);
+        javascriptNode.connect(audioContext.destination);
+    }
+
+    function drawFrequencyDomain() {
+
+       analyserNode.getByteFrequencyData(frequencyArray);
+         ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        for (var i = 0; i < frequencyArray.length; i++) {
+            ctx.fillStyle = '#000000';
+            var y = canvasHeight - Math.round(frequencyArray[i]);
+            ctx.fillRect(i,0,1,y);
+        }
+    }
+
+    
+     var knob = document.getElementById('ver');
+       knob.addEventListener("change",knob0,false);
+       function knob0(data) {
+      str= 0;
+   str= data.target.value 
+        osc.frequency.value  = str;
+}
+
+</script>
+
+
+</div>
+
+
+
+
+</body>
+</html>
