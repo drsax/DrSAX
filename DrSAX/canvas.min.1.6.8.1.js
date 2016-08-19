@@ -3,37 +3,31 @@
 (function() {
 
     var root = this;
-    var DSC;
-  
+    var CNV;
+
 
     if(typeof exports !== 'undefined') {
-        DSC= exports;
+        CNV= exports;
     } else {
-        DSC = root.DSC = {};
-
+        CNV = root.CNV = {};
 
     }
 
+ var d=document;
+d.g=document.getElementById;
+var canvas = d.g("can1")
+
+  var ctx = canvas.getContext('2d');
 
 
-
-
-
-
-
- DSC.frm = frameLooper= function(a){
-
-
-     var canvas = document.getElementById('analyser1');
-     var ctx = canvas.getContext('2d');
-  
-  window.webkitRequestAnimationFrame(frameLooper);
+ CNV.frm = cnvGo= function(gg){
+  window.requestAnimationFrame(cnvGo);
  var fbc_array = new Uint8Array(ays.frequencyBinCount);
   ays.getByteFrequencyData(fbc_array);
 
 
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-  ctx.fillStyle = a; // Color of the bars
+  ctx.fillStyle = gg; // Color of the bars
  var  bars = 200;
   for (var i = 0; i < bars; i++) {
    var bar_x = i * 3;
@@ -42,6 +36,8 @@
     //  fillRect( x, y, width, height ) // Explanation of the parameters below
     ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
   }
+
+
 }
 
 

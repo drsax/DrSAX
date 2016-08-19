@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <title>DrSAX : for Saxophone library on the web
+    </title>
+    <script src="cont/js/platform.js"></script>
+<link rel="import" href="cont/webcomponents/polymer.html">
+<link rel="import" href="cont/webcomponents/controls.html">
+
+
+
+</head>
+<body>
+
+</table>
+</div>
+
+
+ 
+<webaudio-knob id="dial" src="cont/img/vin.png" value="0.0" max="1.0" step="0.1" diameter="80" sprites="100"  ></webaudio-knob>
+
+<canvas id="canvas" style="width:500px; height:200px; background:black; float:left;" width="800" height="256" ></canvas>
+
+ <input type="button"  value="Start" onclick="aa();">
+  <input type="button"  value="Stop" onclick="bb();">
+
+
+
+<script src="DrSAX.min.1.6.8.1.js"></script>
+<script src="canvas.min.1.6.8.1.js"></script>
+  
+
+
+<script >
+    // Hacks to deal with different function names in different browsers
+    window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       ||
+            
+              function(callback, element){
+                window.setTimeout(callback, 1000 / 60);
+              };
+    })();
+ 
+
+ 
+
+   
+    var audioPlaying = false;
+     var column = 0;
+    var canvasWidth  = 800;
+    var canvasHeight = 256;
+  
+
+        // get the context from the canvas to draw on
+ var     canvas = document.getElementById('canvas');
+ var ctx = canvas.getContext('2d');
+        // the AudioContext is the primary 'container' for all your audio node objects
+      
+
+    function setup() {
+
+    OS = sax.createOscillator();
+
+    OSval(1000,'sine');
+    SPgain.value = 0.1;
+    OS.connect(SP);
+    SP.connect(sax.destination);
+    OS.start(0);
+
+
+    audioPlaying = true;
+    
+   
+        jscpt = sax.createScriptProcessor(1024, 1, 1);
+        // Create the array for the data values
+  
+        // Now connect the nodes together
+       
+         SP.connect(ays);
+        ays.connect(jscpt);
+          jscpt.connect(sax.destination);
+    }
+ 
+
+      function aa()  {
+           
+            column = 0;
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+           setup();
+        jscpt.onaudioprocess = function () {
+             
+                if (audioPlaying == true) {
+                    requestAnimFrame(drawTimeDomain);
+                }
+            }
+            }
+        
+
+
+     function bb() {
+        
+           OS.stop(0);
+            audioPlaying = false;
+       };
+
+
+  
+    function drawTimeDomain() {
+
+  amplitudeArray = new Uint8Array(ays.frequencyBinCount);
+               ays.getByteTimeDomainData(amplitudeArray);
+
+        var minValue = 9999999;
+        var maxValue = 0;
+        for (var i = 0; i < amplitudeArray.length; i++) {
+            var value = amplitudeArray[i] / 256;
+            if(value > maxValue) {
+                maxValue = value;
+            } else if(value < minValue) {
+                minValue = value;
+            }
+        }
+        var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
+        var y_hi = canvasHeight - (canvasHeight * maxValue) - 1;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(column,y_lo, 1, y_hi - y_lo);
+        // loop around the canvas when we reach the end
+        column += 1;
+        if(column >= canvasWidth) {
+            column = 0;
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        }
+    }
+
+
+    AA("dial",SPgain);
+   
+
+</script>
+</div>
+
+
+
+
+</body>
+</html>

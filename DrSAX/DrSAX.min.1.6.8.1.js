@@ -33,7 +33,7 @@ var sax  = new window.AudioContext();
  DSX.dac = DAC = sax.destination;
 
 
- OS = DSX.os0 = sax.createOscillator();
+DSX.os0 = OS = sax.createOscillator();
   DSX.os1 =OS1 = sax.createOscillator();
   DSX.os2 =OS2 = sax.createOscillator();
   DSX.os3 =OS3 = sax.createOscillator();
@@ -70,10 +70,15 @@ DSX.ays1 =ays = sax.createAnalyser();
 
 
 
- DSX.osval0= OSval = function(a,b){  
 
-OSfreq = OS.frequency;
 
+DSX.osf=OSfreq = OS.frequency;
+
+
+
+DSX.osval0= OSval = function OSval(a,b){ 
+
+OSfreq = OS.frequency; 
 OSfreq.value = a;
 OS.type = b;
 
