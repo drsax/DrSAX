@@ -57,7 +57,7 @@ DSX.spg3 =SPgain3 = SP.gain;
 
 
 DSX.ays1 =ays = sax.createAnalyser();
- 
+ DSX.ays2 =ays2 = sax.createAnalyser();
 
   DSX.get = function(a,b) {
        var sum =  a+b
