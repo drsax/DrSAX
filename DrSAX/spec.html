@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<hi> Sound Spectrum</h1>
+
+  <script src="chroma.js"></script>
+
+</head>
+<body>
+
+  <input type="button"  value="Start" onclick="aa();">
+  <input type="button"  value="Stop" onclick="bb();">
+
+
+
+<canvas id="canvas" style="width:300px; height:200px; background:black; float:left;" width="600" height="256" ></canvas>
+
+
+ <input type="range"  value="0" step="0.1" id = "specslider1" min="0" max="1.0" ></input>
+  <input type="range"  value="200" step="1" id = "specslider2" min="0" max="10000" ></input>
+
+
+
+
+
+<script >
+    // Hacks to deal with different function names in different browsers
+
+ 
+    // Global Variables for Audio
+    var audioContext;
+ var test1 =false;
+    var analyserNode;
+    var columnData = 1;
+    var fftSize = 1024;         // must be power of two
+    var frequencyArray;         // array to hold frequency data
+
+    // Global Variables for Drawing
+    var column = 0;
+    var canvasWidth  = 500;
+    var canvasHeight = 256;
+    var ctx,osc,gain;
+    // Uses the chroma.js library by Gregor Aisch to create a color gradient
+    // download from https://github.com/gka/chroma.js
+    var colorScale = new chroma.scale(['black', 'red', 'yellow', 'white']).out('hex');
+
+                 canvas = document.getElementById('canvas');
+ctx = canvas.getContext('2d');
+        // the AudioContext is the primary 'container' for all your audio node objects
+      
+      var audioContext = new AudioContext();
+
+
+
+   
+function setupAudioNodes() {
+      
+        analyserNode   = audioContext.createAnalyser();
+        analyserNode.smoothingTimeConstant = 0.0;
+        analyserNode.fftSize = fftSize;
+
+      
+ 
+ gain = audioContext.createGain();
+  osc = audioContext.createOscillator();
+gain.gain.value = 0.1;
+    osc.connect(gain);
+     gain.connect(audioContext.destination);
+ osc.start(0);
+
+ audioPlaying = false;
+
+        gain.connect(analyserNode);
+        
+    }
+    // Load the sound from the URL only once and store it in global variable audioData
+
+
+
+
+ function aa()  {
+         
+            column = 0;
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+     
+            // Set up / reset the audio Analyser and Source Buffer
+            setupAudioNodes();
+            // setup the event handler that is triggered every time enough samples have been collected
+      drawSpectrogram()
+
+        columnData = 1;   
+
+
+        }
+
+
+
+
+        // Stop the audio playing
+        function bb() {
+        
+           audioPlaying == false;
+            osc.stop(0);
+           
+           
+   columnData = 0;
+   column = 0;
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+        }
+
+ 
+    function drawSpectrogram() {
+        window.webkitRequestAnimationFrame(drawSpectrogram);
+      frequencyArray = new Uint8Array(analyserNode.frequencyBinCount);
+    analyserNode.getByteFrequencyData(frequencyArray);
+
+
+        for (var i = 0; i < frequencyArray.length; i++) {
+            // Get the color from the color map, draw 1x1 pixel rectangle
+            ctx.fillStyle = colorScale(frequencyArray[i] / 256.0);
+            ctx.fillRect(column,canvasHeight - i, 1, 1);
+        }
+        // loop around the canvas when we reach the end
+        column += columnData ;
+        if(column >= canvasWidth) {
+            column = 0;
+              ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        }
+    }
+   
+   
+</script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+
+  <script >
+
+
+   
+ var socket = io();
+
+
+
+   var ver = document.getElementById('specslider1');
+       ver.addEventListener("change",knob0,false);
+       function knob0(data) {
+      str= 0;
+   str= data.target.value 
+        gain.gain.value  = str;
+
+             socket.emit('11', str);
+
+ }
+
+      socket.on('11',function(str){ 
+      gain.gain.value  = str;
+     //document.getElementById('').innerHTML = str ;
+     document.getElementById('specslider1').value = str ;
+
+
+
+});
+
+//////////////////////////////////
+
+
+          var ver1 = document.getElementById('specslider2');
+       ver1.addEventListener("change",knob1,false);
+       function knob1(data) {
+      str= 0;
+   str= data.target.value 
+        osc.frequency.value  = str;
+
+
+
+           socket.emit('12', str);
+ }
+
+      
+      socket.on('12',function(str){ 
+      osc.frequency.value  = str;
+     //document.getElementById('').innerHTML = str ;
+     document.getElementById('specslider2').value = str ;
+
+});
+
+
+
+ 
+
+  
+
+//////////////////////////////////// input socket network ////////////////////
+
+    var switch3 = document.getElementById('switch3');
+        switch3.addEventListener("click",ddd,false);
+
+
+  function ddd(e) {
+        str=1;
+      str = e.target.value
+
+      socket.emit('17', str);
+
+  }
+      socket.on('17', function(str){ 
+     
+
+      if(str=="0") {
+
+          aa();
+                }
+     
+      });
+
+
+  /////////////////////////////////////   button socket network ///////////
+
+
+
+    var switch4 = document.getElementById('switch4');
+        switch4.addEventListener("click",dd1,false);
+
+
+  function dd1(e) {
+        str=1;
+      str = e.target.value
+
+      socket.emit('18', str);
+
+  }
+      socket.on('18', function(str){ 
+     
+
+      if(str=="0") {
+
+          aa();
+                }
+     
+      });
+
+      ///////////////// socket off ////////
+
+    function qqqq(){
+         str = 7;
+       bb();
+
+       socket.emit('star', 'data');
+      }
+
+      socket.on('star', function(){ 
+
+
+            if(str=="7") {
+
+       bb();
+                }
+     
+      });
+
+      
+  
+
+
+
+
+
+
+  
+</script>
+
+ 
+
+</body>
+</html>
