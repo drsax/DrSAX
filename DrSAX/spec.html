@@ -133,9 +133,7 @@ gain.gain.value = 0.1;
    
 </script>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
-
+ 
   <script >
 
 
@@ -151,18 +149,10 @@ gain.gain.value = 0.1;
    str= data.target.value 
         gain.gain.value  = str;
 
-             socket.emit('11', str);
 
  }
 
-      socket.on('11',function(str){ 
-      gain.gain.value  = str;
-     //document.getElementById('').innerHTML = str ;
-     document.getElementById('specslider1').value = str ;
 
-
-
-});
 
 //////////////////////////////////
 
@@ -175,19 +165,9 @@ gain.gain.value = 0.1;
         osc.frequency.value  = str;
 
 
-
-           socket.emit('12', str);
  }
 
       
-      socket.on('12',function(str){ 
-      osc.frequency.value  = str;
-     //document.getElementById('').innerHTML = str ;
-     document.getElementById('specslider2').value = str ;
-
-});
-
-
 
  
 
@@ -203,69 +183,11 @@ gain.gain.value = 0.1;
         str=1;
       str = e.target.value
 
-      socket.emit('17', str);
+   
 
   }
-      socket.on('17', function(str){ 
-     
 
-      if(str=="0") {
-
-          aa();
-                }
-     
-      });
-
-
-  /////////////////////////////////////   button socket network ///////////
-
-
-
-    var switch4 = document.getElementById('switch4');
-        switch4.addEventListener("click",dd1,false);
-
-
-  function dd1(e) {
-        str=1;
-      str = e.target.value
-
-      socket.emit('18', str);
-
-  }
-      socket.on('18', function(str){ 
-     
-
-      if(str=="0") {
-
-          aa();
-                }
-     
-      });
-
-      ///////////////// socket off ////////
-
-    function qqqq(){
-         str = 7;
-       bb();
-
-       socket.emit('star', 'data');
-      }
-
-      socket.on('star', function(){ 
-
-
-            if(str=="7") {
-
-       bb();
-                }
-     
-      });
-
-      
   
-
-
-
 
 
 
