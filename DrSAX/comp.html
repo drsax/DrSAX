@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Simple Compressor </title>
+
+    <link rel="stylesheet" href="">
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <h1>Simple Compressor</h1>
+    <audio controls>  
+      <source src="melody.wav" type="audio/ogg">
+     
+    </audio>
+    <button active="false">compression on</button>
+    <pre></pre>
+  </body>
+<script>
+
+var audioCtx = new AudioContext();
+
+var myAudio = document.querySelector('audio');
+var pre = document.querySelector('pre');
+var myScript = document.querySelector('script');
+var button = document.querySelector('button');
+
+pre.innerHTML = myAudio.innerHTML;
+
+// Create a MediaElementAudioSourceNode
+// Feed the HTMLMediaElement into it
+var source = audioCtx.createMediaElementSource(myAudio);
+
+// Create a compressor node
+var compressor = audioCtx.createDynamicsCompressor();
+compressor.threshold.value = -70;
+compressor.knee.value = 40;
+compressor.ratio.value = 12;
+compressor.reduction.value = -20;
+compressor.attack.value = 0;
+compressor.release.value = 0.25;
+
+
+// connect the AudioBufferSourceNode to the destination
+source.connect(audioCtx.destination);
+
+button.onclick = function() {
+  var active = button.getAttribute('active');
+  if(active == 'false') {
+    button.setAttribute('active', 'true');
+    button.innerHTML = 'compressor off';
+
+    source.disconnect(audioCtx.destination);
+    source.connect(compressor);
+    compressor.connect(audioCtx.destination);
+  } else if(active == 'true') {
+    button.setAttribute('active', 'false');
+    button.innerHTML = 'compressor on';
+
+    source.disconnect(compressor);
+    compressor.disconnect(audioCtx.destination);
+    source.connect(audioCtx.destination);
+  }
+}
+  </script>
+
+</html>
