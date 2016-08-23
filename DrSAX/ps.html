@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+   
+
+  <input  id='pitchRatioSlider' type='range' min='0.5' max='2' step='0.01' value='pitchRatio' />
+
+   <input type="button" id = "startoff" value="Start off"  onClick="startOsc();" />
+
+
+
+    
+    <script > 
+
+
+    var pitchRatio = 4.0, mic, pitchShifterProcessor, audioContext = new AudioContext();
+     
+
+    micsound =function(){
+
+     navigator.webkitGetUserMedia(
+
+                {audio: true, video: false},
+
+                function (stream) {
+                    mic = audioContext.createMediaStreamSource(stream);
+                },
+                function (error) {
+                    alert('Unable to get the user media');
+                }
+            );
+    }
+    micsound();
+
+
+
+ pitchShift = function() {
+
+
+    hannWindow = function () {
+
+        var window = new Float32Array(512);
+        for (var i = 0; i < 512; i++) {
+            window[i] = 0.5 * (1 - Math.cos(2 * Math.PI * i / (512 - 1)));
+        }
+        return window;
+    };
+   
+        pitchShifterProcessor = audioContext.createScriptProcessor(512, 1, 1);
+        pitchShifterProcessor.buffer = new Float32Array(512 * 2);
+        pitchShifterProcessor.grainWindow = hannWindow();
+        pitchShifterProcessor.connect(audioContext.destination);
+
+        pitchShifterProcessor.onaudioprocess = function (event) {
+
+
+           mic.connect(pitchShifterProcessor);
+
+
+            var inputData = event.inputBuffer.getChannelData(0);
+            var outputData = event.outputBuffer.getChannelData(0);
+   
+           
+            for (i = 0; i < inputData.length; i++) {
+
+                inputData[i] *= this.grainWindow[i];
+                this.buffer[i] = this.buffer[i +512];
+                this.buffer[i + 512] = 0.0;
+            }
+
+       
+            var grainData = new Float32Array(512 * 2);
+            for (var i = 0, j = 0.0;
+                 i < 512;
+                 i++, j += pitchRatio) {
+
+                var index = Math.floor(j) % 512;
+                var a = inputData[index];
+                var b = inputData[(index + 1) % 512];
+                grainData[i] += a + (b - a) * (j % 1.0) * this.grainWindow[i];
+            }
+
+            for (i = 0; i < 512; i += Math.round(512 * (1 - 0.50))) {
+                for (j = 0; j <= 512; j++) {
+                    this.buffer[i + j] += grainData[j];
+                }
+            }
+            for (i = 0; i < 512; i++) {
+                outputData[i] = this.buffer[i];
+            }     
+
+        };
+
+    };
+
+
+ pitchShift();
+
+
+
+</script>
+
+
+
+
+
+</head>
+<body>
+   
+
+   
+ 
+
+       
+
+
+</body>
+</html>
