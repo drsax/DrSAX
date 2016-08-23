@@ -2,11 +2,11 @@
 var detectorElem, canvasElem,  pitchElem, noteElem, detuneElem, detuneAmount;
 var theBuffer = null;
   detectorElem = document.getElementById( "detector" );
-
   pitchElem = document.getElementById( "pitch" );
   noteElem = document.getElementById( "note" );
   detuneElem = document.getElementById( "detune" );
   detuneAmount = document.getElementById( "detune_amt" );
+
 
 var rafID = null;
 var tracks = null;
@@ -87,6 +87,8 @@ function updatePitch( time ) {
     noteElem.innerText = "A";
     detuneElem.className = "";
     detuneAmount.innerText = "--";
+     document.getElementById("detuner_slider").value = detuneAmount.innerHTML;
+  
   } else {
     detectorElem.className = "confident";
     pitch = ac;
@@ -99,6 +101,7 @@ function updatePitch( time ) {
     if (detune == 0 ) {
       detuneElem.className = "";
       detuneAmount.innerHTML = "--";
+       document.getElementById("detuner_slider").value = detuneAmount.innerHTML;
     } else {
 
       if (detune < 0)
@@ -106,6 +109,7 @@ function updatePitch( time ) {
       else
         detuneElem.className = "sharp";
       detuneAmount.innerHTML = Math.abs( detune );
+      document.getElementById("detuner_slider").value = detuneAmount.innerHTML;
     }
   }
   if (!window.requestAnimationFrame)
