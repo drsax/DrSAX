@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <div id="content">
+
+        <button class="play">Play</button>
+        <button class="stop">Stop</button>
+
+
+        <input class="convolver-gain-control" type="range" min="0" max="1" step="0.05" value="0">
+        <span class="convolver-gain-value">0</span>
+
+        <p class="note"><span class="red">* </span></p>
+
+    </div>
+
+
+
+    <div class="push"></div>
+    </div>
+
+    </body>
+    <script>
+        var context = new(window.AudioContext || window.webkitAudioContext)();
+        var mic;
+        var source;
+        var convolverGain = context.createGain();
+        var convolver = context.createConvolver();
+        var masterGain = context.createGain();
+        var masterCompression = context.createDynamicsCompressor();
+
+
+        var play = document.querySelector('.play');
+        var stop = document.querySelector('.stop');
+
+
+        micsound = function() {
+
+            navigator.webkitGetUserMedia(
+
+                {
+                    audio: true,
+                    video: false
+                },
+
+                function(stream) {
+                    mic = context.createMediaStreamSource(stream);
+                },
+                function(error) {
+                    alert('Unable to get the user media');
+                }
+            );
+        }
+        micsound();
+
+        function micStart() {
+
+            mic.connect(convolverGain);
+            mic.connect(masterGain);
+            masterGain.connect(masterCompression);
+            masterCompression.connect(context.destination);
+
+
+
+        }
+
+
+
+        ////////////////////
+
+        function backReverb() {
+            convolver = context.createConvolver();
+            ajaxRequest = new XMLHttpRequest();
+            ajaxRequest.open('GET', 'reverbbg.wav', true);
+            ajaxRequest.responseType = 'arraybuffer';
+
+            ajaxRequest.onload = function() {
+                var impulseData = ajaxRequest.response;
+
+                context.decodeAudioData(impulseData, function(buffer) {
+                        myImpulseBuffer = buffer;
+                        convolver.buffer = myImpulseBuffer;
+                        convolver.loop = false;
+                        convolver.normalize = true;
+                        convolverGain.gain.value = 0;
+                        convolverGain.connect(convolver);
+                        convolver.connect(masterGain);
+                    },
+
+                    function(e) {
+                        "Error with decoding audio data" + e.err
+                    });
+
+            }
+
+            ajaxRequest.send();
+        }
+
+        play.onclick = function() {
+            convolver.disconnect();
+            backReverb();
+            micStart();
+
+        }
+
+        stop.onclick = function() {
+
+            mic.disconnect(convolverGain);
+            mic.disconnect(masterGain);
+
+        }
+
+
+        var convolverGainControl = document.querySelector('.convolver-gain-control');
+        convolverGainControl.addEventListener('change', revalue);
+
+        function revalue(event) {
+
+            convolverGain.gain.value = event.target.value;
+            document.querySelector('.convolver-gain-value').innerHTML = event.target.value;
+        };
+    </script>
+
+</html>
