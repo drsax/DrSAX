@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DrSAX : for Saxophone library on the web
+    </title>
+   
+
+ 
+
+  </head>
+
+
+
+  <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+
+
+  <body>
+
+
+    <script>
+
+  var context = new AudioContext();
+var VVCO = (function(context) {
+
+
+  function VCOO(){
+    this.oscillator = context.createOscillator();
+    this.oscillator.type = 'sawtooth';
+    this.setFrequency(580);
+    this.oscillator.start(0);
+
+    this.input = this.oscillator;
+ 
+
+
+  };
+
+  VCOO.prototype.setFrequency = function(freq) {
+    this.oscillator.frequency.setValueAtTime(freq,0);
+  };
+
+  VCOO.prototype.connect = function(node) {
+    
+      this.oscillator.connect(node.input);
+    
+  }
+
+
+  return VCOO;
+})(context);
+
+
+
+
+var VVCA = (function(context) {
+  function VCAA() {
+    this.gain = context.createGain();
+    this.gain.gain.value = 0.1;
+    this.input = this.gain;
+    this.output = this.gain;
+    this.amplitude = this.gain.gain;
+  };
+
+  VCAA.prototype.connect = function(node) {
+   
+      this.output.connect(node);
+    
+  }
+
+  return VCAA;
+})(context);
+
+
+var vco = new VVCO;
+var vca = new VVCA;
+
+
+vco.connect(vca);
+vca.connect(context.destination);
+
+
+
+
+    </script>
+
+  
+  </body>
+</html>

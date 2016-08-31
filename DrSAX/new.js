@@ -10,10 +10,11 @@
 
 
 
-	var abc = new AudioContext();
+	var SAX = new AudioContext();
 
-	var master = abc.createGain();
-	master.connect(abc.destination);
+	var master = SAX.createGain();
+	master.connect(SAX.destination);
+
 
 
 
@@ -21,30 +22,35 @@
 
 	DSX.Sound = function(data) {
 
-
-		this.gain1 = abc.createGain();
+ 	(OS_connect.bind(this))(data.DSXdata);
+ 		
+	
+		this.gain1 =SAX.createGain();
 		this.gain1.connect(master);
+		 this.gain1.gain.value=0.7;
+
+
+		function OS_connect(val) {
 	
 
-		(sound1.bind(this))(data.DSXdata);
-	
-
-	
-		function sound1(sss) {
-		
 			this.preset = function() {
 
-		    var os = abc.createOscillator();
+		    var os1 = SAX.createOscillator();
 
 			
-				os.type = sss.ty || 'sine';
-				os.frequency.value = sss.frequen || 440;
-		
-				return os;	};
+				os1.type = val.ty || 'sine';
+				os1.frequency.value = val.frequen || 440;
 
-			this.osc1 = this.preset();
-	}
+		
+				return os1;	};
+
+			this.OS_connect = this.preset();
+
+
+	                             }
 	
+
+
 	
 		
 	};
@@ -64,20 +70,31 @@
 	
 	
 		freq: {
-			set: function(a) {
+			value: function(a) {
 					this.osc1.frequency.value = a;
 				}
 		},
 	
 
 		ty: {
-			set: function(ty) {
+			value: function(ty) {
 					this.osc1.type = ty;
 				}
 		},	
+
+
+       amp: {
+	 		value: function(amp) {
+				     this.gain1.gain.value  = amp;
+				}
+		},	
+
+
 	
 	});
 	
+
+
 
 	
 	
