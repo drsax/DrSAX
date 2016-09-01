@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>DrSAX : for Saxophone library on the web
+    <title>DrSAX : for Dr.SAXOPHONE
     </title>
     <script src="cont/js/platform.js"></script>
 <link rel="import" href="cont/webcomponents/polymer.html">
@@ -12,7 +12,7 @@
 
 <button id = 'dry'>input off</button>
 
- 
+     <input id ='knob1' type="range" min="0" max="3" step="0.1" value="0">
 
   </head>
 
@@ -29,7 +29,7 @@
 <script src="DSX.js"></script>
 
     <script>
-    
+
 alert(DSX.get(5,6));
    
 var gain = sax.createGain();
@@ -37,7 +37,7 @@ var gain = sax.createGain();
 
 var AA = new DSX;
 var chorus = new AA.Chorus({
-    rate: 6.5,
+    rate: 0.5,
     feedback: 0.6,
     delay: 0.0045,
     bypass: 0
@@ -54,10 +54,19 @@ gain.connect(sax.destination);
     var dry = document.getElementById("dry");
 
 dry.addEventListener("click", function(e) {
-    chorus.delay = 1;
+    chorus.feedback=8;
 });
 
 
+
+
+  var knob1 = document.getElementById('knob1');
+       knob1.addEventListener("change",knob,false);
+
+       function knob(data) {
+        var str= 0;
+       str= data.target.value 
+       chorus.delay  = str; }
 
 
     </script>
