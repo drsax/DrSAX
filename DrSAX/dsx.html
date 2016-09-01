@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DrSAX : for Saxophone library on the web
+    </title>
+    <script src="cont/js/platform.js"></script>
+<link rel="import" href="cont/webcomponents/polymer.html">
+<link rel="import" href="cont/webcomponents/controls.html">
+
+
+
+<button id = 'dry'>input off</button>
+
+ 
+
+  </head>
+
+
+
+<h1> DrSAX : for Saxophone library on the web21<h1>
+
+
+  <body>
+
+
+
+
+<script src="DSX.js"></script>
+
+    <script>
+    
+alert(DSX.get(5,6));
+   
+var gain = sax.createGain();
+
+
+var AA = new DSX;
+var chorus = new AA.Chorus({
+    rate: 6.5,
+    feedback: 0.6,
+    delay: 0.0045,
+    bypass: 0
+});
+
+
+
+osc.connect(chorus);
+chorus.connect(gain);
+gain.connect(sax.destination);
+
+    osc.start();
+
+    var dry = document.getElementById("dry");
+
+dry.addEventListener("click", function(e) {
+    chorus.delay = 1;
+});
+
+
+
+
+    </script>
+
+  
+  </body>
+</html>

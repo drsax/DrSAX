@@ -61,12 +61,12 @@ DSX.spg3 =SPgain3 = SP.gain;
 DSX.ays1 =ays = sax.createAnalyser();
  
 
-  DSX.get = function(aa,bb) {
+  DSX.get = function(a,b) {
 
-       this.a = aa;
-       this.b = bb;
-       var sum =  this.a+this.b
-        return DSX.get;
+   
+  
+       var sum = a+b;
+        return sum;
     }
     
 
@@ -125,7 +125,7 @@ c.value= dial_data.target.value;
 
    
 
-return DAX;
+return DSX;
 
 
 }());
