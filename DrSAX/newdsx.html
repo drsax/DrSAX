@@ -12,7 +12,7 @@
 
 <button id = 'dry'>input off</button>
 
-     <input id ='knob1' type="range" min="0" max="2" step="0.1" value="0">
+     <input id ='knob1' type="range" min="0" max="0.9" step="0.1" value="0">
 
   </head>
 
@@ -26,43 +26,44 @@
 
 
 
-<script src="newDSX.js"></script>
+<script src="newDSX.1.6.9.0.js"></script>
 
     <script>
-
-
-
 alert(DSX.get(5,6));
    
-var gain = sax.createGain();
-
-
+var gain = drsax.createGain();
 var DSX = new DSX;
+var Delay = new DSX.Delay({ delayTime : 200, feedback: 0.45, });
+var stereoPan = new DSX.stereoPan({ pan: -1,});
+var saxComp = new DSX.saxComp({ threshold: -70,  ratio: 12, });
 
 
 
-var Delay = new DSX.Delay({
 
-      delayTime : 200,
-    feedback: 0.45,
-   
-});
-osc.connect(Delay);
+
+
+
+osc.connect(saxComp);
+saxComp.connect(Delay);
 Delay.connect(gain);
-gain.connect(DAC);
+gain.connect(stereoPan);
+stereoPan.connect(DAC);
     osc.start(0);
 
 
     var dry = document.getElementById("dry");
-dry.addEventListener("click", function(e) {
-    Delay.delayTime=800;
+        dry.addEventListener("click", function(e) {
+
+    saxComp.threshold = -30;
 });
-  var knob1 = document.getElementById('knob1');
-       knob1.addEventListener("change",knob,false);
-       function knob(data) {
+
+
+
+   var knob1 = document.getElementById('knob1');
+       knob1.addEventListener("change",function (data) {
         var str= 0;
        str= data.target.value 
-       Delay.feedback  = str; }
+       Delay.feedback  = str; });
     </script>
 
   
