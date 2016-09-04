@@ -32,6 +32,8 @@
 alert(DSX.get(5,6));
 
 var DSX = new DSX;
+
+
 var Delay = new DSX.Delay({ delayTime : 200, feedback: 0.45, });
 var stereoPan = new DSX.stereoPan({ pan: -1,});
 var saxComp = new DSX.saxComp({ threshold: -70,  ratio: 12, });
@@ -47,6 +49,11 @@ gain.connect(aux);
 aux.connect(stereoPan);
 stereoPan.connect(DAC);
     osc.start(0);
+
+
+
+
+
     var dry = document.getElementById("dry");
         dry.addEventListener("click", function(e) {
     saxComp.threshold = -30;
