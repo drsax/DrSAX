@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DrSAX : for Dr.SAXOPHONE
+    </title>
+    <script src="cont/js/platform.js"></script>
+<link rel="import" href="cont/webcomponents/polymer.html">
+<link rel="import" href="cont/webcomponents/controls.html">
+
+
+
+<button id = 'dry'>input off</button>
+
+     <input id ='knob1' type="range" min="0" max="0.9" step="0.1" value="0">
+
+  </head>
+
+
+
+<h1> DrSAX : for Saxophone library on the web21<h1>
+
+
+  <body>
+
+
+
+
+<script src="newDSX.1.6.9.1.js"></script>
+
+    <script>
+alert(DSX.get(5,6));
+
+var DSX = new DSX;
+var Delay = new DSX.Delay({ delayTime : 200, feedback: 0.45, });
+var stereoPan = new DSX.stereoPan({ pan: -1,});
+var saxComp = new DSX.saxComp({ threshold: -70,  ratio: 12, });
+var gain = new DSX.Amp({ gain: 0.1});
+var aux = new DSX.Aux({ gain: 0.7});
+
+
+
+osc.connect(saxComp);
+saxComp.connect(Delay);
+Delay.connect(gain);
+gain.connect(aux);
+aux.connect(stereoPan);
+stereoPan.connect(DAC);
+    osc.start(0);
+    var dry = document.getElementById("dry");
+        dry.addEventListener("click", function(e) {
+    saxComp.threshold = -30;
+});
+   var knob1 = document.getElementById('knob1');
+       knob1.addEventListener("change",function (data) {
+        var str= 0;
+       str= data.target.value 
+       Delay.feedback  = str; });
+    </script>
+
+  
+  </body>
+</html>
