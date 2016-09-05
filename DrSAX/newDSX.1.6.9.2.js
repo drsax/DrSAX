@@ -538,12 +538,12 @@ DSX.prototype.Aux = function(properties) {
 
 
 
-DSXOsc = function(type, frequency ){
+DSX.prototype.Osc = function(type, frequency ){
     this.type = type;
     this.frequency = frequency;
 
     this.oscillator = drsax.createOscillator();
-    this.ga = drsax.createGain();
+    this.gain_out = drsax.createGain();
     this.oscillator.frequency.value = frequency;
     this.oscillator.type = type;
  
@@ -551,21 +551,21 @@ DSXOsc = function(type, frequency ){
     this.connect = function(out){
     this.out = out;
 
-    this.oscillator.connect(this.ga);
+    this.oscillator.connect(this.gain_out);
  
-    this.ga.connect(out);
+    this.gain_out.connect(out);
 
 
     };
 
      this.start = function(){
  
-    this.oscillator.connect(this.ga);
+    this.oscillator.connect(this.gain_out);
         this.oscillator.start(0);
     }
     
     this.stop = function(){
-    this.oscillator.disconnect(this.ga);
+    this.oscillator.disconnect(this.gain_out);
     }
       
 }
