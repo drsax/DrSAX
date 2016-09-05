@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+   
+  </head>
+  <body>
+     
+          <input id="inputSource1" type="file" accept="audio/*">
+        
+   
+
+
+
+ 
+          <button onclick="playSound()" disabled>Play</button>
+          <button onclick="stopSound()" disabled>Stop</button>
+        
+
+
+   
+
+         
+          
+
+  
+    <script >
+
+(function(window) {
+
+    var drsaxContext,
+        drsaxInstance,
+
+
+   
+        Super = Object.create(null, {
+            activate: {
+                writable: true,
+                value: function(doActivate) {
+                    if (doActivate) {
+                        this.input.disconnect();
+                        this.input.connect(this.activateNode);
+                        if (this.activateCallback) {
+                            this.activateCallback(doActivate);
+                        }
+                    } else {
+                        this.input.disconnect();
+                        this.input.connect(this.output);
+                    }
+                }
+            },
+            bypass: {
+                get: function() {
+                    return this._bypass;
+                },
+                set: function(value) {
+                    if (this._lastBypassValue === value) {
+                        return;
+                    }
+                    this._bypass = value;
+                    this.activate(!value);
+                    this._lastBypassValue = value;
+                }
+            },
+            connect: {
+                value: function(target) {
+                    this.output.connect(target);
+                }
+            },
+            disconnect: {
+                value: function(target) {
+                    this.output.disconnect(target);
+                }
+            },
+            connectInOrder: {
+                value: function(nodeArray) {
+                    var i = nodeArray.length - 1;
+                    while (i--) {
+                        if (!nodeArray[i].connect) {
+                            return console.error(" Not an AudioNode.", nodeArray[i]);
+                        }
+                        if (nodeArray[i + 1].input) {
+                            nodeArray[i].connect(nodeArray[i + 1].input);
+                        } else {
+                            nodeArray[i].connect(nodeArray[i + 1]);
+                        }
+                    }
+                }
+            },
+            getDefaults: {
+                value: function() {
+                    var result = {};
+                    for (var key in this.defaults) {
+                        result[key] = this.defaults[key].value;
+                    }
+                    return result;
+                }
+            },
+            automate: {
+                value: function(property, value, duration, startTime) {
+                    var start = startTime ? ~~(startTime / 1000) : userContext.currentTime,
+                        dur = duration ? ~~(duration / 1000) : 0,
+                        _is = this.defaults[property],
+                        param = this[property],
+                        method;
+
+                    if (param) {
+                        if (_is.automatable) {
+                            if (!duration) {
+                                method = "setValueAtTime";
+                            } else {
+                                method = "linearRampToValueAtTime";
+                                param.cancelScheduledValues(start);
+                                param.setValueAtTime(param.value, start);
+                            }
+                            param[method](value, dur + start);
+                        } else {
+                            param = value;
+                        }
+                    } else {
+                        console.error("Invalid Property for " + this.name);
+                    }
+                }
+            }
+        }),
+
+
+        FLOAT = "float",
+        BOOLEAN = "boolean",
+        STRING = "string",
+        INT = "int";
+
+
+
+
+
+//////////object and AUDIOCONTEXT///////////////////////////////////////////////////////////
+
+var root = this;
+
+var AudioContext = root.AudioContext;
+          drsax = new AudioContext();
+
+    if (typeof module !== "undefined" && module.exports) {
+        module.exports = DSX;
+    }  else {
+        window.DSX = DSX;
+    }
+
+
+    function DSX() {
+        if (!(this instanceof DSX)) {
+            return new DSX;
+        }
+        
+
+        connectify(drsax);
+        drsaxContext = drsax;
+        drsaxInstance = this;
+    }
+
+
+/////////////////////////////////////////////////////////////////
+
+
+    function connectify(sax) {
+        if (sax.__connectified__ === true) return;
+
+        var gain = sax.createGain(),
+            proto = Object.getPrototypeOf(Object.getPrototypeOf(gain)),
+            oconnect = proto.connect;
+
+        proto.connect = shimConnect;
+       sax.__connectified__ = true; // Prevent overriding connect more than once
+
+        function shimConnect() {
+            var node = arguments[0];
+            arguments[0] = Super.isPrototypeOf ? (Super.isPrototypeOf(node) ? node.input : node) : (node.input || node);
+            oconnect.apply(this, arguments);
+            return node;
+        }
+    }
+
+
+    
+    function initValue(userVal, defaultVal) {
+        return userVal === undefined ? defaultVal : userVal;
+    }
+
+  
+//////////////Delay/////////////////
+    
+ 
+
+//////stereopanning/////////////////////////////////////////
+ 
+   DSX.prototype.stereoPan = function(properties) {
+        if (!properties) {
+            properties = this.getDefaults();
+        }
+        this.input = drsaxContext.createGain();
+        this.activateNode = drsaxContext.createGain();
+        this.stereoPan= drsaxContext.createStereoPanner();
+        this.output = drsaxContext.createGain();
+
+        this.activateNode.connect(this.stereoPan);
+        this.stereoPan.connect(this.output);
+
+
+         this.pan = properties.pan || this.defaults.pan.value;
+        this.bypass = properties.bypass || false;
+    };
+    DSX.prototype.stereoPan.prototype = Object.create(Super, {
+        name: {
+            value: "stereoPan"
+        },
+        defaults: {
+            writable: true,
+            value: {
+               pan: {
+                    value: 0,
+                    min: -1,
+                    max: 1,
+                    automatable: false,
+                    type: FLOAT
+                },
+                
+            }
+        },
+
+
+     pan: {
+            enumerable: true,
+            get: function() {
+                return this.pan.value;
+            },
+            set: function(value) {
+                this.stereoPan.pan.value = value ;
+            }
+        }
+    });
+
+
+//////////saxComp//////////////////////////////////////////
+
+
+
+ 
+///////////////////////////////////
+
+
+  DSX.get = function(a,b) {
+
+       var sum = a+b
+        return sum ;
+    }
+//////////////////////////////    
+
+var soundFile = null; 
+var soundBuffer;
+var getFile = new XMLHttpRequest(); 
+getFile.open("GET", "", true); 
+getFile.responseType = "arraybuffer"; 
+getFile.onload = function() {
+  drsax.decodeAudioData(getFile.response, function(buffer){
+    soundBuffer = buffer; 
+  });
+}
+getFile.send(); 
+
+
+
+
+
+
+var fileInput1 = document.querySelector('#inputSource1');
+fileInput1.addEventListener('change', function(e) {  
+  var reader = new FileReader();
+  reader.onload = function(e) {
+
+
+drsax.decodeAudioData(this.result, function(buffer) {
+    audioBuffer1 = buffer;
+    var buttons = document.querySelectorAll('button');
+    buttons[0].disabled = false;
+    buttons[1].disabled = false;
+  }); 
+
+  };
+  reader.readAsArrayBuffer(this.files[0]);
+}, false);
+
+////////////////////////////////////////////////
+
+//////stereopanning/////////////////////////////////////////
+ 
+
+
+//////////saxComp//////////////////////////////////////////
+
+
+ DSX.os= sound = drsax.createBufferSource(); 
+
+ 
+})(window);
+
+
+
+alert(DSX.get(2,3));
+
+
+
+
+
+
+
+
+function playSound() {
+  sound = drsax.createBufferSource(); 
+  sound.buffer = audioBuffer1; 
+  sound.loop = true; 
+  sound.connect(gain);
+  sound.start(0); 
+
+}
+function stopSound() {
+  
+  if (sound) {
+    sound.stop(0); // Stop source 1 immediately
+  }
+
+}
+
+var gain = drsax.createGain(); 
+gain.connect(drsax.destination);
+
+
+</script>
+    
+  </body>
+</html>
