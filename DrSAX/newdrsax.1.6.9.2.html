@@ -18,8 +18,20 @@
 
      <input id ='knob1' type="range" min="0" max="0.9" step="0.1" value="0">
 
-  </head>
 
+
+
+      
+        
+    <input id="high"  type="range" min="-20" max="20" step="1" value="0"><br>
+
+ <input id="midhigh" type="range" min="-20" max="20" step="1" value="0"><br>
+ <input id="mid" type="range" min="-20" max="20" step="1" value="0"><br>
+ <input id="midlow"  type="range" min="-20" max="20" step="1" value="0"><br>
+ <input id="low"  type="range" min="-20" max="20" step="1" value="0"><br>
+
+     
+   </head>    
 
 
 <h1> DrSAX : for Saxophone library on the web21<h1>
@@ -40,11 +52,13 @@ var stereoPan = new DSX.stereoPan({ pan: -1,});
 var saxComp = new DSX.saxComp({ threshold: -70,  ratio: 12, });
 var gain = new DSX.Amp({ gain: 0.1});
 var aux = new DSX.Aux({ gain: 0.7});
-var osc = new  DSX.Osc("sine",400);
+var osc = new  DSX.Osc("sine",13000);
+var newEQ = new  DSX.EQ({hiGain:-10, mhiGain:-10, miGain:-10, milowGain:-10, lowGain:-10});
 
 
 osc.connect(saxComp);
-saxComp.connect(Delay);
+saxComp.connect(newEQ);
+newEQ.connect(Delay);
 Delay.connect(gain);
 gain.connect(aux);
 aux.connect(DAC);
@@ -67,6 +81,39 @@ osc.start();
         sop.addEventListener("click", function(e) {
  osc.stop();
 });
+
+
+///////////filter /////////////
+
+
+         var dryq = document.getElementById("high");
+        dryq.addEventListener("change", function(data) {
+ newEQ.hiGain = data.target.value ;
+
+});  var dryqtt = document.getElementById("midhigh");
+        dryqtt.addEventListener("change", function(data) {
+ newEQ.mhiGain = data.target.value ;
+
+});
+
+ var dryrt = document.getElementById("mid");
+        dryrt.addEventListener("change", function(data) {
+newEQ.miGain= data.target.value ;
+
+}); var dryrhh = document.getElementById("midlow");
+        dryrhh.addEventListener("change", function(data) {
+
+
+ newEQ.milowGain= data.target.value ;
+
+});
+
+ var dryt = document.getElementById("low");
+        dryt.addEventListener("change", function(data) {
+newEQ.lowGain = data.target.value ;
+
+});
+
     </script>
 
   

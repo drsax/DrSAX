@@ -416,6 +416,178 @@ DSX.prototype.saxComp = function(properties) {
     });
 
 
+
+
+
+////////5EQ////////////////////////////////////////
+
+DSX.prototype.EQ = function(properties) {
+        if (!properties) {
+            properties = this.getDefaults();
+        }
+        this.input = drsaxContext.createGain();
+        this.activateNode = drsaxContext.createGain();
+
+
+        this.high = drsaxContext.createBiquadFilter();
+        this.midhigh = drsaxContext.createBiquadFilter();
+        this.mid= drsaxContext.createBiquadFilter();
+        this.midlow = drsaxContext.createBiquadFilter();
+        this.low = drsaxContext.createBiquadFilter();
+
+        this.output = drsaxContext.createGain();
+
+        this.activateNode.connect(this.high);
+        this.high.connect(this.midhigh);
+        this.midhigh.connect(this.mid);
+        this.mid.connect(this.midlow);
+        this.midlow.connect(this.low);
+        this.low.connect(this.output);
+
+
+    
+        this.high.type = "highshelf";
+        this.midhigh.type = "highshelf"; 
+        this.mid.type = "peaking";
+        this.midlow.type = "lowshelf";
+        this.low.type = "lowshelf";
+        this.high.frequency.value = 13000;
+        this.midhigh.frequency.value = 4000;
+        this.mid.frequency.value = 1000;
+        this.midlow.frequency.value = 250;
+        this.low.frequency.value = 62.5;
+        this.mid.Q.value = 1;
+
+
+
+
+
+      
+         this.hiGain = properties.hiGain || this.defaults.hiGain.value;
+         this.mhiGain = properties.mhiGain || this.defaults.mhiGain.value;
+         this.miGain = properties.miGain || this.defaults.miGain.value;
+         this.milowGain = properties.milowGain || this.defaults.milowGain.value;
+         this.lowGain = properties.lowGain || this.defaults.lowGain.value;
+
+         this.bypass = properties.bypass || false;
+
+
+    };
+
+
+
+
+    DSX.prototype.EQ.prototype = Object.create(Super, {
+        name: {
+            value: "EQ"
+        },
+        defaults: {
+            writable: true,
+            value: {
+
+                hiGain: {
+                    value: -10,
+                    min: -20,
+                    max: 20,
+                    automatable: false,
+                    type: FLOAT
+                },
+
+            mhiGain: {
+                    value: -10,
+                    min: -20,
+                    max: 20,
+                    automatable: false,
+                    type: FLOAT
+                },
+
+            miGain: {
+                     value: -10,
+                    min: -20,
+                    max: 20,
+                    automatable: false,
+                    type: FLOAT
+                },
+
+            milowGain: {
+                    value: -10,
+                    min: -20,
+                    max: 20,
+                    automatable: false,
+                    type: FLOAT
+                },
+
+             lowGain: {
+                    value: -10,
+                    min: -20,
+                    max: 20,
+                    automatable: false,
+                    type: FLOAT
+                }
+
+            }
+        },
+
+         hiGain: {
+            enumerable: true,
+            get: function() {
+                return this.high.gain;
+            },
+            set: function(value) {
+                this.high.gain.value = value;
+            }
+        },
+
+           mhiGain: {
+            enumerable: true,
+            get: function() {
+                return this.midhigh.gain;
+            },
+            set: function(value) {
+                this.midhigh.gain.value = value;
+            }
+        },
+
+           miGain: {
+            enumerable: true,
+            get: function() {
+                return this.mid.gain;
+            },
+            set: function(value) {
+                this.mid.gain.value = value;
+            }
+        },
+
+          milowGain: {
+            enumerable: true,
+            get: function() {
+                return this.midlow.gain;
+            },
+            set: function(value) {
+                this.midlow.gain.value = value;
+            }
+        },  
+
+        lowGain: {
+            enumerable: true,
+            get: function() {
+                return this.low.gain;
+            },
+            set: function(value) {
+                this.low.gain.value = value;
+            }
+        }
+       
+   
+    });
+
+
+
+
+
+
+
+
  
 ///////amp////////////////////////////
 DSX.prototype.Amp = function(properties) {
@@ -521,12 +693,13 @@ DSX.prototype.Aux = function(properties) {
 
 ///////////////////////////////////////////////
 
-  DSX.get = function(a,b) {
 
-       var sum = a+b
-        return sum ;
-    }
-    
+
+
+
+
+
+
 
 
 
@@ -551,17 +724,17 @@ DSX.prototype.Osc = function(type, frequency ){
     this.connect = function(out){
     this.out = out;
 
-    this.oscillator.connect(this.gain_out);
+ 
  
     this.gain_out.connect(out);
-
+    this.oscillator.start(0);
 
     };
 
      this.start = function(){
  
     this.oscillator.connect(this.gain_out);
-        this.oscillator.start(0);
+    
     }
     
     this.stop = function(){
@@ -572,6 +745,13 @@ DSX.prototype.Osc = function(type, frequency ){
 
 
 
+
+  DSX.get = function(a,b) {
+
+       var sum = a+b
+        return sum ;
+    }
+    
 
 
  
