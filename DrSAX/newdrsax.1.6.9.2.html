@@ -30,20 +30,17 @@
 
 
 
-<script src="newDSX.1.6.9.1.js"></script>
+<script src="newDSX.1.6.9.2.js"></script>
 
     <script>
 alert(DSX.get(5,6));
-
 var DSX = new DSX;
-
-
 var Delay = new DSX.Delay({ delayTime : 200, feedback: 0.45, });
 var stereoPan = new DSX.stereoPan({ pan: -1,});
 var saxComp = new DSX.saxComp({ threshold: -70,  ratio: 12, });
 var gain = new DSX.Amp({ gain: 0.1});
 var aux = new DSX.Aux({ gain: 0.7});
-var osc = new  DSXOsc("sine",400);
+var osc = new  DSX.Osc("sine",400);
 
 
 osc.connect(saxComp);
@@ -62,27 +59,14 @@ aux.connect(DAC);
         var str= 0;
        str= data.target.value 
        Delay.feedback  = str; });
-
-
-
-
-
-
-
-
-
-
     var st = document.getElementById("st");
         st.addEventListener("click", function(e) {
 osc.start();
 });
-
-
             var sop = document.getElementById("sop");
         sop.addEventListener("click", function(e) {
  osc.stop();
 });
-
     </script>
 
   
