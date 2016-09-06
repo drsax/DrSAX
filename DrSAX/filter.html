@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+   
+  </head>
+  <body>
+  
+          <h1>Web Audio filter</h1>
+        </div>
+
+
+
+
+     
+
+     
+
+      
+        
+    <input id="high"  type="range" min="-20" max="20" step="1" value="0"/></p>
+
+
+
+              <input id="midhigh" type="range" min="-20" max="20" step="1" value="0"/></p>
+
+
+
+        
+        
+              <input id="mid" type="range" min="-20" max="20" step="1" value="0"/></p>
+
+
+
+
+  
+              <input id="midlow"  type="range" min="-20" max="20" step="1" value="0"/></p>
+
+     
+     
+
+              <input id="low"  type="range" min="-20" max="20" step="1" value="0"/></p>
+
+     
+     
+
+  
+    <script >
+
+var context = new AudioContext (); // Create audio container with webkit fallback
+var gain_1 = context.createGain(); // Create source gain node for channel 1
+var gain_master = context.createGain(); // Create master gain node
+
+
+ var source1 = context.createOscillator();
+   source1.frequency.value=200;
+  source1.connect(gain_1);
+  source1.start(0); // Play immediately
+
+
+//Band1"(62.5Hz) "Band2"(250Hz) "Band3"(1kHz) "Band4"(4kHz) "Band5"(16kHz)
+
+
+  var high = context.createBiquadFilter();
+  high.type = "highshelf"; // Highshelf filter
+  high.frequency.value = 13000;
+  high.gain.value = -15;
+
+  var midhigh = context.createBiquadFilter();
+  midhigh.type = "highshelf"; // Highshelf filter
+  midhigh.frequency.value = 4000;
+  midhigh.gain.value = -15;
+
+  var mid = context.createBiquadFilter();
+  mid.type = "peaking"; // Peaking filter
+  mid.frequency.value = 1000;
+  mid.Q.value = 1;
+  mid.gain.value = -10;
+
+
+  var midlow = context.createBiquadFilter();
+  midlow.type = "lowshelf"; // Lowshelf filter
+  midlow.frequency.value = 250;
+  midlow.gain.value =-10;
+
+  var low = context.createBiquadFilter();
+  low.type = "lowshelf"; // Lowshelf filter
+  low.frequency.value = 62.5;
+  low.gain.value =-10;
+
+
+
+   gain_1.connect(high);
+    high.connect(midhigh);
+    midhigh.connect(mid);
+     mid.connect(midlow);
+      midlow.connect(low);
+  low.connect(gain_master); 
+
+gain_master.connect(context.destination);
+
+  var dryq = document.getElementById("high");
+        dryq.addEventListener("change", function(data) {
+ high.gain.value = data.target.value ;
+
+});  var dryqtt = document.getElementById("midhigh");
+        dryqtt.addEventListener("change", function(data) {
+ midhigh.gain.value = data.target.value ;
+
+});
+
+ var dryrt = document.getElementById("mid");
+        dryrt.addEventListener("change", function(data) {
+ mid.gain.value= data.target.value ;
+
+}); var dryrhh = document.getElementById("midlow");
+        dryrhh.addEventListener("change", function(data) {
+ midlow.gain.value= data.target.value ;
+
+});
+
+ var dryt = document.getElementById("low");
+        dryt.addEventListener("change", function(data) {
+ low1.gain.value = data.target.value ;
+
+});
+
+
+</script>
+    
+  </body>
+</html>
