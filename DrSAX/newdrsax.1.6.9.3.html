@@ -59,10 +59,11 @@ var stereoPan = new DSX.stereoPan({ pan: -1,});
 var saxComp = new DSX.saxComp({ threshold: -70,  ratio: 12, });
 var gain = new DSX.Amp({ gain: 0.1});
 var aux = new DSX.Aux({ gain: 0.7});
-var saxGain = new DSX.Aux({ gain: 0.7});
+var saxGain = new DSX.Aux({ gain: 0.7}); //mic
 var osc = new  DSX.Osc("sine",500);
 var newEQ = new  DSX.EQ({hiGain:-10, mhiGain:-10, miGain:-10, milowGain:-10, lowGain:-10});
-
+var am = new  DSX.AM("sine",10,0.8,0.5); //am
+var fm = new  DSX.FM(500,"sine",500,"sine",1800,0.5); //fm
 
 
 
@@ -74,11 +75,12 @@ saxInput.connect(saxGain);
 
    function micInputoff() {
 saxInput.disconnect(saxGain);
+
    }
 
 
-
-osc.connect(saxComp);
+am.from(osc);
+fm.connect(saxComp);
 saxComp.connect(newEQ);
 newEQ.connect(Delay);
 Delay.connect(gain);

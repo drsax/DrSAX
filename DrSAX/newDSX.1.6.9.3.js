@@ -746,6 +746,147 @@ DSX.prototype.Osc = function(type,frequency){
       
 }
 
+/////////////////////////////////////
+
+
+
+DSX.prototype.AM = function(type,ModeFreq,Depth,Amp){
+   
+    this.type=type;
+    this.ModeFreq = ModeFreq;
+    this.Depth = Depth;
+    this.Amp = Amp;
+
+
+
+    this.AMOsc = drsax.createOscillator();
+    this.gain1 = drsax.createGain();
+      this.mainout = drsax.createGain();
+       this.depth = drsax.createGain();
+
+    this.AMOsc.type = type;
+  
+      this.AMOsc.frequency.value = ModeFreq;
+      this.gain1.gain.value = Depth;
+     
+      this.depth.gain.value = 1-Depth;
+      this.mainout.gain.value = Amp;
+
+  
+     
+
+      this.AMOsc.connect(this.gain1); 
+      this.gain1.connect(this.mainout.gain);
+      this.depth.connect(this.mainout.gain);
+
+
+
+    
+    this.from = function(dat){
+
+    this.dat = dat;
+
+    this.dat.connect(this.mainout);
+  
+
+    };
+
+    
+    this.connect = function(out){
+
+    this.out = out;
+
+    this.mainout.connect(out);
+    this.AMOsc.start(0);
+
+    };
+  this.disconnect = function(dis){
+
+    this.dis = dis;
+
+    this.mainout.disconnect(dis);
+
+
+    };
+
+
+
+   
+      
+}
+
+
+DSX.prototype.FM = function(carrier,carrier_type,ModeFreq,FM_type,Depth,Amp){
+   
+   this.carrier=carrier;
+    this.carrier_type=carrier_type;
+    this.FM_type=FM_type;
+    
+
+    this.ModeFreq = ModeFreq;
+    this.Depth = Depth;
+    this.Amp = Amp;
+
+
+    this.CAOsc = drsax.createOscillator();
+    this.FMOsc = drsax.createOscillator();
+
+
+    this.gain1 = drsax.createGain();
+    this.mainout = drsax.createGain();
+  
+
+
+  
+    this.CAOsc.frequency.value = carrier;
+     this.FMOsc.frequency.value = ModeFreq;
+      this.gain1.gain.value = Depth;
+      this.mainout.gain.value = Amp;
+
+  
+     
+
+      this.CAOsc.connect(this.mainout);
+   
+
+
+     this.FMOsc.connect(this.gain1); 
+      this.gain1.connect(this.CAOsc.frequency);
+     
+
+    this.FMOsc.start(0);
+    this.CAOsc.start(0);
+
+
+
+    
+    this.connect = function(out){
+
+    this.out = out;
+
+    this.mainout.connect(out);
+
+    };
+
+
+  this.stopp = function(){
+
+  
+    this.mainout.gain.value = 0;
+
+
+    };
+
+
+
+   
+      
+}
+
+
+
+
+
 ////////////////////saxInput///////////
 
 
