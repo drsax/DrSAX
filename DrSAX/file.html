@@ -215,61 +215,74 @@ var AudioContext = root.AudioContext;
         return sum ;
     }
 //////////////////////////////    
+
+
+DSX.prototype.BGsound = function(){
+
+
 var soundFile = null; 
-var soundBuffer;
+var uploadfile;
 var getFile = new XMLHttpRequest(); 
 getFile.open("GET", "", true); 
 getFile.responseType = "arraybuffer"; 
 getFile.send(); 
-  var reader = new FileReader();
-
+var reader = new FileReader();
 var fileI = document.getElementById('inputS');
 fileI.addEventListener('change', function() {
 
-
   reader.onload = function() {
 drsax.decodeAudioData(this.result, function(buffer) {
-    uploaded_file = buffer;
+    uploadfile = buffer;
                                        }); 
+
                               };
+
   reader.readAsArrayBuffer(this.files[0]);
 }, false);
 
 
 
 
-////////////////////////////////////////////////
-//////stereopanning/////////////////////////////////////////
- 
-//////////saxComp//////////////////////////////////////////
+    this.connect = function(out){
+    this.BG = drsax.createBufferSource(); 
+    this.out = out;
+
+    this.BG.connect(out);
+    this.BG.start(0);
+    this.BG.buffer = uploadfile;
+
+
+}
+
+   this.disconnect = function(out){
+   this.out = out;
+   this.BG.disconnect(out);
+   this.BG.stop(0);
+}
+
+    };
+
+
 
  
 })(window);
 
 
+var DSX = new DSX;
+
+var abc =new DSX.BGsound();
 
 function playSound() {
-  sound = drsax.createBufferSource(); 
-  sound.buffer = uploaded_file ; 
-  sound.loop = true; 
-  sound.connect(gain);
-  sound.start(0); 
+
+  abc.connect(gain);
+ 
+  
 }
-
-
-
 function stopSound() {
   
-
-    sound.stop(0); // Stop source 1 immediately
+    abc.disconnect(); // Stop source 1 immediately
   
 }
-
-
-
-
-
-
 var gain = drsax.createGain(); 
 gain.connect(drsax.destination);
 </script>
