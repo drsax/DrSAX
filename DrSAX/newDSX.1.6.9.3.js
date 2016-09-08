@@ -1007,24 +1007,24 @@ DSX.prototype.Subtract = function(properties) {
 DSX.prototype.BGsound = function(){
 
 
-var soundFile = null; 
+
 var uploadfile;
-var getFile = new XMLHttpRequest(); 
-getFile.open("GET", "", true); 
-getFile.responseType = "arraybuffer"; 
-getFile.send(); 
-var reader = new FileReader();
+var getFile_sound = new XMLHttpRequest(); 
+getFile_sound.open("GET", "", true); 
+getFile_sound.responseType = "arraybuffer"; 
+getFile_sound.send(); 
+var sound_reader = new FileReader();
 var fileI = document.getElementById('inputS');
 fileI.addEventListener('change', function() {
 
-  reader.onload = function() {
+  sound_reader.onload = function() {
 drsax.decodeAudioData(this.result, function(buffer) {
     uploadfile = buffer;
                                        }); 
 
                               };
 
-  reader.readAsArrayBuffer(this.files[0]);
+ sound_reader.readAsArrayBuffer(this.files[0]);
 }, false);
 
 
