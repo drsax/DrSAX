@@ -254,9 +254,8 @@ drsax.decodeAudioData(this.result, function(buffer) {
 
 }
 
-   this.disconnect = function(out){
-   this.out = out;
-   this.BG.disconnect(out);
+   this.stop = function(){
+
    this.BG.stop(0);
 }
 
@@ -280,7 +279,7 @@ function playSound() {
 }
 function stopSound() {
   
-    abc.disconnect(); // Stop source 1 immediately
+    abc.stop(); // Stop source 1 immediately
   
 }
 var gain = drsax.createGain(); 
