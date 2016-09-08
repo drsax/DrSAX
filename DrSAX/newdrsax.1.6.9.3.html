@@ -2,13 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>DrSAX : for Dr.SAXOPHONE
+    <title>DSX : for Dr.SAXOPHONE
     </title>
     <script src="cont/js/platform.js"></script>
 <link rel="import" href="cont/webcomponents/polymer.html">
 <link rel="import" href="cont/webcomponents/controls.html">
 
-
+<h1> DSX : Dr.SaXophone effects on the web<h1>
 
 <button id = 'dry'>input off</button>
 
@@ -38,10 +38,16 @@
 
 
   <input id="frq"  type="range" min="0" max="2000" step="1" value="0"><br>
+
+
+ <input id="inputS" type="file" accept="audio/*">
+   <button onclick="playSound()" >Play</button>
+          <button onclick="stopSound()" >Stop</button>
+        
    </head>    
 
 
-<h1> DrSAX : for Saxophone library on the web21<h1>
+
 
 
   <body>
@@ -64,8 +70,20 @@ var osc = new  DSX.Osc("sine",500);
 var newEQ = new  DSX.EQ({hiGain:-10, mhiGain:-10, miGain:-10, milowGain:-10, lowGain:-10});
 var am = new  DSX.AM("sine",10,0.8,0.5); //am
 var fm = new  DSX.FM(500,"sine",500,"sine",1800,0.5); //fm
+var sub = new DSX.Subtract({frequency:230, cutoff:1000, gain:0.5});
+var abc =new DSX.BGsound();
 
+function playSound() {
 
+  abc.connect(gain);
+ 
+  
+}
+function stopSound() {
+  
+    abc.stop(); // Stop source 1 immediately
+  
+}
 
 
 function micInputon() {
@@ -77,10 +95,10 @@ saxInput.connect(saxGain);
 saxInput.disconnect(saxGain);
 
    }
+osc.connect(sub);
 
-
-am.from(osc);
-fm.connect(saxComp);
+am.from(sub);
+am.connect(saxComp);
 saxComp.connect(newEQ);
 newEQ.connect(Delay);
 Delay.connect(gain);

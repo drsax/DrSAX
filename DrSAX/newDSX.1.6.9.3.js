@@ -887,6 +887,105 @@ DSX.prototype.FM = function(carrier,carrier_type,ModeFreq,FM_type,Depth,Amp){
 
 
 
+DSX.prototype.Subtract = function(properties) {
+        if (!properties) {
+            properties = this.getDefaults();
+        }
+        this.input = drsaxContext.createGain();
+        this.activateNode = drsaxContext.createGain();
+        this.Lowpass = drsax.createBiquadFilter();
+        this.output = drsaxContext.createGain();
+
+        this.activateNode.connect(this.Lowpass);
+        this.Lowpass.connect(this.output);
+
+         this.frequency = properties.frequency || this.defaults.frequency.value;
+          this.cutoff = properties.cutoff || this.defaults.cutoff.value;
+           this.gain = properties.gain || this.defaults.gain.value;
+         this.bypass = properties.bypass || false;
+    };
+    DSX.prototype.Subtract.prototype = Object.create(Super, {
+        name: {
+            value: "Subtract"
+        },
+        defaults: {
+            writable: true,
+            value: {
+
+
+            frequency: {
+                    value: 1000,
+                    min: 0,
+                    max: 2000,
+                    automatable: false,
+                    type: FLOAT
+                },
+          
+
+
+
+
+            cutoff: {
+                    value: 0,
+                    min: 2000,
+                    max: 1,
+                    automatable: false,
+                    type: FLOAT
+                },
+          
+
+
+            gain: {
+                    value: 0.8,
+                    min: 0,
+                    max: 1,
+                    automatable: false,
+                    type: FLOAT
+                },
+          
+            }
+
+
+
+        },
+
+
+        frequency: {
+            enumerable: true,
+            get: function() {
+                return this.Lowpass.frequency;
+            },
+            set: function(value) {
+                this.Lowpass.frequency.value = value;
+            }
+        },
+        cutoff: {
+            enumerable: true,
+            get: function() {
+                return this.lowpass.Q;
+            },
+            set: function(value) {
+                this.Lowpass.Q.value = value;
+            }
+        },
+         gain: {
+            enumerable: true,
+            get: function() {
+                return this.output.gain;
+            },
+            set: function(value) {
+                this.output.gain.value = value;
+            }
+        }
+       
+
+    });
+
+
+
+
+
+
 ////////////////////saxInput///////////
 
 
@@ -904,7 +1003,58 @@ DSX.prototype.FM = function(carrier,carrier_type,ModeFreq,FM_type,Depth,Amp){
 
 
 
-////////////////////////////////////////
+/////// BGsound /////////////////////////////////
+DSX.prototype.BGsound = function(){
+
+
+var soundFile = null; 
+var uploadfile;
+var getFile = new XMLHttpRequest(); 
+getFile.open("GET", "", true); 
+getFile.responseType = "arraybuffer"; 
+getFile.send(); 
+var reader = new FileReader();
+var fileI = document.getElementById('inputS');
+fileI.addEventListener('change', function() {
+
+  reader.onload = function() {
+drsax.decodeAudioData(this.result, function(buffer) {
+    uploadfile = buffer;
+                                       }); 
+
+                              };
+
+  reader.readAsArrayBuffer(this.files[0]);
+}, false);
+
+
+
+
+    this.connect = function(out){
+    this.BG = drsax.createBufferSource(); 
+    this.out = out;
+
+    this.BG.connect(out);
+    this.BG.start(0);
+    this.BG.buffer = uploadfile;
+
+
+}
+
+   this.stop = function(){
+
+   this.BG.stop(0);
+}
+
+    };
+
+
+
+/////////////////
+
+
+
+
 
 
   DSX.get = function(a,b) {
