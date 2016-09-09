@@ -24,13 +24,13 @@
 
     </body>
     <script>
-        var context = new(window.AudioContext || window.webkitAudioContext)();
+        var drsax = new AudioContext();
         var mic;
         var source;
-        var convolverGain = context.createGain();
-        var convolver = context.createConvolver();
-        var masterGain = context.createGain();
-        var masterCompression = context.createDynamicsCompressor();
+        var reverb_Gain = drsax.createGain();
+        var reverb_convolver = drsax.createConvolver();
+        var masterGain = drsax.createGain();
+   
 
 
         var play = document.querySelector('.play');
@@ -47,7 +47,7 @@
                 },
 
                 function(stream) {
-                    mic = context.createMediaStreamSource(stream);
+                    mic = drsax.createMediaStreamSource(stream);
                 },
                 function(error) {
                     alert('Unable to get the user media');
@@ -58,10 +58,10 @@
 
         function micStart() {
 
-            mic.connect(convolverGain);
+            mic.connect(reverb_Gain);
             mic.connect(masterGain);
-            masterGain.connect(masterCompression);
-            masterCompression.connect(context.destination);
+            masterGain.connect(drsax.destination);
+         
 
 
 
@@ -72,22 +72,22 @@
         ////////////////////
 
         function backReverb() {
-            convolver = context.createConvolver();
-            ajaxRequest = new XMLHttpRequest();
-            ajaxRequest.open('GET', 'reverbbg.wav', true);
-            ajaxRequest.responseType = 'arraybuffer';
+        
+            revebRequest = new XMLHttpRequest();
+            revebRequest.open('GET', 'https://drsax.github.io/DrSAX/DrSAX/reverbbg.wav', true);
+            revebRequest.responseType = 'arraybuffer';
 
-            ajaxRequest.onload = function() {
-                var impulseData = ajaxRequest.response;
+            revebRequest.onload = function() {
+                var impulseData = revebRequest.response;
 
-                context.decodeAudioData(impulseData, function(buffer) {
+                drsax.decodeAudioData(impulseData, function(buffer) {
                         myImpulseBuffer = buffer;
-                        convolver.buffer = myImpulseBuffer;
-                        convolver.loop = false;
-                        convolver.normalize = true;
-                        convolverGain.gain.value = 0;
-                        convolverGain.connect(convolver);
-                        convolver.connect(masterGain);
+                        reverb_convolver.buffer = myImpulseBuffer;
+                        reverb_convolver.loop = false;
+                        reverb_convolver.normalize = true;
+                        reverb_Gain.gain.value = 0;
+                        reverb_Gain.connect(reverb_convolver);
+                        reverb_convolver.connect(masterGain);
                     },
 
                     function(e) {
@@ -96,11 +96,11 @@
 
             }
 
-            ajaxRequest.send();
+            revebRequest.send();
         }
 
         play.onclick = function() {
-            convolver.disconnect();
+            reverb_convolver.disconnect();
             backReverb();
             micStart();
 
@@ -108,7 +108,7 @@
 
         stop.onclick = function() {
 
-            mic.disconnect(convolverGain);
+            mic.disconnect(reverb_Gain);
             mic.disconnect(masterGain);
 
         }
@@ -119,7 +119,7 @@
 
         function revalue(event) {
 
-            convolverGain.gain.value = event.target.value;
+            reverb_Gain.gain.value = event.target.value;
             document.querySelector('.convolver-gain-value').innerHTML = event.target.value;
         };
     </script>
