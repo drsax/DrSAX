@@ -24,7 +24,7 @@
 
  <input type="button"  value="Start" onclick="aa();">
   <input type="button"  value="Stop" onclick="bb();">
-
+<p id="name">홍길동</p>
 
 
 <script src="DrSAX.min.1.6.8.1.js"></script>
@@ -53,7 +53,7 @@
   
 
         // get the context from the canvas to draw on
- var     canvas = document.getElementById('canvas');
+ var  canvas = document.getElementById('canvas');
  var ctx = canvas.getContext('2d');
         // the AudioContext is the primary 'container' for all your audio node objects
       
@@ -131,6 +131,8 @@
             column = 0;
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         }
+ document.getElementById("name").innerHTML= maxValue.toFixed(2);
+
     }
 
 

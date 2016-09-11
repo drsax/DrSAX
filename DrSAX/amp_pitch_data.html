@@ -1,0 +1,377 @@
+<!doctype html>
+<html>
+
+
+<head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta charset="utf-8">
+<script src="cont/js/platform.js"></script>
+<link rel="import" href="cont/webcomponents/polymer.html">
+<link rel="import" href="cont/webcomponents/controls.html">
+
+ <!-- css start -->
+
+   <style>
+   div#canvas1 > canvas{ width:200px; height:50px; background:white; float:left; }
+   </style>
+
+ <!-- css end -->
+
+</head>
+
+<body>
+
+   <webaudio-switch id="switch1" src="cont/img/switch_toggle.png" style="position:absolute;left:300px;top:400px"  value="0" max="1" width="80" height="80"></webaudio-switch>
+
+
+   <input type="button" id = "startoff" value="Start off" style="position:absolute;left:300px;top:400px"  onClick="startOsc();" />
+
+
+
+
+
+ <button onclick="toggleLiveInput()">input on</button>
+
+ <button onclick="Inputoff()">input off</button>
+
+
+
+
+    
+ <div id = "canvas1">
+  
+     <canvas id="analyser1"   style="position:absolute;left:200px;top:50px"></canvas>
+
+ </div>
+
+
+
+<webaudio-knob id="amp"   style="position:absolute;left:50px;top:200px" src="cont/img/vin.png" value="0.0" max="1.0" step="0.1" diameter="80" sprites="100"  ></webaudio-knob>
+
+<webaudio-knob id="delay"   style="position:absolute;left:130px;top:200px" src="cont/img/vin.png" value="0.0" max="2000.0" step="1" diameter="80" sprites="100"  ></webaudio-knob>
+
+<webaudio-knob id="feedback"   style="position:absolute;left:210px;top:200px" src="cont/img/vin.png" value="0.0" max="1.0" step="0.1" diameter="80" sprites="100"  ></webaudio-knob>
+
+
+<webaudio-knob id="low"   style="position:absolute;left:50px;top:300px" src="cont/img/vin.png" value="0.0" max="2000.0"  step="0.1" diameter="80" sprites="100"  ></webaudio-knob>
+
+<webaudio-knob id="detune"   style="position:absolute;left:130px;top:300px" src="cont/img/vin.png" value="0.0" max="2000.0" step="1" diameter="80" sprites="100"  ></webaudio-knob>
+
+<webaudio-knob id="feedback"   style="position:absolute;left:210px;top:300px" src="cont/img/vin.png" value="0.0" max="1.0" step="0.1" diameter="80" sprites="100"  ></webaudio-knob>
+
+  <webaudio-knob id="dist"    src="cont/img/org.png" value="0" max="2000" step="1" diameter="70" sprites="30"  ></webaudio-knob>
+
+
+<p>
+      
+    </p>
+
+<p id="name">홍길동</p>
+
+    <div id="detector" class="vague">
+     <div class="note"><span id="note"></span>_note</div>  
+      <div class="pitch"><span id="pitch"></span>Hz</div>
+     
+
+
+  <input  style="position:absolute;left:130px;top:400px" class='detune-slider' name='detune' type='range' min='-1000' max='1000' step='1' value='0' />
+
+<script src="tuner.1.1.js"> </script>
+
+
+<!-- scrpit   --> 
+    <script> 
+  
+ var audioContext = new AudioContext();
+var isPlaying = false;
+var sourceNode = null;
+var analyser = null;
+var analyser2 = null;
+var mediaStreamSource = null;
+</script>
+
+
+
+
+
+
+<script>
+var amp = null;
+var canvas, ctx,  context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
+window.addEventListener("load", waveshape, false);
+/////////////////////  FFT CANVAS SPECTRUM/////////////////
+function waveshape(){
+ // AnalyserNode method
+  canvas = document.getElementById('analyser1');
+  ctx = canvas.getContext('2d');
+  
+    frameLooper();
+}
+function frameLooper(){ 
+  window.webkitRequestAnimationFrame(frameLooper);
+  fbc_array = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteFrequencyData(fbc_array);
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+  ctx.fillStyle = 'black'; // Color of the bars
+  bars = 2000;
+  for (var i = 0; i < bars; i++) {
+    bar_x = i * 3;
+    bar_width = 2;
+    bar_height = -(fbc_array[i] / 2);
+    //  fillRect( x, y, width, height ) // Explanation of the parameters below
+    ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
+                                  }
+
+
+
+
+  amplitudeArray = new Uint8Array(analyser.frequencyBinCount);
+              analyser.getByteTimeDomainData(amplitudeArray);
+
+        var minValue = 9999999;
+        var maxValue = 0;
+        for (var i = 0; i < amplitudeArray.length; i++) {
+            var value = amplitudeArray[i] / 256;
+            if(value > maxValue) {
+                maxValue = value;
+            } else if(value < minValue) {
+                minValue = value;
+            }
+        }
+
+ document.getElementById("name").innerHTML= maxValue.toFixed(2);
+
+
+
+
+
+
+
+
+
+
+
+                                  
+                        }
+  </script>
+
+
+
+<!------------------ SOUND EFFECT ------------------------>
+
+
+<script> 
+function error() {
+    alert('Stream generation failed.');
+}
+//////////////////////////////////////////////////////////
+function getUserMedia(dictionary, callback) {
+    try {
+        navigator.getUserMedia = 
+          navigator.getUserMedia ||
+          navigator.webkitGetUserMedia;
+        
+        navigator.getUserMedia(dictionary, callback, error);
+    } catch (e) {
+        alert('getUserMedia threw exception :' + e);
+    }
+}
+//////////// mic input ///////////
+function toggleLiveInput() {
+      if (isPlaying) {
+        //stop playing and return
+        sourceNode.stop( 0 );
+        sourceNode = null;
+        analyser = null;
+        isPlaying = false;
+    if (!window.cancelAnimationFrame)
+      window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
+        window.cancelAnimationFrame( rafID );
+    }
+ 
+    getUserMedia(
+      {
+            "audio": {
+                "mandatory": {
+                    "googEchoCancellation": "false",
+                    
+                              },
+                "optional": []
+                      },
+        }, 
+        gotStream);
+    isPlaying = true;
+                 }
+function Inputoff() {
+if (isPlaying) {
+        //stop playing and return
+        analyser = null;
+        isPlaying = false;
+        amp = null;
+     
+  
+    }
+   mediaStreamSource.disconnect(analyser);
+  ctx.clearRect(0, 0, canvas.width, canvas.height); 
+}
+function gotStream(stream) {
+    // Create an AudioNode from the stream.
+    mediaStreamSource = audioContext.createMediaStreamSource(stream);
+    // Connect it to the destination.
+    analyser = audioContext.createAnalyser();
+    amp = audioContext.createGain();
+    delay = audioContext.createDelay();
+    feedback = audioContext.createGain();
+//////////////////////
+    analyser.fftSize = 2048;
+/////////////////////////////////////////////////
+    mediaStreamSource.connect(analyser);
+////////////////////////////////
+    mediaStreamSource.connect(delay);
+    delay.connect(feedback);
+    feedback.connect(delay);
+     delay.connect(amp);
+/////////////////////////////////
+  mediaStreamSource.connect(delay);
+   amp.gain.value=0.5;
+   delay.delayTime.value = 0;
+    feedback.gain.value=0;
+///////////////////////
+    lowpass =audioContext.createBiquadFilter();
+  lowpass.Q.value  = 30; 
+   lowpass.frequency.value= 100;
+  
+  mediaStreamSource.connect(lowpass);
+  lowpass.connect(amp);
+////////////////////////////////////////
+    amp.connect(audioContext.destination);
+ ///////////////////////////////////
+mic_tuner();
+    
+}
+/////////////  knob //////////////
+var knob = document.getElementById("amp");
+  knob.addEventListener("change",micgain);
+  
+  function micgain(event){
+   amp.gain.value= event.target.value;
+  
+  }
+//////// delay ///////////
+  var delay = document.getElementById("delay");
+  delay.addEventListener("change",delaytime);
+  
+  function delaytime(event){
+  
+      delay.delayTime.value= event.target.value;
+         
+  }
+///////////////// feedback ////////////
+  var feedback = document.getElementById("feedback");
+  feedback.addEventListener("change",feedback1);
+  
+  function feedback1(event){
+      feedback.gain.value= event.target.value;
+  }
+  var low = document.getElementById("low");
+  low.addEventListener("change",low1);
+  
+  function low1(event){
+     lowpass.frequency.value= event.target.value;
+  }
+  var detune = document.getElementById("detune");
+  detune.addEventListener("change",detune1);
+  
+  function detune1(event){
+      mediaStreamSource.detune.value= event.target.value*100;
+        lowpass.frequency.value= event.target.value;
+  }
+   var detuneSlider = document.querySelector('.detune-slider')
+detuneSlider.oninput = function () {
+    changeDetune(detuneSlider.value);
+}
+function changeDetune(cents) {
+    mediaStreamSource.detune.value = cents;
+  mediaStreamSource.innerHTML = cents + ' cents';
+}
+ 
+var context = new AudioContext(); 
+var oscillator, gain, distortion; 
+var starting = true;
+function startOsc(){ 
+  if(starting){
+    document.getElementById("startoff").value="sound off"
+oscillator = context.createOscillator(); 
+    analyser2= context.createAnalyser();
+    oscillator.type = 0; 
+    oscillator.frequency.value = 700;
+    oscillator.start(0); 
+  distortion = context.createWaveShaper();
+   
+    gain = context.createGain(); 
+    gain.gain.value = 0.7; 
+    oscillator.connect(distortion);
+    
+   oscillator.connect(distortion);
+  distortion.connect(gain);
+  gain.connect(context.destination);
+  distortion.curve = makeDistortionCurve(3);
+return starting = false;
+}
+ if(!starting){
+    document.getElementById("startoff").value="sound on"
+    oscillator.stop(0); 
+  gain.disconnect(context.destination);
+ 
+return starting = true;
+}
+}
+function mic_tuner(){ 
+  updatePitch();
+}
+/////////////// distotion //////////
+function makeDistortionCurve(amount) {
+  var k = typeof amount === 'number' ? amount : 50,
+    n_samples = 44100,
+    curve = new Float32Array(n_samples),
+    deg = Math.PI / 180,
+    i = 0,
+    x;
+  for ( ; i < n_samples; ++i ) {
+    x = i * 2 / n_samples - 1;
+    curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+  }
+  return curve;
+};
+        </script>
+    
+        <script>
+    function ddd(data) {
+    
+                distortion.curve = makeDistortionCurve(data.target.value);
+}
+      var dist_dial = document.getElementById('dist');
+        dist_dial.addEventListener("change",ddd,false);
+    
+        </script>
+    
+  
+
+</body>
+</html>
