@@ -14,7 +14,56 @@
 	<body>
 		
   
-	
+	<style>
+
+.box{
+width: 150px;
+height: 150px;
+padding: 10px;
+border: 1px solid orange;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+background: lightyellow;
+}
+
+#box2{
+width: 100px;
+height: 50px;
+font-size: 2em;
+border: 1px solid orange;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+background: lightyellow;
+position: absolute;
+padding-top: 10px;
+-moz-box-shadow: 0 0 5px gray;
+box-shadow: 0 0 5px gray;
+text-align: center;
+line-height: 1;
+}
+
+.track{
+width:480px;
+height: 55px;
+position: relative;
+overflow: hidden;
+}
+
+.track:after{
+content: '';
+display: block;
+width: 100%;
+height: 1px;
+background: black;
+position: absolute;
+top: 49%;
+z-index: -1;
+}
+
+</style>
+
 
 
 		
