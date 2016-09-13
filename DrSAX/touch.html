@@ -3,18 +3,30 @@
 		<meta charset="utf-8">
 	
 
-<canvas class="box" id="box1" ></canvas>
+<canvas class="box" id="box1" ></canvas><button class="button" onclick="openNav();">Dr.sax set  </button>
 <canvas class="box" id="box2"  ></canvas>
-<canvas class="box" id="box3"  ></canvas>
+<canvas class="box" id="box3"  ></canvas><button class="button">Click Me!</button>
 <canvas class="box" id="box4"  ></canvas>
-<canvas class="box" id="box5"  ></canvas>
+<canvas class="box" id="box5"  ></canvas><button class="button" onclick="micInputon();">Mic Input </button>
 <canvas class="box" id="box6"  ></canvas>
 
  
-<h3 id="statusdiv">Status</h3><h3 id="statusdiv2">Status</h3><h3 id="statusdiv3">Status</h3>
+<h3 id="statusdiv">Status</h3>
+<h3 id="statusdiv2">Status</h3>
+<h3 id="statusdiv3">Status</h3>
 <h3 id="statusdiv4">Status</h3>
 <h3 id="statusdiv5">Status</h3>
 <h3 id="statusdiv6">Status</h3>
+<p id="name">홍길동</p>
+
+  <div id="myNav" class="overlay">
+  <a class="closebtn" onclick="closeNav()">close</a>
+  <div class="overlay-content">
+    <a href="#">Low-frequency oscillation</a>
+    <a href="#">Feel free to enjoy</a>
+
+  </div>
+
 
 	</head>
 	<body>
@@ -23,7 +35,7 @@
 	<style>
 
 .box{
-    width:400px;
+width:400px;
 height: 400px;
 padding: 10px;
 border: 1px solid orange;
@@ -38,10 +50,78 @@ border-radius: 200px;
 
 </style>
 
+<style>
+.button {
+    background-color: yellow;
+    border: none;
+    color: gray;
+    padding: 40px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+      border-radius: 100px;
+    cursor: pointer;
+}
+</style>
 
+	<style>
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
 
-		
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index:1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.7);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
 
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 80px !important;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .closebtn {
+    font-size: 40px !important;
+    top: 15px;
+    right: 35px;
+  }
+}
+</style>	
+<script src="tuner.1.2.js"> </script>
 <script>
 
  
@@ -246,6 +326,58 @@ border-radius: 200px;
 
 
 
+<script>
+
+
+
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+</script>
+
+<script>
+
+ var context = new AudioContext();
+
+
+
+var mic, analyser;
+ analyser = context.createAnalyser();  
+amp = context.createGain();
+  analyser.fftSize = 2048;
+     navigator.webkitGetUserMedia(
+
+                {audio: true, video: false},
+
+                function (stream) {
+                    mic = context.createMediaStreamSource(stream);
+                },
+                function (error) {
+                    alert('Unable to get the user media');
+                }
+            );
+
+ 
+
+
+function micInputon() {
+
+
+
+mic.connect(analyser);
+analyser.connect(amp);
+amp.connect(context.destination);
+  frameLooper();
+                       }
+                       
+
+function micInputoff() {
+          mic.disconnect(amp);
+                       }
 
 
 
@@ -253,6 +385,28 @@ border-radius: 200px;
 
 
 
+  
+  
+
+function frameLooper(){ 
+
+  amplitudeArray = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteTimeDomainData(amplitudeArray);
+        var minValue = 9999999;
+        var maxValue = 0;
+        for (var i = 0; i < amplitudeArray.length; i++) {
+            var value = amplitudeArray[i] / 256;
+            if(value > maxValue) {
+                maxValue = value;
+            } else if(value < minValue) {
+                minValue = value;
+            }
+        }
+ document.getElementById("name").innerHTML= maxValue.toFixed(2);
+                                  
+                        }
+
+</script>
 
 
 	</body>
