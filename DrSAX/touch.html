@@ -7,7 +7,7 @@
 <canvas class="box" id="box2"  ></canvas>
 <canvas class="box" id="box3"  ></canvas><button class="button">Click Me!</button>
 <canvas class="box" id="box4"  ></canvas>
-<canvas class="box" id="box5"  ></canvas><button class="button" onclick="micInputon();">Mic Input </button>
+<canvas class="box" id="box5"  ></canvas><button class="button" id="in" onclick="micInputon();">Mic Input </button>
 <canvas class="box" id="box6"  ></canvas>
 
  
@@ -26,6 +26,7 @@
     <a href="#">Feel free to enjoy</a>
 
   </div>
+
 
 
 	</head>
@@ -137,6 +138,7 @@ body {
         e.preventDefault()
 
     document.getElementById("box1").setAttribute("style", "background-color:red;"); 
+      amp.gain.value=0.4;
 
     }, false)
  
@@ -152,6 +154,8 @@ body {
         statusdiv.innerHTML = touchobj.clientX + 'px'
         e.preventDefault()
            document.getElementById("box1").setAttribute("style", "background-color:black;"); 
+
+             amp.gain.value=0.0;
     }, false)
  
 /////////////////////////////////
@@ -312,6 +316,7 @@ body {
         statusdiv6.innerHTML = touchobj6.clientX + 'px'
         e.preventDefault()
            document.getElementById("box6").setAttribute("style", "background-color:black;"); 
+            amp.gain.value=0;
     }, false)
  
 /////////////////////////////
@@ -332,6 +337,8 @@ body {
 
 function openNav() {
     document.getElementById("myNav").style.width = "100%";
+
+     amp.gain.value=0.4;
 }
 
 function closeNav() {
@@ -344,11 +351,11 @@ function closeNav() {
  var context = new AudioContext();
 
 
-
-var mic, analyser;
+var mic, analyser,amp,osc;
  analyser = context.createAnalyser();  
-amp = context.createGain();
-  analyser.fftSize = 2048;
+ amp = context.createGain();
+ osc = context.createOscillator();
+amp.gain.value=0;
      navigator.webkitGetUserMedia(
 
                 {audio: true, video: false},
@@ -365,18 +372,21 @@ amp = context.createGain();
 
 
 function micInputon() {
-
-
-
 mic.connect(analyser);
-analyser.connect(amp);
+
+osc.connect(amp)
 amp.connect(context.destination);
+osc.start(0);
+
+  
+
+
   frameLooper();
                        }
                        
 
 function micInputoff() {
-          mic.disconnect(amp);
+      mic.diconnect(analyser);
                        }
 
 
@@ -389,7 +399,7 @@ function micInputoff() {
   
 
 function frameLooper(){ 
-
+window.webkitRequestAnimationFrame(frameLooper);
   amplitudeArray = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteTimeDomainData(amplitudeArray);
         var minValue = 9999999;
@@ -403,7 +413,24 @@ function frameLooper(){
             }
         }
  document.getElementById("name").innerHTML= maxValue.toFixed(2);
-                                  
+
+     if(maxValue.toFixed(2)*100 >53)
+         {
+
+  document.getElementById("in").setAttribute("style", "background-color:red;"); 
+                              }
+
+     else {
+
+  document.getElementById("in").setAttribute("style", "background-color:yellow;"); 
+
+
+     }
+
+
+
+
+
                         }
 
 </script>
