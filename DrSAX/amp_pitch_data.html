@@ -90,9 +90,9 @@
      
 
 
-  <input  style="position:absolute;left:130px;top:400px" class='detune-slider' name='detune' type='range' min='-1000' max='1000' step='1' value='0' />
 
-<script src="tuner.1.1.js"> </script>
+
+<script src="tuner.1.2.js"> </script>
 
 
 <!-- scrpit   --> 
@@ -137,13 +137,8 @@ function frameLooper(){
     //  fillRect( x, y, width, height ) // Explanation of the parameters below
     ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
                                   }
-
-
-
-
   amplitudeArray = new Uint8Array(analyser.frequencyBinCount);
               analyser.getByteTimeDomainData(amplitudeArray);
-
         var minValue = 9999999;
         var maxValue = 0;
         for (var i = 0; i < amplitudeArray.length; i++) {
@@ -154,19 +149,7 @@ function frameLooper(){
                 minValue = value;
             }
         }
-
  document.getElementById("name").innerHTML= maxValue.toFixed(2);
-
-
-
-
-
-
-
-
-
-
-
                                   
                         }
   </script>
