@@ -155,7 +155,7 @@ body {
         statusdiv.innerHTML = touchobj.clientX + 'px'
         e.preventDefault()
            document.getElementById("box1").setAttribute("style", "background-color:black;"); 
-
+ osc.frequency.value =0;
         
     }, false)
  
@@ -190,6 +190,8 @@ body {
         statusdiv2.innerHTML = touchobj2.clientX + 'px'
         e.preventDefault()
            document.getElementById("box2").setAttribute("style", "background-color:black;"); 
+
+           osc.frequency.value =0;
     }, false)
  
 /////////////////////////////
@@ -223,6 +225,8 @@ body {
         statusdiv3.innerHTML = touchobj3.clientX + 'px'
         e.preventDefault()
            document.getElementById("box3").setAttribute("style", "background-color:black;"); 
+
+           osc.frequency.value =0;
     }, false)
  
 /////////////////////////////
@@ -419,7 +423,7 @@ window.webkitRequestAnimationFrame(frameLooper);
         }
  document.getElementById("name").innerHTML= maxValue.toFixed(2);
 
-     if(maxValue.toFixed(2)*100 >53)
+     if(maxValue.toFixed(2)*100 >60)
          {
 
   document.getElementById("in").setAttribute("style", "background-color:red;");
