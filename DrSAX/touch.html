@@ -138,7 +138,8 @@ body {
         e.preventDefault()
 
     document.getElementById("box1").setAttribute("style", "background-color:red;"); 
-      amp.gain.value=0.4;
+     
+      osc.frequency.value =392;
 
     }, false)
  
@@ -155,7 +156,7 @@ body {
         e.preventDefault()
            document.getElementById("box1").setAttribute("style", "background-color:black;"); 
 
-             amp.gain.value=0.0;
+        
     }, false)
  
 /////////////////////////////////
@@ -172,6 +173,8 @@ body {
         e.preventDefault()
 
     document.getElementById("box2").setAttribute("style", "background-color:red;"); 
+
+     osc.frequency.value =440;
 
     }, false)
  
@@ -203,6 +206,8 @@ body {
         e.preventDefault()
 
     document.getElementById("box3").setAttribute("style", "background-color:red;"); 
+ osc.frequency.value =523;
+
 
     }, false)
  
@@ -417,7 +422,9 @@ window.webkitRequestAnimationFrame(frameLooper);
      if(maxValue.toFixed(2)*100 >53)
          {
 
-  document.getElementById("in").setAttribute("style", "background-color:red;"); 
+  document.getElementById("in").setAttribute("style", "background-color:red;");
+     amp.gain.value=0.5;
+
                               }
 
      else {
