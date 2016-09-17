@@ -155,7 +155,7 @@ body {
         statusdiv.innerHTML = touchobj.clientX + 'px'
         e.preventDefault()
            document.getElementById("box1").setAttribute("style", "background-color:black;"); 
- osc.frequency.value =0;
+
         
     }, false)
  
@@ -191,7 +191,6 @@ body {
         e.preventDefault()
            document.getElementById("box2").setAttribute("style", "background-color:black;"); 
 
-           osc.frequency.value =0;
     }, false)
  
 /////////////////////////////
@@ -226,7 +225,7 @@ body {
         e.preventDefault()
            document.getElementById("box3").setAttribute("style", "background-color:black;"); 
 
-           osc.frequency.value =0;
+
     }, false)
  
 /////////////////////////////
@@ -262,7 +261,7 @@ body {
         statusdiv4.innerHTML = touchobj4.clientX + 'px'
         e.preventDefault()
            document.getElementById("box4").setAttribute("style", "background-color:black;"); 
-            amp.gain.value=0;
+           
     }, false)
  
 /////////////////////////////
@@ -296,7 +295,7 @@ body {
         statusdiv5.innerHTML = touchobj5.clientX + 'px'
         e.preventDefault()
            document.getElementById("box5").setAttribute("style", "background-color:black;"); 
-            amp.gain.value=0;
+     
     }, false)
  
 /////////////////////////////
@@ -330,7 +329,7 @@ body {
         statusdiv6.innerHTML = touchobj6.clientX + 'px'
         e.preventDefault()
            document.getElementById("box6").setAttribute("style", "background-color:black;"); 
-            amp.gain.value=0;
+            
     }, false)
  
 /////////////////////////////
@@ -441,6 +440,7 @@ window.webkitRequestAnimationFrame(frameLooper);
 
   document.getElementById("in").setAttribute("style", "background-color:yellow;"); 
    amp.gain.value=0;
+    osc.frequency.value =0;
 
      }
 
