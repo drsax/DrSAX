@@ -370,6 +370,7 @@ var mic, analyser,amp,osc;
  amp = context.createGain();
  osc = context.createOscillator();
 amp.gain.value=0;
+ osc.frequency.value =0;
      navigator.webkitGetUserMedia(
 
                 {audio: true, video: false},
