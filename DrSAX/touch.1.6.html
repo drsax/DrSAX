@@ -1,0 +1,836 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+
+<!-- knob and slide -->
+
+
+<script src="cont/js/platform.js"></script>
+<link rel="import" href="cont/webcomponents/polymer.html">
+<link rel="import" href="cont/webcomponents/controls.html">
+
+
+
+<!-- css start -->
+
+    <style>
+        .box {
+            width: 400px;
+            height: 400px;
+            padding: 10px;
+            border: 1px solid orange;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            background: black;
+            border-radius: 200px;
+        }
+
+    </style>
+
+    <style>
+        .button {
+            background-color: yellow;
+            border: none;
+            color: gray;
+            padding: 40px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 30px;
+            border-radius: 100px;
+            cursor: pointer;
+        }
+    </style>
+
+
+
+<!-- cotton slide -->
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+        
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .overlay a {
+            padding: 8px;
+            text-decoration: none;
+            font-size: 36px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+        
+        .overlay a:hover,
+        .overlay a:focus {
+            color: #f1f1f1;
+        }
+        
+        .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 80px !important;
+        }
+        
+        @media screen and (max-height: 450px) {
+            .overlay a {
+                font-size: 20px
+            }
+            .closebtn {
+                font-size: 40px !important;
+                top: 15px;
+                right: 35px;
+            }
+        }
+    </style>
+
+
+<!-- music button -->
+
+    <canvas class="box" id="box1"></canvas><button class="button" onclick="openNav();">Dr.sax set  </button>
+    <canvas class="box" id="box2"></canvas>
+    <canvas class="box" id="box3"></canvas><button class="button">Click Me!</button>
+    <canvas class="box" id="box4"></canvas>
+    <canvas class="box" id="box5"></canvas>
+    <button class="button" id="in" onclick="micInputon();">Mic Input </button>
+    <canvas class="box" id="box6"></canvas>
+
+
+    <h3 id="statusdiv">Status</h3>
+    <h3 id="statusdiv2">Status</h3>
+    <h3 id="statusdiv3">Status</h3>
+    <h3 id="statusdiv4">Status</h3>
+    <h3 id="statusdiv5">Status</h3>
+    <h3 id="statusdiv6">Status</h3>
+    <p id="name">홍길동</p>
+
+
+<!-- sensor data-->
+    <ul>
+   
+    <li>dat y: <span id="accelerationY"></span></li>
+
+
+    </ul>
+
+
+
+<!-- cotton contents-->    
+
+    <div id="myNav" class="overlay">
+
+
+
+
+
+
+<!-- slider --> 
+   <webaudio-slider id="slider1"  style="position:absolute;left:100px;top:150px"src="cont/img/s1.png"   knobsrc="cont/img/bb44.png"  value="400" min="0" max="2000" step="1" width="200" height="400"  basewidth="100" baseheight="350" knobwidth="200" knobheight="150" ditchLength="270" tooltip="Frequency"></webaudio-slider>
+
+  <webaudio-slider id="slider2"  style="position:absolute;left:400px;top:150"src="cont/img/s1.png"   knobsrc="cont/img/bb44.png"  value="50" min="0" max="2000" step="1" width="200" height="400"  basewidth="100" baseheight="350" knobwidth="200" knobheight="150" ditchLength="270" tooltip="Frequency"></webaudio-slider>
+
+
+
+  <h1 style="position:absolute;left:70px;top:550px;font-size:25px;
+            color: white;" >Modulator Frequency </h1>
+
+
+  <h1 style="position:absolute;left:400px;top:550px;font-size:25px;
+            color: white;" >Modulation  Depth </h1>
+<!-- osc switch  --> 
+
+ <webaudio-switch id="switch1"  style="position:absolute;left:680px;top:150px "  src="cont/img/switch_toggle.png"  value="0" max="1" width="200" height="200"></webaudio-switch>
+
+
+ <webaudio-switch id="switch2"  style="position:absolute;left:680px;top:350px "  src="cont/img/switch_toggle.png"  value="0" max="1" width="200" height="200"></webaudio-switch>
+
+
+
+<!-- EQ dial --> 
+
+  <webaudio-knob id="lowpass" style=" position:absolute;left:99px;top:650px;" src="cont/img/dde.png" value="100"
+      min="0"  max="2000" step="1" diameter="250" sprites="30"></webaudio-knob>
+
+
+  <webaudio-knob id="lowpass_q" style=" position:absolute;left:399px;top:649px;" src="cont/img/dde.png" value="100"
+      min="0"  max="20" step="0.5" diameter="250" sprites="30"></webaudio-knob>
+
+  <h1 style="position:absolute;left:200px;top:900px;font-size:25px;
+            color: white;" >cutoff </h1>
+
+
+  <h1 style="position:absolute;left:450px;top:900px;font-size:25px;
+            color: white;" >resonance </h1>
+
+<!-- Reverb dial --> 
+
+  <webaudio-knob id="reverb" style=" position:absolute;left:99px;top:1000px;" src="cont/img/dde.png" value="100"
+      min="0"  max="1" step="0.05" diameter="250" sprites="30"></webaudio-knob>
+
+
+<!-- amp_ out dial --> 
+
+  <webaudio-knob id="amp_out" style=" position:absolute;left:399px;top:1000px;" src="cont/img/dde.png" value="0.5"
+      min="0"  max="1" step="0.05" diameter="250" sprites="30"></webaudio-knob>
+
+  <h1 style="position:absolute;left:160px;top:1250px;font-size:25px;
+            color: white;" >Reverb gain </h1>
+
+
+  <h1 style="position:absolute;left:480px;top:1250px;font-size:25px;
+            color: white;" >out gain </h1>
+
+        <a class="closebtn" onclick="closeNav()">close</a>
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+    </script>
+    <script>
+        var box1 = document.getElementById('box1')
+        var statusdiv = document.getElementById('statusdiv')
+        var startx = 0
+        var dist = 0
+
+        box1.addEventListener('touchstart', function(e) {
+            var touchobj = e.changedTouches[0] // reference first touch point (ie: first finger)
+            startx = parseInt(touchobj.clientX) // get x position of touch point relative to left edge of browser
+            statusdiv.innerHTML = startx + 'px'
+            e.preventDefault()
+            document.getElementById("box1").setAttribute("style", "background-color:red;");
+
+
+       if(sensor > 1)
+        { osc.frequency.value = 1568; }
+
+        else if(sensor < -2)
+        { osc.frequency.value = 392; }
+       else
+          { osc.frequency.value = 784;}
+
+
+
+
+
+        }, false)
+
+        box1.addEventListener('touchmove', function(e) {
+            var touchobj = e.changedTouches[0] // reference first touch point for this event
+            var dist = parseInt(touchobj.clientX) - startx
+            statusdiv.innerHTML = dist + 'px'
+            e.preventDefault()
+        }, false)
+
+        box1.addEventListener('touchend', function(e) {
+            var touchobj = e.changedTouches[0] // reference first touch point for this event
+            statusdiv.innerHTML = touchobj.clientX + 'px'
+            e.preventDefault()
+            document.getElementById("box1").setAttribute("style", "background-color:black;");
+
+        }, false)
+
+
+
+
+
+
+        /////////////////////////////////
+
+        var box2 = document.getElementById('box2')
+        var statusdiv2 = document.getElementById('statusdiv2')
+        var startx2 = 0
+        var dist2 = 0
+
+        box2.addEventListener('touchstart', function(e) {
+            var touchobj2 = e.changedTouches[0] // reference first touch point (ie: first finger)
+            startx2 = parseInt(touchobj2.clientX) // get x position of touch point relative to left edge of browser
+            statusdiv2.innerHTML = startx2 + 'px'
+            e.preventDefault()
+            document.getElementById("box2").setAttribute("style", "background-color:red;");
+
+
+       if(sensor > 1)
+        { osc.frequency.value = 440*4; }
+
+        else if(sensor < -2)
+        { osc.frequency.value = 440; }
+       else
+          { osc.frequency.value = 440*2;}
+
+
+           
+        }, false)
+
+        box2.addEventListener('touchmove', function(e) {
+            var touchobj2 = e.changedTouches[0] // reference first touch point for this event
+            var dist2 = parseInt(touchobj2.clientX) - startx2
+            statusdiv2.innerHTML = dist2 + 'px'
+            e.preventDefault()
+        }, false)
+
+        box2.addEventListener('touchend', function(e) {
+            var touchobj2 = e.changedTouches[0] // reference first touch point for this event
+            statusdiv2.innerHTML = touchobj2.clientX + 'px'
+            e.preventDefault()
+            document.getElementById("box2").setAttribute("style", "background-color:black;");
+        }, false)
+
+
+
+
+
+
+
+
+
+
+
+
+        /////////////////////////////
+        var box3 = document.getElementById('box3')
+        var statusdiv3 = document.getElementById('statusdiv3')
+        var startx3 = 0
+        var dist3 = 0
+
+        box3.addEventListener('touchstart', function(e) {
+            var touchobj3 = e.changedTouches[0] // reference first touch point (ie: first finger)
+            startx3 = parseInt(touchobj3.clientX) // get x position of touch point relative to left edge of browser
+            statusdiv3.innerHTML = startx3 + 'px'
+            e.preventDefault()
+            document.getElementById("box3").setAttribute("style", "background-color:red;");
+
+
+ if(sensor > 1)
+        { osc.frequency.value =  523*4; }
+
+        else if(sensor < -2)
+        { osc.frequency.value =  523; }
+       else
+          { osc.frequency.value =  523*2;}
+
+        }, false)
+
+        box3.addEventListener('touchmove', function(e) {
+            var touchobj3 = e.changedTouches[0] // reference first touch point for this event
+            var dist3 = parseInt(touchobj3.clientX) - startx3
+            statusdiv3.innerHTML = dist3 + 'px'
+            e.preventDefault()
+        }, false)
+
+        box3.addEventListener('touchend', function(e) {
+            var touchobj3 = e.changedTouches[0] // reference first touch point for this event
+            statusdiv3.innerHTML = touchobj3.clientX + 'px'
+            e.preventDefault()
+            document.getElementById("box3").setAttribute("style", "background-color:black;");
+        }, false)
+
+
+
+
+
+
+
+
+
+
+
+
+        /////////////////////////////
+
+
+
+
+
+
+
+
+
+
+        var box4 = document.getElementById('box4')
+        var statusdiv4 = document.getElementById('statusdiv4')
+        var startx4 = 0
+        var dist4 = 0
+
+        box4.addEventListener('touchstart', function(e) {
+            var touchobj4 = e.changedTouches[0] // reference first touch point (ie: first finger)
+            startx4 = parseInt(touchobj4.clientX) // get x position of touch point relative to left edge of browser
+            statusdiv4.innerHTML = startx4 + 'px'
+            e.preventDefault()
+            document.getElementById("box4").setAttribute("style", "background-color:red;");
+
+
+  if(sensor > 1)
+        { osc.frequency.value =  587*4; }
+
+        else if(sensor < -2)
+        { osc.frequency.value =  587; }
+       else
+          { osc.frequency.value =  587*2;}
+
+
+
+        }, false)
+
+        box4.addEventListener('touchmove', function(e) {
+            var touchobj4 = e.changedTouches[0] // reference first touch point for this event
+            var dist4 = parseInt(touchobj4.clientX) - startx4
+            statusdiv4.innerHTML = dist4 + 'px'
+            e.preventDefault()
+        }, false)
+
+        box4.addEventListener('touchend', function(e) {
+            var touchobj4 = e.changedTouches[0] // reference first touch point for this event
+            statusdiv4.innerHTML = touchobj4.clientX + 'px'
+            e.preventDefault()
+            document.getElementById("box4").setAttribute("style", "background-color:black;");
+
+        }, false)
+
+
+
+
+
+
+
+
+        /////////////////////////////
+
+
+
+        var box5 = document.getElementById('box5')
+        var statusdiv5 = document.getElementById('statusdiv5')
+        var startx5 = 0
+        var dist5 = 0
+
+        box5.addEventListener('touchstart', function(e) {
+            var touchobj5 = e.changedTouches[0] // reference first touch point (ie: first finger)
+            startx5 = parseInt(touchobj5.clientX) // get x position of touch point relative to left edge of browser
+            statusdiv5.innerHTML = startx5 + 'px'
+            e.preventDefault()
+            document.getElementById("box5").setAttribute("style", "background-color:red;");
+
+
+             if(sensor > 1)
+        { osc.frequency.value =  659*4; }
+
+        else if(sensor < -2)
+        { osc.frequency.value =  659; }
+       else
+          { osc.frequency.value =  659*2;}
+
+        }, false)
+
+        box5.addEventListener('touchmove', function(e) {
+            var touchobj5 = e.changedTouches[0] // reference first touch point for this event
+            var dist5 = parseInt(touchobj5.clientX) - startx5
+            statusdiv5.innerHTML = dist5 + 'px'
+            e.preventDefault()
+        }, false)
+
+        box5.addEventListener('touchend', function(e) {
+            var touchobj5 = e.changedTouches[0] // reference first touch point for this event
+            statusdiv5.innerHTML = touchobj5.clientX + 'px'
+            e.preventDefault()
+            document.getElementById("box5").setAttribute("style", "background-color:black;");
+
+        }, false)
+
+
+
+
+
+
+        /////////////////////////////
+
+
+
+
+        var box6 = document.getElementById('box6')
+        var statusdiv6 = document.getElementById('statusdiv6')
+        var startx6 = 0
+        var dist6 = 0
+
+        box6.addEventListener('touchstart', function(e) {
+            var touchobj6 = e.changedTouches[0] // reference first touch point (ie: first finger)
+            startx6 = parseInt(touchobj6.clientX) // get x position of touch point relative to left edge of browser
+            statusdiv6.innerHTML = startx6 + 'px'
+            e.preventDefault()
+            document.getElementById("box6").setAttribute("style", "background-color:red;");
+
+    
+        }, false)
+
+        box6.addEventListener('touchmove', function(e) {
+            var touchobj6 = e.changedTouches[0] // reference first touch point for this event
+            var dist6 = parseInt(touchobj6.clientX) - startx6
+            statusdiv6.innerHTML = dist6 + 'px'
+            e.preventDefault()
+        }, false)
+
+        box6.addEventListener('touchend', function(e) {
+            var touchobj6 = e.changedTouches[0] // reference first touch point for this event
+            statusdiv6.innerHTML = touchobj6.clientX + 'px'
+            e.preventDefault()
+            document.getElementById("box6").setAttribute("style", "background-color:black;");
+
+        }, false)
+
+        /////////////////////////////
+    </script>
+
+
+
+
+
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
+
+
+
+
+    <script>
+        ///////// basic setting  ///////////
+
+        var context = new AudioContext();
+        var mic, analyser, amp, osc, osc2, amp2;
+        var fmvalue = false;
+        var amvalue = false;
+        var subvalue = false;
+        var amp_gain =0.5;
+        analyser = context.createAnalyser();
+        amp = context.createGain();
+        amp2 =  context.createGain();
+        osc = context.createOscillator();
+        osc2 = context.createOscillator(); 
+
+
+        var reverb_Gain = context.createGain();
+        var reverb_convolver = context.createConvolver();
+        var masterGain = context.createGain();
+        var lowpass =context.createBiquadFilter();
+    
+
+
+        navigator.webkitGetUserMedia({
+                audio: true,
+                video: false
+            },
+            function(stream) {
+                mic = context.createMediaStreamSource(stream);
+            },
+            function(error) {
+                alert('Unable to get the user media');
+            }
+        );
+
+
+
+
+
+    
+        /////////// pre set//////////////////
+
+
+
+        amp.gain.value = 0;
+        osc.frequency.value = 0;
+        osc2.frequency.value = 1000;
+        amp2.gain.value = 1000;
+
+        reverb_Gain.gain.value = 0.3;
+
+
+        lowpass.frequency.value = 1037;
+        lowpass.Q.value  = 10; 
+
+
+ 
+
+
+
+
+        function micInputon() {
+
+            mic.connect(analyser);
+
+
+    osc.connect(lowpass);
+    lowpass.connect(amp);
+    amp.connect(reverb_Gain);
+    amp.connect(masterGain);
+    masterGain.connect(context.destination);
+
+    osc2.connect(amp2);
+    amp2.connect(osc.frequency);
+     
+
+
+            osc.start();
+            osc2.start();
+
+             backReverb();
+            frameLooper();
+          
+        }
+
+        function micInputoff() {
+            mic.diconnect(analyser);
+        }
+
+
+        function frameLooper() {
+            window.webkitRequestAnimationFrame(frameLooper);
+            amplitudeArray = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteTimeDomainData(amplitudeArray);
+            var minValue = 9999999;
+            var maxValue = 0;
+            for (var i = 0; i < amplitudeArray.length; i++) {
+                var value = amplitudeArray[i] / 256;
+                if (value > maxValue) {
+                    maxValue = value;
+                } else if (value < minValue) {
+                    minValue = value;
+                }
+            }
+            document.getElementById("name").innerHTML = maxValue.toFixed(2);
+            if (maxValue.toFixed(2) * 100 > 70) {
+                document.getElementById("in").setAttribute("style", "background-color:red;");
+                amp.gain.value = amp_gain;
+
+                
+            } else {
+                document.getElementById("in").setAttribute("style", "background-color:yellow;");
+                amp.gain.value = 0;   
+                osc.frequency.value = 0;
+          
+                
+
+            }
+        }
+
+
+ </script>
+
+
+ <script >
+   function backReverb() {
+        
+            revebRequest = new XMLHttpRequest();
+            revebRequest.open('GET', 'https://drsax.github.io/DrSAX/DrSAX/reverbbg.wav', true);
+            revebRequest.responseType = 'arraybuffer';
+            revebRequest.onload = function() {
+                var impulseData = revebRequest.response;
+                context.decodeAudioData(impulseData, function(buffer) {
+                        myImpulseBuffer = buffer;
+                        reverb_convolver.buffer = myImpulseBuffer;
+                        reverb_convolver.loop = false;
+                        reverb_convolver.normalize = true;
+                        reverb_Gain.connect(reverb_convolver);
+                        reverb_convolver.connect(masterGain);
+                    },
+                    function(e) {
+                        "Error with decoding audio data" + e.err
+                    });
+            }
+            revebRequest.send();
+        }
+
+  </script>
+ <script>
+
+
+   var slider1 = document.getElementById('slider1');
+       slider1.addEventListener("change",function (data) {
+        var str= 0;
+       str= data.target.value 
+
+        osc2.frequency.value  = str;
+
+     });
+
+ var slider2 = document.getElementById('slider2');
+       slider2.addEventListener("change",function (data) {
+        var str= 0;
+       str= data.target.value 
+
+       amp2.gain.value = str;
+
+
+     });
+
+
+///////////////////////////////////////////////
+
+ var switch1 = document.getElementById('switch1');
+       switch1.addEventListener("change",function (data) {
+
+
+        if(e.target.value=="1") {
+           osc.type = 'square';
+                }
+             if(e.target.value=="0") {
+              osc.type = 'sawtooth';
+          }
+       
+        
+     });
+
+
+
+ var switch2 = document.getElementById('switch2');
+       switch2.addEventListener("change",function (data) {
+
+
+        if(e.target.value=="1") {
+           osc2.type = 'square';
+                }
+             if(e.target.value=="0") {
+              osc2.type = 'sawtooth';
+          }
+       
+           
+     });
+/////////////////////////////////////////////////////
+
+       var lowpass1 = document.getElementById('lowpass');
+       lowpass1.addEventListener("change",function (data) {
+        var str= 0;
+       str= data.target.value 
+
+   lowpass.frequency.value = str;
+
+
+
+     });
+
+var lowpass_q = document.getElementById('lowpass_q');
+       lowpass_q.addEventListener("change",function (data) {
+        var str= 0;
+       str= data.target.value 
+
+         lowpass.Q.value = str;
+
+
+     });
+
+
+//////////////////////////////////////////////////////////////
+
+
+
+
+
+       var reverb_dial = document.getElementById('reverb');
+       reverb_dial.addEventListener("change",function (data) {
+        var str= 0;
+       str= data.target.value 
+
+      reverb_Gain.gain.value = str;
+
+
+     });
+
+
+
+//////////////////////////////////////////////////////////////
+
+
+
+
+
+       var amp_out = document.getElementById('amp_out');
+       amp_out.addEventListener("change",function (data) {
+        var str= 0;
+       str= data.target.value 
+
+      amp_gain = str;
+
+
+     });
+
+
+
+
+
+    </script>
+
+
+
+
+  <script>
+
+var x = 0, y = 0,
+    vx = 0, vy = 0,
+    ax = 0, ay = 0;
+var sensor =0;
+    
+
+if (window.DeviceMotionEvent != undefined) {
+    window.ondevicemotion = function(e) {
+        ax = event.accelerationIncludingGravity.x * 5;
+        ay = event.accelerationIncludingGravity.y * 5;
+   sensor = e.accelerationIncludingGravity.y.toFixed(0);
+        document.getElementById("accelerationY").innerHTML = sensor;
+
+        
+    }
+    
+} 
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
