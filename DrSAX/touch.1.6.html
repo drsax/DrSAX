@@ -16,24 +16,30 @@
 <!-- css start -->
 
     <style>
+    body {
+    background-image: url("cont/img/bbb.png");
+}
         .box {
             width: 400px;
             height: 400px;
             padding: 10px;
-            border: 1px solid orange;
+           
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
             background: black;
             border-radius: 200px;
+             border: 20px solid orange;
+            border-style: solid;
+             border-color: gray;
         }
 
     </style>
 
     <style>
         .button {
-            background-color: yellow;
-            border: none;
+            background-color: #b3b3b3;
+    
             color: gray;
             padding: 40px 10px;
             text-align: center;
@@ -42,6 +48,9 @@
             font-size: 30px;
             border-radius: 100px;
             cursor: pointer;
+             border: 20px solid orange;
+            border-style: solid;
+             border-color: black;
         }
     </style>
 
@@ -112,12 +121,19 @@
 
 <!-- music button -->
 
-    <canvas class="box" id="box1"></canvas><button class="button" onclick="openNav();">Dr.sax set  </button>
+    <canvas class="box" id="box1"></canvas>
+
+                                    <button class="button" >Dr.sax!</button>
+
     <canvas class="box" id="box2"></canvas>
-    <canvas class="box" id="box3"></canvas><button class="button">Click Me!</button>
+    <canvas class="box" id="box3"></canvas>
+
+
+  
+    <button class="button" onclick="openNav();">control   </button>
     <canvas class="box" id="box4"></canvas>
     <canvas class="box" id="box5"></canvas>
-    <button class="button" id="in" onclick="micInputon();">Mic Input </button>
+    <button class="button" id="in" onclick="micInputon();">blowing </button>
     <canvas class="box" id="box6"></canvas>
 
 
@@ -644,7 +660,7 @@
 
                 
             } else {
-                document.getElementById("in").setAttribute("style", "background-color:yellow;");
+                document.getElementById("in").setAttribute("style", "background-color:#b3b3b3;");
                 amp.gain.value = 0;   
                 osc.frequency.value = 0;
       osc2.disconnect(amp2);
