@@ -177,7 +177,7 @@
       min="0"  max="2000" step="1" diameter="250" sprites="30"></webaudio-knob>
 
 
-  <webaudio-knob id="lowpass_q" style=" position:absolute;left:399px;top:649px;" src="cont/img/dde.png" value="100"
+  <webaudio-knob id="lowpass_q" style=" position:absolute;left:399px;top:649px;" src="cont/img/dde.png" value="10"
       min="0"  max="20" step="0.5" diameter="250" sprites="30"></webaudio-knob>
 
   <h1 style="position:absolute;left:200px;top:900px;font-size:25px;
@@ -189,7 +189,7 @@
 
 <!-- Reverb dial --> 
 
-  <webaudio-knob id="reverb" style=" position:absolute;left:99px;top:1000px;" src="cont/img/dde.png" value="100"
+  <webaudio-knob id="reverb" style=" position:absolute;left:99px;top:1000px;" src="cont/img/dde.png" value="0.5"
       min="0"  max="1" step="0.05" diameter="250" sprites="30"></webaudio-knob>
 
 
@@ -232,7 +232,7 @@
             e.preventDefault()
             document.getElementById("box1").setAttribute("style", "background-color:red;");
 
-
+     osc2.connect(amp2);
        if(sensor > 1)
         { osc.frequency.value = 1568; }
 
@@ -281,7 +281,7 @@
             e.preventDefault()
             document.getElementById("box2").setAttribute("style", "background-color:red;");
 
-
+     osc2.connect(amp2);
        if(sensor > 1)
         { osc.frequency.value = 440*4; }
 
@@ -333,7 +333,8 @@
             document.getElementById("box3").setAttribute("style", "background-color:red;");
 
 
- if(sensor > 1)
+          osc2.connect(amp2);
+        if(sensor > 1)
         { osc.frequency.value =  523*4; }
 
         else if(sensor < -2)
@@ -391,8 +392,8 @@
             e.preventDefault()
             document.getElementById("box4").setAttribute("style", "background-color:red;");
 
-
-  if(sensor > 1)
+        osc2.connect(amp2);
+       if(sensor > 1)
         { osc.frequency.value =  587*4; }
 
         else if(sensor < -2)
@@ -443,6 +444,7 @@
             document.getElementById("box5").setAttribute("style", "background-color:red;");
 
 
+           osc2.connect(amp2);
              if(sensor > 1)
         { osc.frequency.value =  659*4; }
 
@@ -534,7 +536,7 @@
         ///////// basic setting  ///////////
 
         var context = new AudioContext();
-        var mic, analyser, amp, osc, osc2, amp2;
+        var mic, analyser, amp, osc, osc2, amp2,amp3;
         var fmvalue = false;
         var amvalue = false;
         var subvalue = false;
@@ -542,6 +544,7 @@
         analyser = context.createAnalyser();
         amp = context.createGain();
         amp2 =  context.createGain();
+        amp3 =  context.createGain();
         osc = context.createOscillator();
         osc2 = context.createOscillator(); 
 
@@ -644,7 +647,7 @@
                 document.getElementById("in").setAttribute("style", "background-color:yellow;");
                 amp.gain.value = 0;   
                 osc.frequency.value = 0;
-          
+      osc2.disconnect(amp2);
                 
 
             }
