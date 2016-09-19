@@ -118,12 +118,48 @@
         }
     </style>
 
+<!-- drop down -->
+
+<style>
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    overflow: auto;
+    border-radius: 40px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 20px 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 60px ;
+        border-radius: 100px;
+}
+
+.dropdown-content a:hover {background-color: gray}
+
+.show {display:block;}
+</style>
 
 <!-- music button -->
 
     <canvas class="box" id="box1"></canvas>
 
-                                    <button class="button" >Dr.sax!</button>
+                                    <button  onclick="myFunction()" class="button" >Dr.sax!</button>
+
+
+
+  <div id="myDropdown" class="dropdown-content" style="position:absolute;left:320px;top:470px" >
+    <a onclick="sax();">saxophone</a>
+    <a onclick="sax();">taepyoungso</a>
+    <a onclick="sax();">flut</a>
+  </div>
+
+
 
     <canvas class="box" id="box2"></canvas>
     <canvas class="box" id="box3"></canvas>
@@ -605,7 +641,21 @@
         lowpass.Q.value  = 10; 
 
 
- 
+ function sax(){
+
+
+   amp.gain.value = 0;
+        osc.frequency.value = 0;
+        osc2.frequency.value = 1740;
+        amp2.gain.value = 1900;
+
+        reverb_Gain.gain.value = 0.3;
+
+
+        lowpass.frequency.value = 1437;
+        lowpass.Q.value  = 15; 
+
+ }
 
 
 
@@ -842,6 +892,27 @@ if (window.DeviceMotionEvent != undefined) {
 
 
 
+<script>
+
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+  if (!event.target.matches('.button')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 
 
 
