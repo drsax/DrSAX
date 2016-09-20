@@ -74,7 +74,7 @@ var sub = new DSX.Subtract({frequency:1230, cutoff:1000, gain:0.5});
 var abc =new DSX.BGsound();
 var Reverb =new DSX.Reverb(0.6);
 var saxInput =new DSX.Mic();
-
+var st =new DSX.valueChange("frq",osc.frequency);//  aux.gain,gain.gain ables
 
 
 
@@ -96,7 +96,7 @@ Reverb.startfrom(saxGain);
    function micInputoff() {
 saxInput.disconnect(saxGain);
    }
-osc.connect(sub);
+osc.connect(gain);
 Reverb.connect(gain);
 am.connect(saxComp);
 saxComp.connect(newEQ);
@@ -146,8 +146,11 @@ newEQ.miGain= data.target.value ;
  var drywt = document.getElementById("frq");
         drywt.addEventListener("change", function(data) {
       
-osc.drOsc.frequency.value = data.target.value ;
+//osc.drOsc.frequency.value = data.target.value ;
 });
+
+
+
 ///////////////////
     </script>
 

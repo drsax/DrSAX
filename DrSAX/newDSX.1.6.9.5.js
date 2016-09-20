@@ -711,16 +711,19 @@ DSX.prototype.Aux = function(properties) {
 
 
 
-DSX.prototype.Osc = function(type,frequency){
+DSX.prototype.Osc = function(type,freq){
     this.type = type;
-   this.frequency = frequency;
+    this.frequency = freq;
+ 
+
 
     this.drOsc = drsax.createOscillator();
     this.gain_out = drsax.createGain();
 
     this.drOsc.type = type;
-    this.drOsc.frequency.value=frequency;
-    
+    this.drOsc.frequency.value=freq;
+    this.frequency = this.drOsc.frequency; ///////simple datachange
+
     this.connect = function(out){
     this.out = out;
 
@@ -728,11 +731,6 @@ DSX.prototype.Osc = function(type,frequency){
     this.drOsc.start(0);
 
     };
-
-
- 
-
-   
 
      this.start = function(){
  
@@ -1128,6 +1126,25 @@ DSX.prototype.Mic = function(){
 }
 
 
+////////////////////dialInput///////////
+
+DSX.prototype.valueChange = function(c,b){
+
+
+   this.c=c;
+    this.b=b;
+     
+var dial_10 = document.getElementById(c);
+    dial_10.addEventListener("change",_dial10,false);
+
+  function _dial10(dial_data){  
+   b.value= dial_data.target.value;
+}
+
+}
+
+////////////////////////////////////////////////
+
   DSX.get = function(a,b) {
 
        var sum = a+b
@@ -1135,7 +1152,7 @@ DSX.prototype.Mic = function(){
     }
     
 
-////////////////////saxInput///////////
+
 
 
  
