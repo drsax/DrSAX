@@ -34,9 +34,9 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="close menu">
     <i class="fa fa-remove"></i>
   </a>
-  <h4><b>DrSaX.js</b></h4>
-  <a href="#" class="w3-hover-black"> DrSaX.js Home</a>
-  <a href="#" class="w3-hover-black">DrSaX.js Osc   </a>
+  <h4 ><b>DrSaX.js</b></h4>
+  <a href="#" class="w3-hover-black"> What is DrSaX.js?</a>
+  <a href="#oscstart" class="w3-hover-black">DrSaX.js Osc</a>
   <a href="#" class="w3-hover-black">DrSaX.js Delay </a>
   <a href="#" class="w3-hover-black">DrSaX.js input</a>
 </nav>
@@ -54,8 +54,6 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
 <!-- Main content: shift it to the right by 250 pixels when the sidenav is visible -->
 <div class="w3-main" style="margin-left:250px">
-
-
 <div class="w3-container w3-blue w3-center w3-padding-64">
   <h1 class="w3-margin w3-jumbo">DrSaX.js </h1>
   <p class="w3-xlarge">Web Audio library for Saxophone in JavaScript </p>
@@ -110,11 +108,9 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 <!-- main -->
 
 
-
+<a name="w"><a>
   <div class="w3-twothird w3-container"><!-- text in -->
-
-
-      <h1 class="w3-text">What is DrSax.js?</h1>
+    <h1 class="w3-text">What is DrSax.js?</h1>
       <p>DrSax.js is a modern Web Audio  framework with 
 
 Smaller and faster than other Web Audio frameworks.
@@ -137,9 +133,11 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
       </div>
       <!--code set -->
 
-
-
   </div><!------------------------------------------- text out -->
+
+
+
+
 
 
 
@@ -163,33 +161,43 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
          <p>Web Audio library for Saxophone in JavaScript.</p>
 
         </div>
-
         <!--code set -->  
-
     </div><!----------------------------------- text out -->
     
 
-    <div class="w3-twothird w3-container"><!-- text in -->
-       <h1 class="w3-text">Play the music</h1>
 
-      
+
+
+
+
+
+
+
+     
+
+
+    <div class="w3-twothird w3-container"><!-- text in -->
+          <a name="oscstart"><h1 class="w3-text">Make a sound osillator</h1></a>
        <p>To use DrSax.js in your web applications, download DrSax.js from downloads
        and just add a script to "DrSax.js" in script tag from your web pages   </p>
 
         <!-- code set -->
         <div class="w3-example">
+           <h3>DrSax.js setting</h3>
+          <div class="w3-code jsHigh notranslate">  
+<pre>  var osc = new  DSX.Osc("sawtooth",700);  
+  var gain = new DSX.Amp({ gain: 0.1});                     
+  osc.connect(gain);
+  gain.connect(DAC);                          </pre>
+
+
+
   
-          <h3>DrSax.js setting</h3>
-         <div class="w3-code jsHigh notranslate">
- <pre>  <!--x--><<!--x -->script<!--x-->><!--x --> src="newDSX.1.6.9.2.js" <!--x--><<!--x-->/script<!--x-->><!--x --> </pre>
                
-         </div>
-         <p>Web Audio library for Saxophone in JavaScript.</p>
-
+          </div>
+            <p>Web Audio library for Saxophone in JavaScript.</p>
         </div>
-
         <!--code set -->  
-
     </div><!----------------------------------- text out -->
     
 
@@ -197,6 +205,36 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
 
 
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
