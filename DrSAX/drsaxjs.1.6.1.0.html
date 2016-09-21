@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="cont/js/platform.js"></script>
+    <link rel="import" href="cont/webcomponents/polymer.html">
+    <link rel="import" href="cont/webcomponents/controls.html">
+
+
+    <title>DrSax.js for Saxophone </title>
+
+</head>
+
+
+<body>
+
+
+    <!-- main back ground image  -->
+
+    <div id="img2" style="display:block; position:absolute; top: 0px; left :0px; z-index:0">
+        <img id="img2" src="bg3.png" alt="Mountain View" style="width:1430px;height:800px;position:absolute;left:80px;top:20px"></div>
+
+     <h1  style="color:white;position:absolute;left:130px;">Dr.SAX.js.1.6.1.0 for Saxophone </h1>
+
+
+
+
+    <!-- FFT frequrncy Domain Canvas  -->
+
+    <div id="canvas1">
+
+        <canvas id="analyser1" style="position:absolute;left:635px;top:395px"></canvas>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- [no.1 layer left]  Saxophone Input area  -->
+
+    <webaudio-knob id="knob1" style="position:absolute;left:250px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="50" sprites="30"></webaudio-knob>  <!-- blue light -->
+
+    <webaudio-switch id="switch3" style="position:absolute;left:235px;top:120px " src="cont/img/blueswitch.png" value="0" height="80" width="80"></webaudio-switch>  <!-- silver switch-->
+
+    <webaudio-knob id="knob1" src="cont/img/bluedial.png" style="position:absolute;left:330px;top:80px " value="0" max="0.9" step="0.01" diameter="90" sprites="30"></webaudio-knob> <!-- blue Dial -->
+ 
+
+
+
+    <!-- [no.1 layer left]  sliver swtich area  -->
+
+    <webaudio-switch id="switch3" style="position:absolute;left:430px;top:120px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch><!-- silver switch-->
+
+    <webaudio-switch id="switch3" style="position:absolute;left:500px;top:120px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch><!-- silver switch-->
+
+    <webaudio-switch id="switch1" style="position:absolute;left:570px;top:120px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch><!-- silver switch-->
+
+    <webaudio-switch id="switch1" style="position:absolute;left:640px;top:120px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch><!-- silver switch-->
+
+    <webaudio-switch id="switch1" style="position:absolute;left:710px;top:120px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch><!-- silver switch-->
+
+
+   
+    <webaudio-knob id="knob1" style="position:absolute;left:435px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="50" sprites="30"></webaudio-knob>  <!-- blue light -->
+    <webaudio-knob id="knob1" style="position:absolute;left:505px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="50" sprites="30"></webaudio-knob>  <!-- blue light -->
+
+    <webaudio-knob id="knob1" style="position:absolute;left:575px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="50" sprites="30"></webaudio-knob>  <!-- blue light -->
+
+    <webaudio-knob id="knob1" style="position:absolute;left:645px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="50" sprites="30"></webaudio-knob>  <!-- blue light -->
+
+    <webaudio-knob id="knob1" style="position:absolute;left:715px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="50" sprites="30"></webaudio-knob>  <!-- blue light -->
+
+
+
+
+
+
+<!-- [no.1 layer right]  Oscillator area  -->
+
+    <webaudio-knob id="knob1" style="position:absolute;left:850px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="50" sprites="30"></webaudio-knob>  <!-- blue light -->
+
+    <webaudio-switch id="switch3" style="position:absolute;left:835px;top:120px " src="cont/img/blueswitch.png" value="0" height="80" width="80"></webaudio-switch>  <!-- silver switch-->
+
+    <webaudio-knob id="knob1" src="cont/img/bluedial.png" style="position:absolute;left:930px;top:80px " value="0" max="0.9" step="0.01" diameter="90" sprites="30"></webaudio-knob> <!-- blue Dial -->
+ 
+
+
+
+
+
+
+
+ <!-- [no.2 layer] Main text area -->
+
+       <webaudio-switch id="switch3" style="position:absolute;left:245px;top:310px " src="cont/img/blueswitch.png" value="0" height="80" width="80"></webaudio-switch> <!-- silver switch-->
+
+
+
+
+
+
+
+
+
+
+    <webaudio-switch id="switch3" style="position:absolute;left:900px;top:50px " src="cont/img/button.png" value="0" height="80" width="80"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1000px;top:50px " src="cont/img/button.png" value="0" height="80" width="80"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1100px;top:50px " src="cont/img/button.png" value="0" height="80" width="80"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1200px;top:50px " src="cont/img/button.png" value="0" height="80" width="80"></webaudio-switch>
+
+
+
+    <webaudio-switch id="switch3" style="position:absolute;left:900px;top:300px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
+
+    <webaudio-switch id="switch1" style="position:absolute;left:1000px;top:300px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
+
+    <webaudio-switch id="switch1" style="position:absolute;left:1100px;top:300px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
+
+
+
+
+
+    <webaudio-switch id="switch3" style="position:absolute;left:900px;top:120px " src="cont/img/swt.png" value="1" height="40" width="40"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1000px;top:120px " src="cont/img/swt.png" value="0" height="40" width="40"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1100px;top:120px " src="cont/img/swt.png" value="0" height="40" width="40"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1200px;top:120px " src="cont/img/swt.png" value="0" height="40" width="40"></webaudio-switch>
+
+
+
+
+
+    <webaudio-switch id="switch3" style="position:absolute;left:160px;top:385px " src="cont/img/blue.png" value="0" height="50" width="50"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1090px;top:385px " src="cont/img/blue.png" value="1" height="50" width="50"></webaudio-switch>
+
+
+    <webaudio-switch id="switch3" style="position:absolute;left:160px;top:550px " src="cont/img/blue.png" value="1" height="50" width="50"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1090px;top:550px " src="cont/img/blue.png" value="1" height="50" width="50"></webaudio-switch>
+
+
+
+
+
+    <webaudio-switch id="switch3" style="position:absolute;left:1110px;top:750px " src="cont/img/onoff.png" value="0" height="80" width="80"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1180px;top:750px " src="cont/img/onoff.png" value="0" height="80" width="80"></webaudio-switch>
+
+
+
+
+
+    <webaudio-knob id="knob1" style="position:absolute;left:1150px;top:400px " src="cont/img/kblack.png" value="0" max="10" step="1" diameter="80" sprites="9"></webaudio-knob>
+    <webaudio-knob id="knob1" style="position:absolute;left:1250px;top:400px " src="cont/img/kblack.png" value="0" max="10" step="1" diameter="80" sprites="9"></webaudio-knob>
+    <webaudio-knob id="knob1" style="position:absolute;left:1350px;top:400px " src="cont/img/kblack.png" value="0" max="10" step="1" diameter="80" sprites="9"></webaudio-knob>
+
+
+
+
+
+    <webaudio-knob id="knob1" style="position:absolute;left:1150px;top:550px " src="cont/img/3dd.png" value="0" max="10" step="1" diameter="60" sprites="100"></webaudio-knob>
+    <webaudio-knob id="knob1" style="position:absolute;left:1250px;top:550px " src="cont/img/3dd.png" value="0" max="10" step="1" diameter="60" sprites="100"></webaudio-knob>
+    <webaudio-knob id="knob1" style="position:absolute;left:1350px;top:550px " src="cont/img/3dd.png" value="0" max="10" step="1" diameter="60" sprites="100"></webaudio-knob>
+
+
+
+
+
+
+
+
+    <webaudio-slider id="slide4" style="position:absolute;left:480px;top:400px" src="cont/img/vsliderbody.png" knobsrc="cont/img/vsliderknob.png" value="0" step='0.1' min="0.0" max="1.0" step="1" width="30" height="100" basewidth="30" baseheight="80" knobwidth="24" knobheight="24" ditchLength="100"></webaudio-slider>
+
+
+    <webaudio-knob id="knob1" style="position:absolute;left:1270px;top:700px" style="top:30px" src="cont/img/knoo.png" value="0" max="2000" step="1" diameter="130" sprites="30"></webaudio-knob>
+
+
+    </div>
+
+
+
+
+
+ 
+
+
+
+
+
+    <webaudio-knob id="knob1" style=" position:absolute;left :200px;  top: 400px; " src="cont/img/cehi.png" value="0" max="2000" step="1" diameter="80" sprites="49"></webaudio-knob>
+    <webaudio-knob id="knob88" style=" position:absolute;left :300px;  top: 400px; " src="cont/img/cehi.png" value="0" max="2000" step="1" diameter="80" sprites="49"></webaudio-knob>
+    <webaudio-knob id="knob88" style=" position:absolute;left :400px;  top: 400px; " src="cont/img/cehi.png" value="0" max="2000" step="1" diameter="80" sprites="49"></webaudio-knob>
+
+
+
+
+
+    <webaudio-knob id="knob1" style=" position:absolute;left :200px;  top: 570px; " src="cont/img/dde.png" value="0" max="2000" step="1" diameter="70" sprites="30"></webaudio-knob>
+    <webaudio-knob id="knob1" style=" position:absolute;left :300px;  top: 570px; " src="cont/img/dde.png" value="0" max="2000" step="1" diameter="70" sprites="30"></webaudio-knob>
+    <webaudio-knob id="knob1" style=" position:absolute;left :400px;  top: 570px; " src="cont/img/dde.png" value="0" max="2000" step="1" diameter="70" sprites="30"></webaudio-knob>
+
+
+
+
+
+    <h1 id="text" style="position:absolute;left:400px;top:200px"> Interactive Web-Music
+    </h1>
+
+    <button class="button" style="position:absolute;left:750px;top:210px" onclick="text();">Talk</button>
+
+
+
+    <input type="range" class="ver" style="position:absolute;left:209px;top:485px" id="ver" name="points" value="0" step="0.1" min="0" max="100">
+    <input type="range" class="ver" style="position:absolute;left:309px;top:485px" id="ver1" name="points" value="0" step="0.1" min="0" max="100">
+    <input type="range" class="ver" style="position:absolute;left:409px;top:485px" id="ver2" name="points" value="0" step="0.1" min="0" max="100">
+
+
+
+
+
+    <input type="range" class="ver" style="position:absolute;left:1150px;top:485px" id="ver" name="points" value="0" step="0.1" min="0" max="100">
+    <input type="range" class="ver" style="position:absolute;left:1250px;top:485px" id="ver1" name="points" value="0" step="0.1" min="0" max="100">
+    <input type="range" class="ver" style="position:absolute;left:1350px;top:485px" id="ver2" name="points" value="0" step="0.1" min="0" max="100">
+
+
+
+
+
+    <input type="range" class="ver" style="position:absolute;left:209px;top:650px" id="ver" name="points" value="0" step="0.1" min="0" max="100">
+    <input type="range" class="ver" style="position:absolute;left:309px;top:650px" id="ver1" name="points" value="0" step="0.1" min="0" max="100">
+    <input type="range" class="ver" style="position:absolute;left:409px;top:650px" id="ver2" name="points" value="0" step="0.1" min="0" max="100">
+
+
+
+
+    <input type="range" class="ver" style="position:absolute;left:1150px;top:650px" id="ver" name="points" value="0" step="0.1" min="0" max="100">
+    <input type="range" class="ver" style="position:absolute;left:1250px;top:650px" id="ver1" name="points" value="0" step="0.1" min="0" max="100">
+    <input type="range" class="ver" style="position:absolute;left:1350px;top:650px" id="ver2" name="points" value="0" step="0.1" min="0" max="100">
+
+
+
+    <p id="knob" style="position:absolute;left:40px;top:20px">CH.1 Value</p>
+    <p id="knob1" style="position:absolute;left:50px;top:20px">CH.2 Value</p>
+    <p id="knob2" style="position:absolute;left:60px;top:20px">CH.3 Value</p>
+    <h1 id="player" style="position:absolute;left:900px;top:200px"></h1>
+
+
+
+
+
+    <style>
+        div#canvas1>canvas {
+            width: 350px;
+            height: 120px;
+            background: black;
+            float: left;
+        }
+        /* vusual canvas */
+    </style>
+
+
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .overlay {
+            height: 30%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 600px;
+            left: 0;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+        
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .overlay a {
+            padding: 8px;
+            text-decoration: none;
+            font-size: 36px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        
+        .overlay a:hover,
+        .overlay a:focus {
+            color: #f1f1f1;
+        }
+        
+        .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 30px !important;
+        }
+        
+        @media screen and (max-height: 450px) {
+            .overlay a {
+                font-size: 20px
+            }
+            .closebtn {
+                font-size: 40px !important;
+                top: 15px;
+                right: 35px;
+            }
+        }
+    </style>
+
+    <style>
+    .ver {
+            top: 40%;
+            transform: rotate(270deg);
+        }
+        
+        .ver {
+            -webkit-appearance: none;
+            margin: 10px;
+            width: 20%;
+        }
+        
+        .ver:focus {
+            outline: none;
+        }
+        
+        .ver::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 3px;
+            cursor: pointer;
+            background: gray;
+        }
+        
+        .ver::-webkit-slider-thumb {
+            height: 20px;
+            width: 15px;
+            border-radius: 3px;
+            background: black;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -7.6px;
+        }
+    }
+    </style>
+
+
+    <style>
+    body {
+            background-color: black;
+        }
+        
+        .ver {
+            position: absolute;
+            top: 40%;
+            transform: rotate(270deg);
+        }
+        
+        .ver {
+            -webkit-appearance: none;
+            margin: 10px;
+            width: 35px;
+        }
+        
+        .ver:focus {
+            outline: none;
+        }
+        
+        s .ver::-webkit-slider-runnable-track {
+            width: 5px;
+            height: 3px;
+            cursor: pointer;
+            background: gray;
+        }
+        
+        .ver::-webkit-slider-thumb {
+            height: 20px;
+            width: 10px;
+            border-radius: 3px;
+            background: #50b4ff;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -7.6px;
+        }
+    }
+    </style>
+
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 17px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: white;
+            background-color: black;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        
+        .button:hover {
+            background-color: #242424
+        }
+        
+        .button:active {
+            background-color: #484848;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+
+
+
+
+
+    <script>
+        var canvas, ctx, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
+        // Initialize the MP3 player after the page loads all of its HTML into the windo
+        window.addEventListener("load", sinesound, false);
+
+        function sinesound() {
+            context = new AudioContext(); // AudioContext object instance
+            analyser = context.createAnalyser(); // AnalyserNode method
+            canvas = document.getElementById('analyser1');
+            ctx = canvas.getContext('2d');
+            osc = context.createOscillator();
+            gain = context.createGain();
+
+            gain.gain.value = 0.01;
+            osc.type = 'sawtooth';
+            osc.frequency.value = 315;
+
+
+            osc.connect(gain);
+            gain.connect(analyser);
+            analyser.connect(context.destination);
+
+            osc.start(0);
+            frameLooper();
+        }
+        // frameLooper() animates any style of graphics you wish to the audio frequency
+        // Looping at the default frame rate that the browser provides(approx. 60 FPS)
+        function frameLooper() {
+            window.webkitRequestAnimationFrame(frameLooper);
+            fbc_array = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(fbc_array);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            ctx.fillStyle = '#50b4ff'; // Color of the bars
+            bars = 200;
+            for (var i = 0; i < bars; i++) {
+                bar_x = i * 3;
+                bar_width = 2;
+                bar_height = -(fbc_array[i] / 2);
+                //  fillRect( x, y, width, height ) // Explanation of the parameters below
+                ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
+            }
+        }
+    </script>
+
+    <script>
+        var startButton = document.querySelector('.start'),
+            stopButton = document.querySelector('.stop'),
+            freqSlider = document.querySelector(".freq-slider"),
+            detuneSlider = document.querySelector('.detune-slider'),
+            gainSlider = document.querySelector('.gain-slider'),
+
+            freqDisplay = document.querySelector('.freq'),
+            freqDisplay1 = document.querySelector('.freq1');
+        // load our default value
+        init();
+        // setup start/stop
+        startButton.onclick = start;
+        stopButton.onclick = stop;
+        // setup waveform chan
+        function init() {
+            audioContext = new(window.AudioContext)();
+            amp = audioContext.createGain();
+            lowpass = audioContext.createBiquadFilter();
+            osc = audioContext.createOscillator();
+            osc.type = 'sawtooth';
+            osc.frequency.value = 315;
+            lowpass.frequency.value = 200;
+
+            osc.connect(lowpass);
+            lowpass.connect(amp);
+            osc.start(0);
+
+            function ddd(e) {
+
+                if (e.target.value == "1") {
+                    amp.connect(audioContext.destination);
+                }
+                if (e.target.value == "0") {
+                    amp.disconnect(audioContext.destination);
+                }
+
+            }
+            var switch3 = document.getElementById('switch3');
+            switch3.addEventListener("change", ddd, false);
+
+            function sin(e) {
+
+                if (e.target.value == "0") {
+                    osc.type = 'sine';
+                }
+                if (e.target.value == "1") {
+
+
+                }
+            }
+            var switch4 = document.getElementById('switch4');
+            switch4.addEventListener("change", sin, false);
+            freqSlider.oninput = function() {
+                    changeFreq(freqSlider.value);
+                }
+                // change frequency
+            function changeFreq(fff) {
+                osc.frequency.value = fff;
+                freqDisplay1.innerHTML = fff + 'Hz';
+            }
+
+            function changeFreq(ff) {
+                osc.frequency.value = ff;
+                freqDisplay.innerHTML = ff + 'Hz';
+            }
+        }
+    </script>
+
+
+
+
+    <script>
+        var knob1 = document.getElementById('knob1');
+        knob1.addEventListener("change", knob, false);
+        var slide2 = document.getElementById('slide2');
+        slide2.addEventListener("change", knob, false);
+
+        function knob(data) {
+            var str = 0;
+            str = data.target.value
+            lowpass.frequency.value = str;
+        }
+
+        var knob2 = document.getElementById('knob2');
+        knob2.addEventListener("change", knob22, false);
+        var slide3 = document.getElementById('slide3');
+        slide3.addEventListener("change", knob22, false);
+
+        function knob22(data) {
+            var str = 0;
+            str = data.target.value
+            lowpass.Q.value = str;
+        }
+        var knob3 = document.getElementById('knob3');
+        knob3.addEventListener("change", knob33, false);
+        var slide4 = document.getElementById('slide4');
+        slide4.addEventListener("change", knob33, false);
+
+        function knob33(data) {
+            var str = 0;
+            str = data.target.value
+            amp.gain.value = str;
+        }
+        var knob4 = document.getElementById('knob4');
+        knob4.addEventListener("change", knob44, false);
+        var slide1 = document.getElementById('slide1');
+        slide1.addEventListener("change", knob44, false);
+
+        function knob44(data) {
+            var str = 0;
+            str = data.target.value
+            osc.frequency.value = str;
+        }
+        var key1 = document.getElementById("key1");
+        key1.addEventListener('change', key11, false);
+        key1.addEventListener('note', key11, false);
+
+        function key11(data) {
+            var str = 0;
+            str = 880 * 4 * Math.pow(2, (data.note[1] - 69) / 12);
+            osc.frequency.value = str;
+            freqDisplay1.innerHTML = str.toFixed(0) + 'Hz'
+            if (data.note[0] == "1") {
+                amp.gain.value = 0.7;
+
+            }
+            if (data.note[0] == "0") {
+                amp.gain.value = 0;
+            }
+
+        }
+    </script>
+
+
+
+
+
+    <script>
+        var socket = io();
+
+        var knob = document.getElementById('ver');
+        knob.addEventListener("change", knob0, false);
+
+        function knob0(data) {
+
+            var str = data.target.value
+
+            socket.emit('1', str);
+        }
+
+        socket.on('1', function(str) {
+            document.getElementById('knob').innerHTML = str;
+            document.getElementById('ver').value = str;
+        });
+
+
+
+
+        var knob1 = document.getElementById('ver1');
+        knob1.addEventListener("change", knob11, false);
+
+        function knob11(data) {
+
+            var str = data.target.value
+
+            socket.emit('2', str);
+        }
+
+        socket.on('2', function(str) {
+            document.getElementById('knob1').innerHTML = str;
+            document.getElementById('ver1').value = str;
+        });
+
+        var knob2 = document.getElementById('ver2');
+        knob2.addEventListener("change", knob22, false);
+
+        function knob22(data) {
+
+            var str = data.target.value
+
+            socket.emit('3', str);
+        }
+
+        socket.on('3', function(str) {
+            document.getElementById('knob2').innerHTML = str;
+            document.getElementById('ver2').value = str;
+        });
+
+
+
+        /////////////////////////////////////////////////////////////////////////////
+
+        function text() {
+
+            var text;
+
+            text = prompt(" hi Dr.Hong ");
+
+
+            socket.emit('10', text);
+
+        }
+
+
+        socket.on('10', function(text) {
+            document.getElementById("text").innerText = text;
+
+
+
+        });
+        ///////////////////////////////////////////////
+        //socket.on('id',function(id){ 
+
+        //document.getElementById("aaa").innerText =;
+
+        //});
+
+        socket.on('change name', function(name) {
+
+            document.getElementById("player").innerText = "We are playing with " + name + " " + "players";
+
+        });
+        socket.on('change name', function(minus) {
+
+            document.getElementById("player").innerText = "We are playing  with " + minus + " " + "players";
+
+        });
+
+        ///////////////////////////////////////////////////////////////////////////////
+        function see() {
+
+            socket.emit('user', 'data');
+        }
+
+        socket.on('user', function() {
+            document.getElementById('name').innerHTML = "see";
+
+        });
+
+
+        function hello() {
+
+            socket.emit('star', 'data');
+        }
+
+        socket.on('star', function() {
+            document.getElementById('name').innerHTML = "hide";
+
+        });
+    </script>
+    <script>
+        function da(e) {
+
+            if (e.target.value == "1") {
+                openNav();
+            }
+            if (e.target.value == "0") {
+                openNav();
+
+            }
+
+        }
+        var switch3 = document.getElementById('switch3');
+        switch3.addEventListener("change", da, false);
+
+
+
+        function openNav() {
+            document.getElementById("myNav").style.width = "100%";
+        }
+
+        function closeNav() {
+            document.getElementById("myNav").style.width = "0%";
+        }
+    </script>
+
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">close</a>
+        <div class="overlay-content">
+            <webaudio-keyboard id="key1" value="0" direction="" max="1000" step="1" keys="80" width="1350" height="150" style="display:inline-block;border:3px; margin:0px;" </webaudio-keyboard>
+
+        </div>
+
+</body>
+
+
+</html>
