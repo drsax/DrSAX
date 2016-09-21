@@ -82,7 +82,7 @@ var ana =new DSX.Analyser(2048);
 var ggg =new DSX.freqDomain('canvas');// canvas
 ggg.getAnalyser(inputgain); //canvas method
 //// toggle bang/////
-qqq.set(tt);
+qqq.setToggle(tt);
 function tt(){
 osc.start();
 
@@ -90,7 +90,7 @@ osc.start();
 
 
 //// change/////
-st.set(stt);// controll various data
+st.setRange(stt);// controll various data
 function stt(){
 if(osc.frequency.value > 600) {
   alert("Df");

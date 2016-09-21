@@ -1167,7 +1167,7 @@
 
         }
 
-        this.set = function(out) {
+        this.setRange = function(out) {
             this.out = out;
             this.dial_10.addEventListener("change", out, false);
 
@@ -1189,7 +1189,7 @@
             this.dial_10 = document.getElementById(c);
 
 
-            this.set = function(out) {
+            this.setToggle = function(out) {
                 this.out = out;
                 this.dial_10.addEventListener("click", out, false);
 
