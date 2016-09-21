@@ -691,6 +691,60 @@ DSX.prototype.Aux = function(properties) {
 
 
 
+
+DSX.prototype.Analyser = function(properties) {
+       if (!properties) {
+            properties = this.getDefaults();
+        }
+        this.input = drsaxContext.createGain();
+        this.activateNode = drsaxContext.createGain();
+
+        this.Analyser =drsaxContext.createAnalyser();
+        this.output = drsaxContext.createGain();
+
+        this.activateNode.connect(this.Analyser);
+        this.Analyser.connect(this.output);
+
+         this.fftsize = properties.fftsize || this.defaults.fftsize;
+         this.bypass = properties.bypass || false;
+
+    };
+   
+ DSX.prototype.Analyser.prototype = Object.create(Super, {
+        name: {
+            value: "Analyser"
+        },
+        defaults: {
+            writable: true,
+            value: {
+                fftsize: {
+                    value: 2048,
+                    min: 0,
+                    max: 10000,
+                    automatable: false,
+                    type: FLOAT
+                },
+          
+
+            }
+        },
+        fftsize: {
+            enumerable: true,
+            get: function() {
+                return this.Analyser.fftsize;
+            },
+            set: function(value) {
+                this.Analyser.fftsize = value;
+            }
+        }
+       
+   
+    });
+
+
+
+
+
 ///////////////////////////////////////////////
 
 
@@ -703,9 +757,6 @@ DSX.prototype.Aux = function(properties) {
 
 
 
-
-
- DSX.dac = DAC = drsax.destination;
 
 
 
@@ -1185,6 +1236,10 @@ this.set = function(out) {
     
 
 
+ DSX.dac = DAC = drsax.destination;
+
+
+ DSX.daqq= aann =drsax.createAnalyser();
 
 
  
