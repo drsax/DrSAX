@@ -633,27 +633,28 @@
 
         amp.gain.value = 0;
         osc.frequency.value = 0;
-        osc2.frequency.value = 1000;
+        osc2.frequency.value = 0;
         amp2.gain.value = 1000;
 
         reverb_Gain.gain.value = 0.3;
 
 
         lowpass.frequency.value = 1037;
-        lowpass.Q.value  = 10; 
+        lowpass.Q.value  = 20; 
 
 
  function timbre(){
 
-   amp.gain.value = 0;
+        amp.gain.value = 0;
         osc.frequency.value = 0;
-        osc2.frequency.value = 1740;
-        amp2.gain.value = 1900;
+
+        osc2.frequency.value = 0;
+        amp2.gain.value = 10;
 
         reverb_Gain.gain.value = 0.3;
 
 
-        lowpass.frequency.value = 1437;
+        lowpass.frequency.value = 100;
         lowpass.Q.value  = 15; 
 
  }
