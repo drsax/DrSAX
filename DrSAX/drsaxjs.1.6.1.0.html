@@ -23,7 +23,6 @@
     <div id="img2" style="display:block; position:absolute; top: 0px; left :0px; z-index:0">
         <img id="img2" src="bg3.png" alt="Mountain View" style="width:1430px;height:800px;position:absolute;left:80px;top:20px"></div>
 
-     <h1  style="color:white;position:absolute;left:130px;">Dr.SAX.js.1.6.1.0 for Saxophone </h1>
 
 
 
@@ -32,7 +31,7 @@
 
     <div id="canvas1">
 
-        <canvas id="analyser1" style="position:absolute;left:635px;top:395px"></canvas>
+        <canvas id="analyser1" style="position:absolute;left:705px;top:303px"></canvas>
     </div>
 
 
@@ -44,11 +43,11 @@
 
     <!-- [no.1 layer left]  Saxophone Input area  -->
 
-    <webaudio-knob id="knob1" style="position:absolute;left:255px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="40" sprites="30"></webaudio-knob>  <!-- blue light -->
+    <webaudio-knob id="sax__led_on" style="position:absolute;left:255px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="40" sprites="30"></webaudio-knob>  <!-- blue light -->
 
-    <webaudio-switch id="switch3" style="position:absolute;left:235px;top:120px " src="cont/img/blueswitch.png" value="0" height="80" width="80"></webaudio-switch>  <!-- silver switch-->
+    <webaudio-switch id="saxmic_on" style="position:absolute;left:235px;top:120px " src="cont/img/blueswitch.png" value="0" min="0" max="1" height="80" width="80"></webaudio-switch>  <!-- silver switch-->
 
-    <webaudio-knob id="knob1" src="cont/img/bluedial.png" style="position:absolute;left:330px;top:80px " value="0" max="0.9" step="0.01" diameter="90" sprites="30"></webaudio-knob> <!-- blue Dial -->
+    <webaudio-knob id="knob1" src="cont/img/bluedial.png" style="position:absolute;left:330px;top:80px " value="0.3" max="0.9" step="0.01" diameter="90" sprites="30"></webaudio-knob> <!-- blue Dial -->
  
 
 
@@ -129,7 +128,7 @@
 
  <!-- [no.2 layer] Main text area -->
 
-       <webaudio-switch id="switch3" style="position:absolute;left:245px;top:310px " src="cont/img/blueswitch.png" value="0" height="80" width="80"></webaudio-switch> <!-- silver switch-->
+       <webaudio-switch id="switch3" style="position:absolute;left:245px;top:310px " src="cont/img/blueswitch.png" value="0" height="80" width="80"></webaudio-switch> <!-- blue switch-->
 
 
 
@@ -140,18 +139,34 @@
 
 
 
-    <webaudio-switch id="switch3" style="position:absolute;left:900px;top:450px " src="cont/img/button.png" value="0" height="80" width="80"></webaudio-switch>
-    <webaudio-switch id="switch3" style="position:absolute;left:1000px;top:450px " src="cont/img/button.png" value="0" height="80" width="80"></webaudio-switch>
-    <webaudio-switch id="switch3" style="position:absolute;left:1100px;top:450px " src="cont/img/button.png" value="0" height="80" width="80"></webaudio-switch>
-    <webaudio-switch id="switch3" style="position:absolute;left:1200px;top:450px " src="cont/img/button.png" value="0" height="80" width="80"></webaudio-switch>
+            <!--  silver swhitch  -->
 
-
-
-    <webaudio-switch id="switch3" style="position:absolute;left:900px;top:300px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
-
-    <webaudio-switch id="switch1" style="position:absolute;left:1000px;top:300px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
+    <webaudio-switch id="switch3" style="position:absolute;left:1000px;top:300px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
 
     <webaudio-switch id="switch1" style="position:absolute;left:1100px;top:300px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
+
+    <webaudio-switch id="switch1" style="position:absolute;left:1200px;top:300px " src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
+
+
+        <!-- [no.3 layer] Main mixer area -->
+
+
+
+    <webaudio-switch id="switch3" style="position:absolute;left:620px;top:380px " src="cont/img/blue.png" value="0" height="50" width="50"></webaudio-switch> <!-- blue led on/off-->
+
+
+  <webaudio-slider id="monet22"  style="position:absolute;left:675px;top:385px"src="s1.png"   knobsrc="bb44.png"  value="50" min="0" max="200" step="1" width="40" height="110"  basewidth="40" baseheight="110" knobwidth="40" knobheight="40" ditchLength="90" tooltip="Frequency"></webaudio-slider>
+
+  <webaudio-slider id="monet22"  style="position:absolute;left:735px;top:385px"src="s1.png"   knobsrc="bb44.png"  value="50" min="0" max="200" step="1" width="40" height="110"  basewidth="40" baseheight="110" knobwidth="40" knobheight="40" ditchLength="90" tooltip="Frequency"></webaudio-slider>
+
+
+  <webaudio-slider id="monet22"  style="position:absolute;left:795px;top:385px"src="s1.png"   knobsrc="bb44.png"  value="50" min="0" max="200" step="1" width="40" height="110"  basewidth="40" baseheight="110" knobwidth="40" knobheight="40" ditchLength="90" tooltip="Frequency"></webaudio-slider>
+
+
+  <webaudio-slider id="monet22"  style="position:absolute;left:855px;top:385px"src="s1.png"   knobsrc="bb44.png"  value="50" min="0" max="200" step="1" width="40" height="110"  basewidth="40" baseheight="110" knobwidth="40" knobheight="40" ditchLength="90" tooltip="Frequency"></webaudio-slider>
+
+
+  <webaudio-slider id="monet22"  style="position:absolute;left:915px;top:385px"src="s1.png"   knobsrc="bb44.png"  value="50" min="0" max="200" step="1" width="40" height="110"  basewidth="40" baseheight="110" knobwidth="40" knobheight="40" ditchLength="90" tooltip="Frequency"></webaudio-slider>
 
 
 
@@ -237,10 +252,16 @@
 
 
 
-    <h1 id="text" style="position:absolute;left:400px;top:200px"> Interactive Web-Music
+    <h1 id="text" style="position:absolute;left:300px;top:220px"> Dr.SAX.js.1.6.1.0 for Saxophone 
     </h1>
 
-    <button class="button" style="position:absolute;left:750px;top:210px" onclick="text();">Talk</button>
+    <button class="button" style="position:absolute;left:767px;top:230px" onclick="text();">Talk</button>
+
+
+    <h1 id="text" style="position:absolute;left:870px;top:220px"> Interactive web audio effects 
+    </h1>
+
+
 
 
 
@@ -273,13 +294,18 @@
 
 
 
-    <p id="knob" style="position:absolute;left:40px;top:20px">CH.1 Value</p>
-    <p id="knob1" style="position:absolute;left:50px;top:20px">CH.2 Value</p>
-    <p id="knob2" style="position:absolute;left:60px;top:20px">CH.3 Value</p>
-    <h1 id="player" style="position:absolute;left:900px;top:200px"></h1>
 
 
-  <div id="audio_box" style="width:500px; height:60px; background:#000;"></div>
+<!-- [keyboard layer center]  piano keyboard   -->
+  
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">close</a>
+        <div class="overlay-content">
+            <webaudio-keyboard id="key1" value="0" direction="" max="1000" step="1" keys="80" width="1350" height="150" style="display:inline-block;border:3px; margin:0px;"> </webaudio-keyboard>
+
+        </div>
+
+
 
 </div>
 
@@ -289,10 +315,11 @@
 
     <style>
         div#canvas1>canvas {
-            width: 350px;
-            height: 120px;
+            width: 190px;
+            height: 70px;
             background: black;
             float: left;
+
         }
         /* vusual canvas */
     </style>
@@ -460,372 +487,78 @@
             box-shadow: 0 5px #666;
             transform: translateY(4px);
         }
+
+
     </style>
-
-
-    <script src="/socket.io/socket.io.js"></script>
-
-
-
-
+     <script src="newDSX.1.6.9.8.js"></script><!--  dr.sax.js library for saxophone -->
 
     <script>
-        var canvas, ctx, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
-        // Initialize the MP3 player after the page loads all of its HTML into the windo
-        window.addEventListener("load", sinesound, false);
 
-        function sinesound() {
-            context = new AudioContext(); // AudioContext object instance
-            analyser = context.createAnalyser(); // AnalyserNode method
-            canvas = document.getElementById('analyser1');
-            ctx = canvas.getContext('2d');
-            osc = context.createOscillator();
-            gain = context.createGain();
+alert(DSX.get("Helow Dr.SAX!"));
 
-            gain.gain.value = 0.01;
-            osc.type = 'sawtooth';
-            osc.frequency.value = 315;
+var DSX = new DSX; // init Object setting
 
+var saxInput =new DSX.Mic(); // mic input 
 
-            osc.connect(gain);
-            gain.connect(analyser);
-            analyser.connect(context.destination);
+var gain = new DSX.Amp({ gain: 0.7}); // amp out
+var saxgain = new DSX.Aux({ gain: 0.7}); // amp out
+var saxOn =new DSX.valueChange("saxmic_on");
 
-            osc.start(0);
-            frameLooper();
+saxOn.setRange(sax_on_data);
+  function sax_on_data(e) {
+    if (e.target.value == "1") {
+            saxInput.connect(saxgain);
+            saxgain.gain.value =0.6;
+
         }
-        // frameLooper() animates any style of graphics you wish to the audio frequency
-        // Looping at the default frame rate that the browser provides(approx. 60 FPS)
-        function frameLooper() {
-            window.webkitRequestAnimationFrame(frameLooper);
-            fbc_array = new Uint8Array(analyser.frequencyBinCount);
-            analyser.getByteFrequencyData(fbc_array);
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-            ctx.fillStyle = '#50b4ff'; // Color of the bars
-            bars = 200;
-            for (var i = 0; i < bars; i++) {
-                bar_x = i * 3;
-                bar_width = 2;
-                bar_height = -(fbc_array[i] / 2);
-                //  fillRect( x, y, width, height ) // Explanation of the parameters below
-                ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
-            }
-        }
-    </script>
+    if (e.target.value == "0") {
+         //saxInput.connect(saxgain);
+         saxgain.gain.value =0;
+  
+
+               }
+                   }
+
+
+
+saxgain.connect(gain);
+gain.connect(DAC); //connet main out
 
 
 
 
 
-<script>
-// Create a new instance of an audio object and adjust some of its properties
-var audio = new Audio();
-audio.src = 'piano.mp3';
-audio.controls = true;
-audio.loop = true;
-audio.autoplay = true;
-var context;
-// Establish all variables that your Analyser will use
-//var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height;
-// Initialize the MP3 player after the page loads all of its HTML into the window
-window.addEventListener("load", initMp3Player, false);
-function initMp3Player(){
-    document.getElementById('audio_box').appendChild(audio);
-    context = new webkitAudioContext(); // AudioContext object instance
-    analyser = context.createAnalyser(); // AnalyserNode method
-    //canvas = document.getElementById('analyser_render');
-   // ctx = canvas.getContext('2d');
-    // Re-route audio playback into the processing graph of the AudioContext
-    source = context.createMediaElementSource(audio); 
-    source.connect(analyser);
-    analyser.connect(context.destination);
-    //frameLooper();
-}
-// frameLooper() animates any style of graphics you wish to the audio frequency
-// Looping at the default frame rate that the browser provides(approx. 60 FPS)
-//function frameLooper(){
-  //  window.webkitRequestAnimationFrame(frameLooper);
-   // fbc_array = new Uint8Array(analyser.frequencyBinCount);
-   // analyser.getByteFrequencyData(fbc_array);
-   // ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-   // ctx.fillStyle = '#00CCFF'; // Color of the bars
-   // bars = 100;
-   // for (var i = 0; i < bars; i++) {
-   //     bar_x = i * 3;
-   //     bar_width = 2;
-    //    bar_height = -(fbc_array[i] / 2);
-        //  fillRect( x, y, width, height ) // Explanation of the parameters below
-       // ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
-   // }
-//}
-</script>
-    <script>
-        var startButton = document.querySelector('.start'),
-            stopButton = document.querySelector('.stop'),
-            freqSlider = document.querySelector(".freq-slider"),
-            detuneSlider = document.querySelector('.detune-slider'),
-            gainSlider = document.querySelector('.gain-slider'),
-
-            freqDisplay = document.querySelector('.freq'),
-            freqDisplay1 = document.querySelector('.freq1');
-        // load our default value
-        init();
-        // setup start/stop
-        startButton.onclick = start;
-        stopButton.onclick = stop;
-        // setup waveform chan
-        function init() {
-            audioContext = new(window.AudioContext)();
-            amp = audioContext.createGain();
-            lowpass = audioContext.createBiquadFilter();
-            osc = audioContext.createOscillator();
-            osc.type = 'sawtooth';
-            osc.frequency.value = 315;
-            lowpass.frequency.value = 200;
-
-            osc.connect(lowpass);
-            lowpass.connect(amp);
-            osc.start(0);
-
-            function ddd(e) {
-
-                if (e.target.value == "1") {
-                    amp.connect(audioContext.destination);
-                }
-                if (e.target.value == "0") {
-                    amp.disconnect(audioContext.destination);
-                }
-
-            }
-            var switch3 = document.getElementById('switch3');
-            switch3.addEventListener("change", ddd, false);
-
-            function sin(e) {
-
-                if (e.target.value == "0") {
-                    osc.type = 'sine';
-                }
-                if (e.target.value == "1") {
 
 
-                }
-            }
-            var switch4 = document.getElementById('switch4');
-            switch4.addEventListener("change", sin, false);
-            freqSlider.oninput = function() {
-                    changeFreq(freqSlider.value);
-                }
-                // change frequency
-            function changeFreq(fff) {
-                osc.frequency.value = fff;
-                freqDisplay1.innerHTML = fff + 'Hz';
-            }
 
-            function changeFreq(ff) {
-                osc.frequency.value = ff;
-                freqDisplay.innerHTML = ff + 'Hz';
-            }
-        }
+
+
+
+
+
+
+
+
+
     </script>
 
 
 
 
     <script>
-        var knob1 = document.getElementById('knob1');
-        knob1.addEventListener("change", knob, false);
-        var slide2 = document.getElementById('slide2');
-        slide2.addEventListener("change", knob, false);
-
-        function knob(data) {
-            var str = 0;
-            str = data.target.value
-            lowpass.frequency.value = str;
-        }
-
-        var knob2 = document.getElementById('knob2');
-        knob2.addEventListener("change", knob22, false);
-        var slide3 = document.getElementById('slide3');
-        slide3.addEventListener("change", knob22, false);
-
-        function knob22(data) {
-            var str = 0;
-            str = data.target.value
-            lowpass.Q.value = str;
-        }
-        var knob3 = document.getElementById('knob3');
-        knob3.addEventListener("change", knob33, false);
-        var slide4 = document.getElementById('slide4');
-        slide4.addEventListener("change", knob33, false);
-
-        function knob33(data) {
-            var str = 0;
-            str = data.target.value
-            amp.gain.value = str;
-        }
-        var knob4 = document.getElementById('knob4');
-        knob4.addEventListener("change", knob44, false);
-        var slide1 = document.getElementById('slide1');
-        slide1.addEventListener("change", knob44, false);
-
-        function knob44(data) {
-            var str = 0;
-            str = data.target.value
-            osc.frequency.value = str;
-        }
-        var key1 = document.getElementById("key1");
-        key1.addEventListener('change', key11, false);
-        key1.addEventListener('note', key11, false);
-
-        function key11(data) {
-            var str = 0;
-            str = 880 * 4 * Math.pow(2, (data.note[1] - 69) / 12);
-            osc.frequency.value = str;
-            freqDisplay1.innerHTML = str.toFixed(0) + 'Hz'
-            if (data.note[0] == "1") {
-                amp.gain.value = 0.7;
-
-            }
-            if (data.note[0] == "0") {
-                amp.gain.value = 0;
-            }
-
-        }
-    </script>
-
-
-
-
-
-    <script>
-        var socket = io();
-
-        var knob = document.getElementById('ver');
-        knob.addEventListener("change", knob0, false);
-
-        function knob0(data) {
-
-            var str = data.target.value
-
-            socket.emit('1', str);
-        }
-
-        socket.on('1', function(str) {
-            document.getElementById('knob').innerHTML = str;
-            document.getElementById('ver').value = str;
-        });
-
-
-
-
-        var knob1 = document.getElementById('ver1');
-        knob1.addEventListener("change", knob11, false);
-
-        function knob11(data) {
-
-            var str = data.target.value
-
-            socket.emit('2', str);
-        }
-
-        socket.on('2', function(str) {
-            document.getElementById('knob1').innerHTML = str;
-            document.getElementById('ver1').value = str;
-        });
-
-        var knob2 = document.getElementById('ver2');
-        knob2.addEventListener("change", knob22, false);
-
-        function knob22(data) {
-
-            var str = data.target.value
-
-            socket.emit('3', str);
-        }
-
-        socket.on('3', function(str) {
-            document.getElementById('knob2').innerHTML = str;
-            document.getElementById('ver2').value = str;
-        });
-
-
-
-        /////////////////////////////////////////////////////////////////////////////
-
-        function text() {
-
-            var text;
-
-            text = prompt(" hi Dr.Hong ");
-
-
-            socket.emit('10', text);
-
-        }
-
-
-        socket.on('10', function(text) {
-            document.getElementById("text").innerText = text;
-
-
-
-        });
-        ///////////////////////////////////////////////
-        //socket.on('id',function(id){ 
-
-        //document.getElementById("aaa").innerText =;
-
-        //});
-
-        socket.on('change name', function(name) {
-
-            document.getElementById("player").innerText = "We are playing with " + name + " " + "players";
-
-        });
-        socket.on('change name', function(minus) {
-
-            document.getElementById("player").innerText = "We are playing  with " + minus + " " + "players";
-
-        });
-
-        ///////////////////////////////////////////////////////////////////////////////
-        function see() {
-
-            socket.emit('user', 'data');
-        }
-
-        socket.on('user', function() {
-            document.getElementById('name').innerHTML = "see";
-
-        });
-
-
-        function hello() {
-
-            socket.emit('star', 'data');
-        }
-
-        socket.on('star', function() {
-            document.getElementById('name').innerHTML = "hide";
-
-        });
-    </script>
-    <script>
-        function da(e) {
-
-            if (e.target.value == "1") {
-                openNav();
-            }
-            if (e.target.value == "0") {
-                openNav();
-
-            }
-
-        }
-        var switch3 = document.getElementById('switch3');
+  
+        var switch3 = document.getElementById("switch3");
         switch3.addEventListener("change", da, false);
 
+        function da(e) {
+             if (e.target.value == "1") {
+                openNav();
 
+            }
+             if (e.target.value == "0") {
+              
+               }
+             }
 
         function openNav() {
             document.getElementById("myNav").style.width = "100%";
@@ -836,12 +569,6 @@ function initMp3Player(){
         }
     </script>
 
-    <div id="myNav" class="overlay">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">close</a>
-        <div class="overlay-content">
-            <webaudio-keyboard id="key1" value="0" direction="" max="1000" step="1" keys="80" width="1350" height="150" style="display:inline-block;border:3px; margin:0px;" </webaudio-keyboard>
-
-        </div>
 
 </body>
 
