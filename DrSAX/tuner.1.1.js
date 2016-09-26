@@ -1,4 +1,4 @@
-  
+ 
 var detectorElem, canvasElem,  pitchElem, noteElem;
 var theBuffer = null;
   detectorElem = document.getElementById( "detector" );
@@ -98,4 +98,3 @@ function updatePitch( time ) {
     window.requestAnimationFrame = window.webkitRequestAnimationFrame;
   rafID = window.requestAnimationFrame( updatePitch );
 }
-
