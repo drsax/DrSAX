@@ -1362,23 +1362,32 @@ ampDomain_data = setInterval(function() {
 
 
     DSX.prototype.Tunner = function(pit,note) {
-        
+
         this.pit = pit;
         this.note = note;
+        //pitchData =this.pitchData;
+
+    
         var Analyser_Tunner = drsax.createAnalyser();
         
         this.getAnalyser = function(out) {
             
             this.out = out;
             this.out.connect(Analyser_Tunner);
-               updatePitch();
+            this.updatePitch();
 
         }
 
-var detectorElem, canvasElem,  pitchElem, noteElem;
+
+
+
+
+var detectorElem, canvasElem,  pitchElem, noteElem,fff;
 
 pitchElem = document.getElementById( pit);
 noteElem = document.getElementById( note);
+
+
 
 
 
@@ -1450,28 +1459,31 @@ function autoCorrelate( buf, sampleRate ) {
 }
 
 
-function updatePitch( time ) {
+this.updatePitch = function updatePitch() {
+ 
   var cycles = new Array;
   Analyser_Tunner.getFloatTimeDomainData( buf );
   var ac = autoCorrelate( buf, drsaxContext.sampleRate );
-  rafID = window.requestAnimationFrame( updatePitch );
+  rafID = window.requestAnimationFrame(updatePitch);
 
   if (ac == -1) {
   
     pitchElem.innerText = "440";
     noteElem.innerText = "A";
 
-  
+
   } else {
-    pitch = ac;
-    pitchElem.innerText = Math.round( pitch ) ;
-    var note =  noteFromPitch( pitch );
+    this.pitchData = Math.round(ac);
+    pitchElem.innerText = this.pitchData;
+    
+    var note =  noteFromPitch(ac);
     noteElem.innerHTML = noteStrings[note%12];
 
   }
-
-
+   
 }
+
+
 
  }
 

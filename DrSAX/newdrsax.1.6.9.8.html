@@ -55,7 +55,7 @@
      <div ><span id="note"></span>_note</div>  
       <div ><span id="pitch"></span>Hz</div>
 
-
+      <div  id="ppp"> Hz</div>
 
    </head>    
 
@@ -100,11 +100,13 @@ function tt(){
 osc.start();
 ampd.getAnalyser1(inputgain1);// bang 
 }
+
+
 //// change/////
 st.setRange(stt);// controll various data
 function stt(){
 if(osc.frequency.value > 600) {
-  alert("Df");
+ document.getElementById("ppp").innerHTML = pitchData;
 } 
 }
 function playSound() {
@@ -120,6 +122,7 @@ function stopSound() {
 var tune =new DSX.Tunner("pitch","note");
 
    tune.getAnalyser(saxGain);
+
 
 
 function micInputon() {
@@ -180,6 +183,11 @@ newEQ.miGain= data.target.value ;
       
 //osc.drOsc.frequency.value = data.target.value ;
 });
+
+
+
+
+
     </script>
 
   
