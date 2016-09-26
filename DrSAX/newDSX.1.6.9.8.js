@@ -1365,7 +1365,7 @@ ampDomain_data = setInterval(function() {
 
         this.pit = pit;
         this.note = note;
-        //pitchData =this.pitchData;
+        pitchData =this.pitchData;
 
     
         var Analyser_Tunner = drsax.createAnalyser();
