@@ -122,16 +122,6 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
  <p>DrSax.js is free to creat and use. No license is necessary.</p>
 
 
-      <!-- code set -->
-      <div class="w3-example">
-
-            <h3>DrSax.js </h3>
-         <div class="w3-code jsHigh notranslate">
-            <pre>var DSX = new DSX;</pre>
-         </div>
-            <p>Web Audio library for Saxophone in JavaScript.</p>
-      </div>
-      <!--code set -->
 
   </div><!------------------------------------------- text out -->
 
@@ -155,13 +145,24 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
   
           <h3>DrSax.js setting</h3>
          <div class="w3-code jsHigh notranslate">
- <pre>  <!--x--><<!--x -->script<!--x-->><!--x --> src="newDSX.1.6.9.2.js" <!--x--><<!--x-->/script<!--x-->><!--x --> </pre>
+ <pre>  <!--x--><<!--x -->script<!--x--><!--x --> src="newDSX.1.6.9.2.js" <!--x-->><!--x --> <!--x--><<!--x-->/script<!--x-->><!--x --> </pre>
                
          </div>
          <p>Web Audio library for Saxophone in JavaScript.</p>
 
         </div>
         <!--code set -->  
+
+      <!-- code set -->
+      <div class="w3-example">
+
+            <h3>DrSax.js </h3>
+         <div class="w3-code jsHigh notranslate">
+            <pre>var DSX = new DSX;</pre>
+         </div>
+            <p>declare on the top, ablove all "DSX" </p>
+      </div>
+      <!--code set -->
     </div><!----------------------------------- text out -->
     
 
@@ -178,24 +179,36 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
 
     <div class="w3-twothird w3-container"><!-- text in -->
           <a name="oscstart"><h1 class="w3-text">Make a sound osillator</h1></a>
-       <p>To use DrSax.js in your web applications, download DrSax.js from downloads
-       and just add a script to "DrSax.js" in script tag from your web pages   </p>
+       <p>create osillator and user can selet osillator type "sine","sawtooth", "square","triangle" </p>
+        <p>set a frequency folow code  </p>
 
         <!-- code set -->
         <div class="w3-example">
            <h3>DrSax.js setting</h3>
           <div class="w3-code jsHigh notranslate">  
 <pre>  var osc = new  DSX.Osc("sawtooth",700);  
-  var gain = new DSX.Amp({ gain: 0.1});                     
-  osc.connect(gain);
-  gain.connect(DAC);                          </pre>
+  [osillator type is "sawtooth" and frequency is 700Hz]
+
+  var gain = new DSX.Amp({ gain: 0.1}); 
+  [ampulitude gain is "0.1"] 
+
+  osc.connect(gain);  [osc connect to gain]  
+
+  gain.connect(DAC);  [gain connect to main out]   
+
+  osc.start();                         
+      </pre>
 
 
 
   
                
           </div>
-            <p>Web Audio library for Saxophone in JavaScript.</p>
+            <p>feel free to check out our 
+
+
+             <a href="#" onclick="window.open('examples/demo_osc.1.0.html','popup','width=385,height=500,left=0,top=0,scrollbars=no'); return false;">demo web page</a> </p>
+            
         </div>
         <!--code set -->  
     </div><!----------------------------------- text out -->
