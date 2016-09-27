@@ -1,9 +1,6 @@
-
 <!-- 
-
  The MIT License (MIT)
   Copyright (c) 2016  Euyshick Hong(Dr.Hong)
-
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
@@ -19,7 +16,6 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-
   
 -->
 
@@ -34,6 +30,12 @@
     <link rel="import" href="cont/webcomponents/controls.html">
     <meta charset="utf-8">
 
+<!--start code highlight -->
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- code highlight end -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -157,7 +159,7 @@
     <div id="code" class="tabcontent">
         <h3>Programing code</h3>
 
-        <pre>
+        <pre><code>
 var DSX = new DSX;
 
 var osc = new DSX.Osc("sawtooth", 700);
@@ -188,7 +190,7 @@ function switch1(e) {
 
 
 
-  </pre>
+ </code></pre>
 
 
 
@@ -227,34 +229,22 @@ function switch1(e) {
 
     <script>
         var DSX = new DSX;
-
         var osc = new DSX.Osc("sawtooth", 700);
         var gain = new DSX.Amp({gain: 0.5});
-
         osc.connect(gain);
         gain.connect(DAC);
-
-
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
         var ampgain = new DSX.valueChange("knob2", gain.gain);
         var sound_on_off = new DSX.valueChange("switch1");
-
         sound_on_off.setRange(switch1);
-
         function switch1(e) {
             if (e.target.value == "1") {
-
                 osc.start();
             }
             if (e.target.value == "0") {
-
                 osc.stop();
             }
         }
-
-
-
-
         function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
