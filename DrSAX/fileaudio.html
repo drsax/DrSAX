@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        
+    </style>
+     <button onclick="startSound()" >Stop</button>
+    </head>
+<body>
+    <input type="file" id="audio" onchange="playFile(this)" />
+<audio id="sound" controls></audio>
+    <script >
+
+
+  var sound11 = document.getElementById('sound');
+  var reader = new FileReader();
+
+        function playFile(data) {
+
+
+  reader.onload = (function(audio1) 
+
+    {return function(e) {audio1.src = e.target.result;};})(sound11);
+ 
+  reader.readAsDataURL(data.files[0]);
+}
+
+
+    </script>
+</body>
+</html>
