@@ -38,6 +38,8 @@
 
 
 
+
+
     <!-- [no.1 layer left]  Saxophone Input area  -->
 
     <webaudio-knob id="sax__led_on" style="position:absolute;left:255px;top:70px " src="cont/img/led.png" value="0" max="10" step="1" diameter="40" sprites="30"></webaudio-knob>  <!-- blue light -->
@@ -125,9 +127,16 @@
 
  <!-- [no.2 layer] Main text area -->
 
-       <webaudio-switch id="switch3" style="position:absolute;left:245px;top:310px " src="cont/img/blueswitch.png" value="0" height="80" width="80"></webaudio-switch> <!-- blue switch-->
+    <webaudio-switch id="switch3" style="position:absolute;left:245px;top:310px " src="cont/img/blueswitch.png" value="0" height="80" width="80"></webaudio-switch> <!-- blue switch-->
 
 
+    <webaudio-knob id="bgspeed" src="cont/img/bluedial.png" style="position:absolute;left:350px;top:290px " value="0.3" max="2" step="0.01" diameter="90" sprites="30"></webaudio-knob> <!-- blue Dial -->
+ 
+
+ <input id="inputS" type="file" accept="audio/*">
+   <button onclick="playSound()" >Play</button>
+<button onclick="stopSound()" >Stop</button>
+        
 
 
 
@@ -311,7 +320,6 @@
     <input type="range" class="ver" style="position:absolute;left:1150px;top:650px" id="ver" name="points" value="0" step="0.1" min="0" max="100">
     <input type="range" class="ver" style="position:absolute;left:1250px;top:650px" id="ver1" name="points" value="0" step="0.1" min="0" max="100">
     <input type="range" class="ver" style="position:absolute;left:1350px;top:650px" id="ver2" name="points" value="0" step="0.1" min="0" max="100">
-
 
 
 
@@ -706,14 +714,32 @@ var sax_main_out =new DSX.valueChange("mainout_dail",mainout.gain);
 
 var sax_canvas_freq =new DSX.freqDomain('saxcanvas',"red");// canvas and color
 sax_canvas_freq.getAnalyser(saxgain); 
-//////////////visual/////////
+//////////////Visual/////////
 
 
-//////////////tunner/////////
+//////////////Tunner/////////
 var tune =new DSX.Tunner("pitch","note");
 tune.getAnalyser(saxgain);
 
+//////////////Tape BG/////////
 
+
+var bg =new DSX.BGsound();
+var bg_cont =new DSX.functionChange('bgspeed'); 
+
+bg_cont.setRange(bg_speed);
+function bg_speed(e){
+bg.speed=e.target.value;
+}
+
+
+function playSound() {
+  bg.connect(mainout); 
+}
+function stopSound() {
+    bg.stop(); // Stop source 1 immediately
+  
+}
 
 
     </script>

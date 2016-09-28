@@ -994,6 +994,8 @@
     /////// BGsound /////////////////////////////////
     DSX.prototype.BGsound = function() {
 
+         this.speed = 1;
+    
 
 
         var uploadfile;
@@ -1021,18 +1023,25 @@
         this.connect = function(out) {
             this.BG = drsax.createBufferSource();
             this.out = out;
-
             this.BG.connect(out);
             this.BG.start(0);
             this.BG.buffer = uploadfile;
-
-
-        }
+            this.data =this.BG.playbackRate;
+            this.data.value = this.speed;
+        
+         
 
         this.stop = function() {
 
             this.BG.stop(0);
         }
+
+    
+}
+
+
+
+
 
     };
 
