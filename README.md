@@ -14,13 +14,6 @@ __DrSAX__ has developed  for web-based music application. The project aims to co
 
 - **Fast** - 
 - **Less code**
-    - Web Audio API helpers and utilities
-    - Succint parameter control
-    - Transport and event management (i.e. sequencer)
-- **Modular and extensible**
-    - WAPL (Web Audio PLug-in): Plug-in for Web Audio API ecosystem
-    - MUI (Musical User Interface): GUI for music apps
-
 
 
 ## Prerequisites
