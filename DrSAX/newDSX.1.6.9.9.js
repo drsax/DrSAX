@@ -67,21 +67,7 @@
                     this.output.disconnect(target);
                 }
             },
-            connectInOrder: {
-                value: function(nodeArray) {
-                    var i = nodeArray.length - 1;
-                    while (i--) {
-                        if (!nodeArray[i].connect) {
-                            return console.error(" Not an AudioNode.", nodeArray[i]);
-                        }
-                        if (nodeArray[i + 1].input) {
-                            nodeArray[i].connect(nodeArray[i + 1].input);
-                        } else {
-                            nodeArray[i].connect(nodeArray[i + 1]);
-                        }
-                    }
-                }
-            },
+   
             getDefaults: {
                 value: function() {
                     var result = {};
@@ -90,34 +76,8 @@
                     }
                     return result;
                 }
-            },
-            automate: {
-                value: function(property, value, duration, startTime) {
-                    var start = startTime ? ~~(startTime / 1000) : userContext.currentTime,
-                        dur = duration ? ~~(duration / 1000) : 0,
-                        _is = this.defaults[property],
-                        param = this[property],
-                        method;
-
-                    if (param) {
-                        if (_is.automatable) {
-                            if (!duration) {
-                                method = "setValueAtTime";
-                            } else {
-                                method = "linearRampToValueAtTime";
-                                param.cancelScheduledValues(start);
-                                param.setValueAtTime(param.value, start);
-                            }
-                            param[method](value, dur + start);
-                        } else {
-                            param = value;
-                        }
-                    } else {
-                        console.error("Invalid Property for " + this.name);
-                    }
-                }
             }
-        }),
+        })
 
 
         FLOAT = "float",
@@ -212,7 +172,7 @@
             writable: true,
             value: {
                 delayTime: {
-                    value: 0.5,
+                    value: 1,
                     min: 0,
                     max: 1,
                     automatable: false,
@@ -278,7 +238,7 @@
         defaults: {
             writable: true,
             value: {
-                pan: {
+                pan:{
                     value: 0,
                     min: -1,
                     max: 1,
@@ -292,8 +252,8 @@
 
         pan: {
             enumerable: true,
-            get: function() {
-                return this.pan.value;
+            get: function(){
+                return this.stereoPan.pan;
             },
             set: function(value) {
                 this.stereoPan.pan.value = value;
@@ -1258,11 +1218,16 @@
 
 
         ////////////////////////////////////////////////
-    DSX.prototype.freqDomain = function(out) {
+    DSX.prototype.freqDomain = function(out,color) {
         
         this.out = out;
+        this.color =color;
+
+
         var Analyser_CANVAS = drsax.createAnalyser();
         
+
+
         this.getAnalyser = function(out) {
             
             this.out = out;
@@ -1270,8 +1235,8 @@
 
         }
 
-        canvas1 = document.getElementById(out);
-        ctx_frequency = canvas1.getContext('2d');
+       var canvas1 = document.getElementById(out);
+       var ctx_frequency = canvas1.getContext('2d');
         frameLooper();
 
         function frameLooper() {
@@ -1279,7 +1244,7 @@
             fbc_array = new Uint8Array(Analyser_CANVAS.frequencyBinCount);
             Analyser_CANVAS.getByteFrequencyData(fbc_array);
             ctx_frequency.clearRect(0, 0, canvas1.width, canvas1.height); // Clear the canvas
-            ctx_frequency.fillStyle = 'white'; // Color of the bars
+            ctx_frequency.fillStyle = color; // Color of the bars
             bars = 100;
             for (var i = 0; i < bars; i++) {
                 bar_x = i * 3;
@@ -1289,6 +1254,7 @@
                 ctx_frequency.fillRect(bar_x, canvas1.height, bar_width, bar_height);
             }
         }
+
 
     }
 
@@ -1300,9 +1266,10 @@
      
 
         this.out = out;
+  
      
         var Analyser_CANVAS1 = drsax.createAnalyser();
-     
+       
 
 
 

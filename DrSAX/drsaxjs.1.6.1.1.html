@@ -25,16 +25,13 @@
 
 
 
-
+   <span id="note" style="color:white;position:absolute;left:237px;top:197px;"></span>_ 
+      <div style="color:white;position:absolute;left:267px;top:197px;"><span id="pitch" ></span>Hz</div>
 
     <!-- FFT frequrncy Domain Canvas  -->
 
-    <div id="canvas1">
 
-        <canvas id="analyser1" style="position:absolute;left:705px;top:303px"></canvas>
-    </div>
-
-
+        <canvas id="saxcanvas" style="position:absolute;left:237px;top:197px;width:520px;height:100px;" ></canvas>
 
 
 
@@ -199,14 +196,6 @@
 
 
 
-  <!--  right center mixer area -->
-
-
-
-    <webaudio-switch id="switch3" style="position:absolute;left:900px;top:720px " src="cont/img/swt.png" value="1" height="40" width="40"></webaudio-switch> <!--small silver on switch-->
-    <webaudio-switch id="switch3" style="position:absolute;left:1000px;top:720px " src="cont/img/swt.png" value="0" height="40" width="40"></webaudio-switch><!--small silver on switch-->
-    <webaudio-switch id="switch3" style="position:absolute;left:1100px;top:720px " src="cont/img/swt.png" value="0" height="40" width="40"></webaudio-switch><!--small silver on switch-->
-    <webaudio-switch id="switch3" style="position:absolute;left:1200px;top:720px " src="cont/img/swt.png" value="0" height="40" width="40"></webaudio-switch><!--small silver on switch-->
 
 
 
@@ -220,22 +209,9 @@
 
 
 
-
+   <!-- [no.3-3 layer]   -->
 
     <webaudio-switch id="switch3" style="position:absolute;left:1090px;top:385px " src="cont/img/blue.png" value="1" height="50" width="50"></webaudio-switch>
-
-
-    <webaudio-switch id="switch3" style="position:absolute;left:160px;top:550px " src="cont/img/blue.png" value="1" height="50" width="50"></webaudio-switch>
-
-
-
-
-
-
-    <webaudio-switch id="switch3" style="position:absolute;left:1110px;top:750px " src="cont/img/onoff.png" value="0" height="80" width="80"></webaudio-switch>
-    <webaudio-switch id="switch3" style="position:absolute;left:1180px;top:750px " src="cont/img/onoff.png" value="0" height="80" width="80"></webaudio-switch>
-
-
 
 
 
@@ -249,22 +225,10 @@
 
 
 
+   <!-- [no.4-1 layer]   -->
 
+    <webaudio-switch id="switch3" style="position:absolute;left:160px;top:550px " src="cont/img/blue.png" value="1" height="50" width="50"></webaudio-switch>
 
-
-
-   
-
-    <webaudio-knob id="knob1" style="position:absolute;left:1270px;top:700px" style="top:30px" src="cont/img/knoo.png" value="0" max="2000" step="1" diameter="130" sprites="30"></webaudio-knob>
-
-
-    </div>
-
-
-
-
-
- 
 
 
 
@@ -273,6 +237,42 @@
     <webaudio-knob id="knob1" style=" position:absolute;left :400px;  top: 570px; " src="cont/img/dde.png" value="0" max="2000" step="1" diameter="70" sprites="30"></webaudio-knob>
 
 
+
+
+
+
+
+
+
+
+    <!-- [no.5-2 paning ]   -->
+
+
+
+    <webaudio-knob id="pann" style=" position:absolute;left :1150px;  top: 735px; " src="cont/img/dde.png" value="0" min="-1" max="1" step="0.1" diameter="70" sprites="30"></webaudio-knob>
+
+
+    <!-- [no.5-2 panning ]   -->
+
+
+
+
+
+    <!-- [no.5-3 main out dial ]   -->
+
+    <webaudio-knob id="mainout_dail" style="position:absolute;left:1270px;top:700px" style="top:30px" src="cont/img/knoo.png" value="0" max="1" step="0.001" diameter="130" sprites="30"></webaudio-knob>
+
+    <!-- [no.5-3 main out dial ]   -->
+
+
+
+
+
+
+ 
+
+
+  <!----------------------------------------  -->
 
 
 
@@ -548,6 +548,11 @@ saxOnoff.setRange(sax_on_data);
     if (e.target.value == "1") {
         saxgain.connect(gain);
         saxgain.gain.value =0.6;
+        tune.getAnalyser(saxgain);
+
+sax_canvas_freq.getAnalyser(saxgain); 
+
+
 
         }
     if (e.target.value == "0") {
@@ -636,6 +641,8 @@ var sax_delay =new DSX.valueChange("delay_time",saxDelay.delayTime );
 var sax_feedback =new DSX.valueChange("feed_back",saxDelay.feedback); 
 
 var saxReverb =new DSX.Reverb(0.6);
+var sax_reverbtime =new DSX.valueChange("reverbtime",saxReverb.gain); 
+
 
 var bypassDelay =new DSX.functionChange('delaybypass'); 
 
@@ -658,8 +665,10 @@ function delaydata(e){
     if (e.target.value == "0") {
     gain6.disconnect(0)
     gain7.disconnect();
-    gain6.connect(gain7);
-    saxReverb.disconnect();
+    gain6.connect(gain7); //delay reconnect
+
+
+    saxReverb.disconnect();//reverb reconnect
     gain7.connect(gain8);
 
 
@@ -669,12 +678,12 @@ function delaydata(e){
 //// delay SYSTEM    /////
  
 
-//// reverb SYSTEM    /////
+//// panning system   /////
 
-var sax_reverbtime =new DSX.valueChange("reverbtime",saxReverb.gain); 
+var saxPan = new DSX.stereoPan({ pan: 0,});
+var sax_pan_ =new DSX.valueChange("pann",saxPan.pan); 
 
-
-
+//// panning system   /////
 
 
 saxgain.connect(gain);
@@ -685,19 +694,24 @@ gain3.connect(gain6); //comp
 gain6.connect(gain7);//delay
 gain7.connect(gain8);//reverb
 gain8.connect(mixgain);
-mixgain.connect(mainout);
+mixgain.connect(saxPan);
+saxPan.connect(mainout);
 mainout.connect(DAC); //connet main out
 
 
+var sax_main_out =new DSX.valueChange("mainout_dail",mainout.gain); 
 
 
+//////////////visual/////////
+
+var sax_canvas_freq =new DSX.freqDomain('saxcanvas',"red");// canvas and color
+sax_canvas_freq.getAnalyser(saxgain); 
+//////////////visual/////////
 
 
-
-
-
-
-
+//////////////tunner/////////
+var tune =new DSX.Tunner("pitch","note");
+tune.getAnalyser(saxgain);
 
 
 
