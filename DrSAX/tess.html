@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+
+
+window.addEventListener('load', onDo, false);
+     
+function onDo()
+
+{    var fileUp = document.getElementById('mF');
+    fileUp.addEventListener('change', onFile, false);
+ var audioPlay = document.getElementById('sound11');
+
+
+function onFile()
+{   
+    var reader = new FileReader();
+    reader.onload = function (evt){ audioPlay.src = evt.target.result;}
+    reader.readAsDataURL(this.files[0]);
+}
+
+}
+
+</script>
+
+</head>
+<body>
+    <input type="file" id="mF"/>
+    <br>
+    <audio id="sound11" controls></audio>
+
+
+
+
+    
+</body>
+</html>
