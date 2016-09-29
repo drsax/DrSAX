@@ -36,9 +36,25 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   </a>
   <h4 ><b>DrSaX.js</b></h4>
   <a href="#" class="w3-hover-black"> What is DrSaX.js?</a>
-  <a href="#oscstart" class="w3-hover-black">DrSaX.js Osc</a>
-  <a href="#" class="w3-hover-black">DrSaX.js Delay </a>
-  <a href="#" class="w3-hover-black">DrSaX.js input</a>
+  <a href="#oscstart" class="w3-hover-black">DrSaX.js Osillator</a>
+   <a href="#ampstart" class="w3-hover-black">DrSaX.js Amplitude </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Equalizer</a>
+   <a href="#" class="w3-hover-black">DrSaX.js Compressor </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Stereo panner</a>
+   <a href="#" class="w3-hover-black">DrSaX.js Delay </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Reverb</a>
+   <a href="#" class="w3-hover-black">DrSaX.js Low Pass Filter </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Sound input</a>
+   <a href="#" class="w3-hover-black">DrSaX.js FM </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  AM</a>
+   <a href="#" class="w3-hover-black">DrSaX.js Frequency canvas </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Amplitude canvas</a>
+   <a href="#" class="w3-hover-black">DrSaX.js Data control </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Onclick</a>
+   <a href="#" class="w3-hover-black">DrSaX.js Tunner </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Audio player</a>
+
+<br><br><br><br><br>
 </nav>
 
 
@@ -178,13 +194,25 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
 
 
     <div class="w3-twothird w3-container"><!-- text in -->
-          <a name="oscstart"><h1 class="w3-text">Make a sound osillator</h1></a>
+
+
+
+
+
+
+
+
+  <!-- section start ------------------------------------------------------------------>
+
+
+          <a name="oscstart"><h1 class="w3-text">DrSaX.js Osillator</h1></a>
+          <h1 class="w3-text">Make a sound osillator</h1>
        <p>create osillator and user can selet osillator type "sine","sawtooth", "square","triangle" </p>
         <p>set a frequency folow code  </p>
 
         <!-- code set -->
         <div class="w3-example">
-           <h3>DrSax.js setting</h3>
+           <h3>Create sound</h3>
           <div class="w3-code jsHigh notranslate">  
 <pre>  var osc = new  DSX.Osc("sawtooth",700);  
   [osillator type is "sawtooth" and frequency is 700Hz]
@@ -199,10 +227,6 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
   osc.start();                         
       </pre>
 
-
-
-  
-               
           </div>
             <p>feel free to check out our 
 
@@ -211,7 +235,105 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
             
         </div>
         <!--code set -->  
-    </div><!----------------------------------- text out -->
+
+  <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.Osc proterty and Method()</h3>
+          <div class="w3-code jsHigh notranslate">  
+<pre>  var osc = new  DSX.Osc("sawtooth",700); 
+
+        osc.frequency.vlaue =700
+        osc.drOsc.type ="sawtooth"
+        osc.connect(gain)   
+        osc.start()    
+        osc.stop()           
+      </pre>
+
+          </div>
+           
+            
+        </div>
+        <!--code set --> 
+
+<!-- section end ------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+<!-- section start ------------------------------------------------------------------>
+
+  <a name="ampstart"><h1 class="w3-text">DrSaX.js Amplitude</h1></a>
+   
+         <h1 class="w3-text">Make a Amp and Aux</h1>
+       <p>use amplitude and aux to connect sound  </p>
+        <p>set  folow code  </p>
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>Create amplitude</h3>
+          <div class="w3-code jsHigh notranslate">  
+<pre>  var osc = new  DSX.Osc("sawtooth",700);  
+  [osillator type is "sawtooth" and frequency is 700Hz]
+
+  var gain = new DSX.Amp({ gain: 0.1}); 
+  [ampulitude gain is "0.1"] 
+
+  osc.connect(gain);  [osc connect to gain]  
+
+  gain.connect(DAC);  [gain connect to main out]   
+
+  osc.start();                         
+      </pre>
+
+          </div>
+            <p>feel free to check out our 
+
+
+             <a href="#" onclick="window.open('examples/demo_osc.1.0.html','popup','width=385,height=500,left=0,top=0,scrollbars=no'); return false;">demo web page</a> </p>
+            
+        </div>
+        <!--code set -->  
+
+  <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.Amp proterty and Method()</h3>
+          <div class="w3-code jsHigh notranslate">  
+<pre>  var gain = new DSX.Amp({ gain: 0.1});  
+
+        gain.gain.value =0.7;
+        gain.connect(DAC);  
+             
+      </pre>
+
+          </div>
+           
+            
+        </div>
+        <!--code set --> 
+
+
+<!-- section end ------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <!--last line --------------------------------- text out -->
     
 
 
