@@ -1504,7 +1504,7 @@ window.addEventListener('load', this.load, false);
     this.out_two =out_two;
 
     var fileUp = document.getElementById(out);
-    var audioPlay = document.getElementById('sound11');
+    var audioPlay = document.getElementById(out_two);
     fileUp.addEventListener('change', onFile, false);
 
 
@@ -1513,7 +1513,7 @@ window.addEventListener('load', this.load, false);
     reader.onload = function (evt){ audioPlay.src = evt.target.result;}
     reader.readAsDataURL(this.files[0]);
 
-     // audioPlay.playbackRate =1.5;
+     
                          }   
 
 
@@ -1522,6 +1522,68 @@ window.addEventListener('load', this.load, false);
                                  
 
     }
+
+
+
+DSX.prototype.AkRs = function() {
+   
+
+        this.gain = drsax.createGain();
+        this.gain1= drsax.createGain();
+        this.gain2= drsax.createGain();
+
+        this.gain1.gain.value =0;
+        this.gain2.gain.value =0;
+
+
+        this.chh= this.gain1.gain.value;
+         this.chh2= this.gain2.gain.value;
+
+
+
+
+
+    
+
+        this.soundfrom = function(sound,out,out_two) {
+           this.sound=sound;
+            this.out =out;
+            this.out_two =out_two;
+        
+
+    this.sound.connect(this.gain);
+
+    this.now = drsax.currentTime;
+    this.gain.gain.cancelScheduledValues(this.now);
+    this.gain.gain.setValueAtTime(0, this.now);
+    this.gain.gain.linearRampToValueAtTime(1, this.now+ 0.01 + out);
+    this.gain.gain.linearRampToValueAtTime(0 , this.now +0.02 + out + out_two);
+
+        };
+
+    
+    this.connect = function(out) {
+            this.out = out;
+            this.gain.connect(out);
+
+        }
+
+
+
+    }
+
+    /////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
 
 /////////////////////////////
 
