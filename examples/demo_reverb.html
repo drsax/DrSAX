@@ -267,7 +267,7 @@ sound_on_off.setRange(switch1);
 function switch1(e) {
 
 
-    if (e.target.value == "1") {
+    if (e.target.value == "0") {
         var osc = new DSX.Osc("sawtooth", 0);
         osc.start();
         adsr.soundfrom(osc, 0.1, 0.2);
@@ -276,8 +276,18 @@ function switch1(e) {
         saxReverb.getfrom(gain);
         saxReverb.connect(DAC);
 
- 
+        var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
+    }
 
+
+  if (e.target.value == "1") {
+        var osc = new DSX.Osc("sawtooth", 0);
+        osc.start();
+        adsr.soundfrom(osc, 0.8, 0.2);
+        adsr.connect(gain);
+     
+        saxReverb.getfrom(gain);
+        saxReverb.connect(DAC);
 
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
     }
