@@ -1,8 +1,19 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <head>
-<script>
+  <input type="file" id="mF"/>
+    <br>
+    <audio  id="audio1" controls></audio>
 
+  <button onclick="saa();" >Stop</button>
+  <button onclick="saa1();" >Stop</button>
+
+
+<script>
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// Create a gain node
+var gainNode = audioCtx.createGain();
 
 window.addEventListener('load', onDo, false);
      
@@ -10,29 +21,36 @@ function onDo()
 
 {    var fileUp = document.getElementById('mF');
     fileUp.addEventListener('change', onFile, false);
- var audioPlay = document.getElementById('sound11');
-
+ var audioplayer = document.getElementById('audio1');
+   
 
 function onFile()
 {   
     var reader = new FileReader();
-    reader.onload = function (evt){ audioPlay.src = evt.target.result;}
+    reader.onload = function (evt){ audioplayer.src = evt.target.result;}
     reader.readAsDataURL(this.files[0]);
 }
 
+
 }
+
+
+
+function saa(){
+audio1.playbackRate =1.5;
+
+}
+function saa1(){
+audio1.playbackRate =1;
+audio1.pause();
+}
+
+
 
 </script>
 
 </head>
 <body>
-    <input type="file" id="mF"/>
-    <br>
-    <audio id="sound11" controls></audio>
-
-
-
-
-    
+  
 </body>
 </html>
