@@ -252,7 +252,7 @@ function switch1(e) {
 var DSX = new DSX;
 
 var gain = new DSX.Amp({gain: 0.5});
-var adsr = new DSX.AkRs();
+var adsr = new DSX.ATRS();
 
 var ampgain = new DSX.valueChange("knob2", gain.gain);
 
@@ -275,7 +275,7 @@ function switch1(e) {
      
         saxReverb.getfrom(gain);
         saxReverb.connect(DAC);
-
+      
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
     }
 
@@ -288,7 +288,7 @@ function switch1(e) {
      
         saxReverb.getfrom(gain);
         saxReverb.connect(DAC);
-
+  
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
     }
 
