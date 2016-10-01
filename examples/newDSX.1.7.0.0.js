@@ -735,7 +735,9 @@
         this.drOsc.type = type;
         this.drOsc.frequency.value = freq;
         this.frequency = this.drOsc.frequency; ///////simple datachange
-             this.drOsc.start(0);
+         this.wave = this.drOsc; ///////simple datachange
+        this.detune = this.drOsc.detune; ///////simple datachange
+        this.drOsc.start(0);
 
         this.connect = function(out) {
             this.out = out;
@@ -879,7 +881,7 @@
         };
 
 
-        this.stopp = function() {
+        this.stop = function() {
 
 
             this.mainout.gain.value = 0;
@@ -1525,7 +1527,7 @@ window.addEventListener('load', this.load, false);
 
 
 
-DSX.prototype.AkRs = function() {
+DSX.prototype.ATRS = function() {
    
 
         this.gain = drsax.createGain();
