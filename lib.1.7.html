@@ -72,7 +72,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
 
   <h4 ><b>Examples</b></h4>
-  
+
   <a href="#" class="w3-hover-black">DrSaX.js  Audio player</a>
   <a href="#" class="w3-hover-black">DrSaX.js  Attack and release</a>
 
@@ -179,12 +179,23 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
        <p>To use DrSax.js in your web applications, download DrSax.js from downloads
        and just add a script to "DrSax.js" in script tag from your web pages   </p>
 
+
+
+  <!-- download code set -->
+
+ <h1 class="w3-text">Download DrSax.JS</h1>
+Download the latest version from this link: http://drsax.js
+
+  <!-- download code set -->
+
+
+
         <!-- code set -->
         <div class="w3-example">
   
           <h3>DrSax.js setting</h3>
          <div class="w3-code jsHigh notranslate">
- <pre>  <!--x--><<!--x -->script<!--x--><!--x --> src="newDSX.1.6.9.2.js" <!--x-->><!--x --> <!--x--><<!--x-->/script<!--x-->><!--x --> </pre>
+ <pre>  <!--x--><<!--x -->script<!--x--><!--x --> src="DrSAX.1.6.9.2.js" <!--x-->><!--x --> <!--x--><<!--x-->/script<!--x-->><!--x --> </pre>
                
          </div>
          <p>Web Audio library for Saxophone in JavaScript.</p>
@@ -194,33 +205,41 @@ Provides equality for all devices. PC, laptop, tablet, and mobile:</p>
 
 
 
+ <!-- download code set -->
+
+ <h1 class="w3-text">"DSX" Setting </h1>
+
+
+  <!-- download code set -->
 
 
       <!-- code set -->
       <div class="w3-example">
 
-            <h3>DrSax.js </h3>
+            <h3>Declare  "var DSX = new DSX" on the top </h3>
          <div class="w3-code jsHigh notranslate">
-            <pre>var DSX = new DSX;</pre>
+            <pre>
+ <!--x--><<!--x -->script<!--x--><!--x --><!--x-->><!--x --> 
+
+var DSX = new DSX; /<!--x-->/  declare on the top, ablove all "DSX"
+  var gain = new DSX.Amp({gain: 0.5});
+  var adsr = new DSX.ATRS();
+  var ampgain = new DSX.valueChange("knob2", gain.gain);
+.
+.
+ <!--x--><<!--x-->/script<!--x-->><!--x -->
+</pre>
          </div>
-            <p>declare on the top, ablove all "DSX" </p>
+            <h4> * AudioContext is set "drsax". ex( osc = drsax.createOscillator();)</h4>
       </div>
       <!--code set -->
 
 
 
 
- <h1 class="w3-text">Download DAX.JS</h1>
-Download the latest version from this link: http://drsax.js
-  <!-- head code set -->
-  <div class="w3-container w3-section w3-border w3-round-xlarge">
-        <p>-Audiocontext is set "drsax". ex( osc = drsax.createOscillator();  )  </p>
-      
-</div>
-  <!-- head code set -->
 
 
-
+ <h1 class="w3-text"> DrSax.JS version history</h1>
 
   <!-- table code set -->
   <table class="w3-table w3-striped w3-bordered w3-border">
