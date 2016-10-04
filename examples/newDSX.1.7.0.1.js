@@ -1626,7 +1626,50 @@ DSX.prototype.ATRS = function() {
 
 
 
+    DSX.prototype.BGdata = function(file){
 
+        this.file = file
+
+        var getFile_sound = new XMLHttpRequest();
+        getFile_sound.open("GET", file, true);
+        getFile_sound.responseType = "arraybuffer";
+        getFile_sound.send();
+
+      getFile_sound .onload = function() {
+      var audioData = getFile_sound.response;
+      drsax.decodeAudioData(audioData, function(buffer) {
+        myBuffer = buffer;
+                                                         });
+                                    }
+
+                                
+            this.BG = drsax.createBufferSource();
+            this.speed= this.BG.playbackRate;
+
+        this.connect = function(out) {
+   
+            this.out = out;
+            this.BG.connect(out);
+            this.BG.buffer = myBuffer;
+     
+           this.start = function() {
+            this.BG.start(0);
+        }
+
+
+        this.stop = function() {
+
+            this.BG.stop();
+        }
+
+      //this.playbackRate.value = 1.25;
+}
+
+
+
+
+
+    };
 
 
 
