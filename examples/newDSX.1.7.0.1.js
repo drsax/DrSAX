@@ -96,12 +96,9 @@
     //////////object and AUDIOCONTEXT///////////////////////////////////////////////////////////
 
     var root = this;
-   
+
     var AudioContext = root.AudioContext;
-
-  var  drsax = new AudioContext();
-
-  
+    drsax = new AudioContext();
 
     if (typeof module !== "undefined" && module.exports) {
         module.exports = DSX;
@@ -111,22 +108,21 @@
 
 
     function DSX() {
-            if (!(this instanceof DSX)) {
+        if (!(this instanceof DSX)) {
             return new DSX;
         }
 
-     
-        connection(drsax);
+
+        connectify(drsax);
         drsaxContext = drsax;
         drsaxInstance = this;
-
     }
 
 
     /////////////////////////////////////////////////////////////////
 
 
-    function connection(sax) {
+    function connectify(sax) {
         if (sax.__connectified__ === true) return;
 
         var gain = sax.createGain(),
@@ -758,13 +754,13 @@
       
         }
 
-        this.disconnect = function() {
-      this.drOsc.disconnect();
+        this.stop = function() {
+      this.drOsc.disconnect(this.gain_out);
         }
      
 
 
- this.type = properties.type;
+    this.type = properties.type;
     this.freq = properties.freq;
     }
 
@@ -1088,17 +1084,17 @@
 
 
 
-    DSX.prototype.Reverb = function(out) {
-        this.out = out;
+    DSX.prototype.Reverb = function(properties) {
+
 
         this.reverb_Gain = drsax.createGain();
         this.reverb_convolver = drsax.createConvolver();
         this.masterGain = drsax.createGain();
-        this.gain = this.reverb_Gain.gain; ///////simple datachange
+       // this.gain = this.reverb_Gain.gain; ///////simple datachange
 
         this.reverb_convolver.loop = false;
         this.reverb_convolver.normalize = true;
-        this.gain.value = out;
+     
 
 
 
@@ -1150,10 +1146,27 @@
 
         };
 
+   this.gain = properties.gain;
 
 
+    }    
 
-    }
+       DSX.prototype.Reverb.prototype = Object.create(OscObject, {
+
+        gain: {
+            enumerable: true,
+            get: function() {
+                return this.reverb_Gain.gain;
+            },
+            set: function(value) {
+                 this.reverb_Gain.gain.value= value;
+            }
+        }
+    });
+
+/////////////////////////////////////
+
+
 
     DSX.prototype.Mic = function() {
 
