@@ -65,7 +65,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
  <h4 ><b> Sound INPUT</b></h4>
  <a href="#micstart" class="w3-hover-black">DrSaX.js Mic Input </a>
-  <a href="#" class="w3-hover-black">DrSaX.js Tunner </a>
+  <a href="#tunestart" class="w3-hover-black">DrSaX.js Tunner </a>
 
 
  <h4 ><b> Sound Visualization</b></h4>
@@ -996,6 +996,82 @@ file.stop();
 
 <!-- section end ------------------------------------------------------------------>
 
+
+
+
+<!-- section start ------------------------------------------------------------------>
+
+
+<!-- head code set -->
+  <a name="tunestart"><h4 style="color:#f2f2f2">Mic Tunner</h4></a>
+<br>
+   <div class="w3-container w3-blue">
+        <h4 class="w3-text">DrSaX.js Mic Tunner</h4>
+        </div>
+          <h1 class="w3-text">DSX.Tunner : Mic Tunner </h1>
+<!-- head code set -->
+
+
+
+   
+
+  <!-- table code set -->
+  <table class="w3-table w3-striped w3-bordered w3-border">
+    
+    <thead>
+<tr class="w3-light-grey"  style="font-size:18px">
+      <th>Object</th>
+      <th>Property</th>
+      <th>Method()</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <td>DSX.Tunner("Span id","Span id");</td>
+      <td></td>
+      <td>Tunner.getAnalyser()</td>
+
+
+  </table>
+  <!-- table code set -->
+
+
+
+  <!-- head code set -->
+  <div class="w3-container w3-section w3-border w3-round-xlarge">
+        <p><b  style="font-size:18px">Tunner is  ONLY possible in HTTPS, Absolutely!</b> </p>
+
+</div>
+  <!-- head code set -->
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.Tunner example code</h3>
+          <div class="w3-code jsHigh notranslate">  
+       <pre>
+    var DSX = new DSX;
+    var gain = new DSX.Amp({gain: 0.5});
+    var saxInput = new DSX.Mic();
+     var tune = new DSX.Tunner("pitch","note");
+
+      saxInput.connect(gain);
+      tune.getAnalyser(saxInput);
+      gain.connect(DAC);
+                
+      </pre>
+
+  </div>
+    <h5 style="color:blue">Feel free to Try 
+<a href="#" onclick="window.open('examples/demo_tune.html','popup','width=385,height=500,left=0,top=0,scrollbars=no');
+ return false;">demo</a> </h5>
+            
+            
+        </div>
+        <!--code set -->  
+
+
+
+<!-- section end ------------------------------------------------------------------>
 
 
 
