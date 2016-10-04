@@ -246,29 +246,20 @@ function switch1(e) {
 
 
 
-    <script src="newDSX.1.7.0.0.js"></script>
+    <script src="newDSX.1.7.0.1.js"></script>
 
     <script>
 var DSX = new DSX;
-
 var gain = new DSX.Amp({gain: 0.5});
 var adsr = new DSX.ATRS();
-
 var ampgain = new DSX.valueChange("knob2", gain.gain);
-
-var saxReverb =new DSX.Reverb(0.6);
+var saxReverb =new DSX.Reverb({gain:0.6});
 var sax_reverbtime =new DSX.valueChange("reverbtime",saxReverb.gain); 
-
 var sound_on_off = new DSX.functionChange("switch1");
 sound_on_off.setRange(switch1);
-
-
-
 function switch1(e) {
-
-
     if (e.target.value == "0") {
-        var osc = new DSX.Osc("sawtooth", 0);
+        var osc = new DSX.Osc({type:"sawtooth",freq: 0});
         osc.start();
         adsr.soundfrom(osc, 0.1, 0.2);
         adsr.connect(gain);
@@ -278,10 +269,8 @@ function switch1(e) {
       
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
     }
-
-
   if (e.target.value == "1") {
-        var osc = new DSX.Osc("sawtooth", 0);
+            var osc = new DSX.Osc({type:"sawtooth",freq: 0});
         osc.start();
         adsr.soundfrom(osc, 0.8, 0.2);
         adsr.connect(gain);
@@ -291,10 +280,8 @@ function switch1(e) {
   
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
     }
-
-
-
 }
+
 
 
 
@@ -312,10 +299,6 @@ function switch1(e) {
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.classList.add("active");
         }
-
-
-
-
     </script>
 
 
