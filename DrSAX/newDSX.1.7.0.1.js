@@ -1084,17 +1084,17 @@
 
 
 
-    DSX.prototype.Reverb = function(out) {
-        this.out = out;
+    DSX.prototype.Reverb = function(properties) {
+
 
         this.reverb_Gain = drsax.createGain();
         this.reverb_convolver = drsax.createConvolver();
         this.masterGain = drsax.createGain();
-        this.gain = this.reverb_Gain.gain; ///////simple datachange
+       // this.gain = this.reverb_Gain.gain; ///////simple datachange
 
         this.reverb_convolver.loop = false;
         this.reverb_convolver.normalize = true;
-        this.gain.value = out;
+     
 
 
 
@@ -1146,10 +1146,27 @@
 
         };
 
+   this.gain = properties.gain;
 
 
+    }    
 
-    }
+       DSX.prototype.Reverb.prototype = Object.create(OscObject, {
+
+        gain: {
+            enumerable: true,
+            get: function() {
+                return this.reverb_Gain.gain;
+            },
+            set: function(value) {
+                 this.reverb_Gain.gain.value= value;
+            }
+        }
+    });
+
+/////////////////////////////////////
+
+
 
     DSX.prototype.Mic = function() {
 
@@ -1609,7 +1626,49 @@ DSX.prototype.ATRS = function() {
 
 
 
+    DSX.prototype.BGdata = function(file){
 
+        this.file = file
+
+        var getFile_sound = new XMLHttpRequest();
+        getFile_sound.open("GET", file, true);
+        getFile_sound.responseType = "arraybuffer";
+        getFile_sound.send();
+
+      getFile_sound .onload = function() {
+      var audioData = getFile_sound.response;
+      drsax.decodeAudioData(audioData, function(buffer) {
+        myBuffer = buffer;
+                                                         });
+                                    }
+
+                                
+
+        this.connect = function(out) {
+            this.BG = drsax.createBufferSource();
+            this.out = out;
+            this.BG.connect(out);
+      
+            this.BG.buffer = myBuffer;
+     
+           this.start = function() {
+            this.BG.start(0);
+        }
+
+
+        this.stop = function() {
+
+            this.BG.stop(0);
+        }
+
+    
+}
+
+
+
+
+
+    };
 
 
 
