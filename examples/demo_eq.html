@@ -1,0 +1,297 @@
+<!-- 
+ The MIT License (MIT)
+  Copyright (c) 2016  Euyshick Hong(Dr.Hong)
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+  
+-->
+
+
+
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <script src="cont/js/platform.js"></script>
+    <link rel="import" href="cont/webcomponents/polymer.html">
+    <link rel="import" href="cont/webcomponents/controls.html">
+    <meta charset="utf-8">
+
+<!--start code highlight -->
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- code highlight end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-color: gray;
+        }
+    </style>
+
+    <style>
+        #jb-header {
+            width: 670px;
+            padding: 0px;
+            margin-bottom: 0px;
+            border: 2px solid #484848;
+            border-radius: 25px;
+        }
+        
+        #jb-content {
+            width: 670px;
+            padding: 20px;
+            margin-bottom: 20px;
+            float: left;
+            border: 4px solid black;
+            border-radius: 40px;
+        }
+        
+        #jb-sidebar {
+            width: 670px;
+            padding: 20px;
+            margin-right: 0px;
+            float: right;
+            border: 1px solid #484848;
+            border-radius: 25px;
+        }
+        
+        @media screen and (max-width:480px) {
+            #jb-header {
+                width: auto;
+            }
+            #jb-content {
+                float: none;
+                width: auto;
+            }
+            #jb-sidebar {
+                float: none;
+                width: auto;
+            }
+        }
+    </style>
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+        
+        ul.tab {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            border: 0.1px solid black;
+            background-color: black;
+            border-radius: 10px;
+        }
+        /* Float the list items side by side */
+        
+        ul.tab li {
+            float: left;
+            border: 2px solid black;
+        }
+        /* Style the links inside the list items */
+        
+        ul.tab li a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+        /* Change background color of links on hover */
+        
+        ul.tab li a:hover {
+            background-color: black;
+        }
+        /* Create an active/current tablink class */
+        
+        ul.tab li a:focus,
+        .active {
+            background-color: gray;
+        }
+        /* Style the tab content */
+        
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #484848;
+            border-top: none;
+            border-radius: 25px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="jb-header">
+
+        <p style="color:white;"> &nbsp; Audio File upload and  5 band EQ 
+        </p>
+    </div>
+
+
+    <ul class="tab">
+        <li><a href="#" class="tablinks" onclick="openCity(event, 'code')">JavaScript code</a></li>
+
+        <li><a href="#" class="tablinks" onclick="openCity(event, 'Close')">Close</a></li>
+    </ul>
+
+
+
+    <div id="code" class="tabcontent">
+        <h3>Programing code</h3>
+
+        <pre><code>
+var DSX = new DSX;
+var gain = new DSX.Amp({gain: 0.5});
+var file =new DSX.BGdata("https://drsax.github.io/DrSAX/examples/life.mp3");
+var newEQ = new  DSX.EQ({hiGain:-10, mhiGain:-10, miGain:-10, milowGain:-10, lowGain:-10});
+var sax_EQ1 =new DSX.valueChange("EQ5",newEQ.hiGain); 
+var sax_EQ2 =new DSX.valueChange("EQ4",newEQ.mhiGain); 
+var sax_EQ3 =new DSX.valueChange("EQ3",newEQ.miGain); 
+var sax_EQ4 =new DSX.valueChange("EQ2",newEQ.milowGain); 
+var sax_EQ5 =new DSX.valueChange("EQ1",newEQ.lowGain); 
+var play = document.querySelector('.play');
+var stop = document.querySelector('.stop');
+play.onclick = function() {
+
+file.connect(newEQ)
+newEQ.connect(gain)
+gain.connect(DAC)
+
+file.start();
+}
+stop.onclick = function() {
+ 
+file.stop();
+}
+
+
+
+
+
+
+
+
+
+ </code></pre>
+
+
+
+    </div>
+
+
+
+
+
+    </div>
+
+
+    <div id="jb-content">
+
+        <p style="color:white;"> &nbsp; Audio File upload and  5 band EQ </p>
+
+
+</body>
+
+    <button class="play">Play</button>
+    <button class="stop">Stop</button>
+
+
+
+
+
+
+
+<webaudio-knob id="EQ1" style="display:inline-block; margin:0px;" src="cont/img/ver.png"  value="-10" min="-20" max="20" step="0.01" diameter="110" sprites="50"></webaudio-knob>
+
+<webaudio-knob id="EQ2" style="display:inline-block; margin:0px;" src="cont/img/ver.png"  value="-10" min="-20" max="20" step="0.01" diameter="110" sprites="50"></webaudio-knob>
+
+<webaudio-knob id="EQ3" style="display:inline-block; margin:0px;" src="cont/img/ver.png"  value="-10" min="-20" max="20" step="0.01" diameter="110" sprites="50"></webaudio-knob>
+
+<webaudio-knob id="EQ4" style="display:inline-block; margin:0px;" src="cont/img/ver.png"  value="-10" min="-20" max="20" step="0.01" diameter="110" sprites="50"></webaudio-knob>
+
+<webaudio-knob id="EQ5" style="display:inline-block; margin:0px;" src="cont/img/ver.png"  value="-10" min="-20" max="20" step="0.01" diameter="110" sprites="50"></webaudio-knob>
+
+
+<font style="display:inline-block; margin:0px;" color="black" size="3">
+    <pre>               62.5Hz          250Hz         1000Hz        4000HZ         13000HZ        </pre> 
+
+ <pre>  loading time of sound file will take a second. </pre> 
+
+    </div>
+
+
+
+    <script src="newDSX.1.7.0.1.js"></script>
+
+    <script>
+var DSX = new DSX;
+var gain = new DSX.Amp({gain: 0.5});
+var file =new DSX.BGdata("https://drsax.github.io/DrSAX/examples/life.mp3");
+var newEQ = new  DSX.EQ({hiGain:-10, mhiGain:-10, miGain:-10, milowGain:-10, lowGain:-10});
+var sax_EQ1 =new DSX.valueChange("EQ5",newEQ.hiGain); 
+var sax_EQ2 =new DSX.valueChange("EQ4",newEQ.mhiGain); 
+var sax_EQ3 =new DSX.valueChange("EQ3",newEQ.miGain); 
+var sax_EQ4 =new DSX.valueChange("EQ2",newEQ.milowGain); 
+var sax_EQ5 =new DSX.valueChange("EQ1",newEQ.lowGain); 
+var play = document.querySelector('.play');
+var stop = document.querySelector('.stop');
+play.onclick = function() {
+
+file.connect(newEQ)
+newEQ.connect(gain)
+gain.connect(DAC)
+
+file.start();
+}
+stop.onclick = function() {
+ 
+file.stop();
+}
+
+
+
+
+
+
+
+
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tabcontent.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.classList.add("active");
+        }
+
+    </script>
+
+
+
+
+</html>
