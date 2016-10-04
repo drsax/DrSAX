@@ -50,7 +50,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
    <h4 ><b> Sound effect</b></h4>
 
   <a href="#eqstart" class="w3-hover-black">DrSaX.js Equalizer</a>
-   <a href="#" class="w3-hover-black">DrSaX.js Compressor </a>
+   <a href="#compstart" class="w3-hover-black">DrSaX.js Compressor </a>
   <a href="#panstart" class="w3-hover-black">DrSaX.js  Stereo panner</a>
    <a href="#delstart" class="w3-hover-black">DrSaX.js Delay </a>
   <a href="#revstart" class="w3-hover-black">DrSaX.js Reverb</a>
@@ -1073,6 +1073,114 @@ file.stop();
 
 <!-- section end ------------------------------------------------------------------>
 
+
+
+<!-- section start ------------------------------------------------------------------>
+
+
+<!-- head code set -->
+  <a name="compstart"><h4 style="color:#f2f2f2">Dinamic Compressor</h4></a>
+<br>
+   <div class="w3-container w3-blue">
+        <h4 class="w3-text">DrSaX.js Dinamic Compressor</h4>
+        </div>
+          <h1 class="w3-text">DSX.saxComp :Dinamic Compressor </h1>
+<!-- head code set -->
+
+
+  <!-- table code set -->
+  <table class="w3-table w3-striped w3-bordered w3-border">
+    
+    <thead>
+<tr class="w3-light-grey"  style="font-size:18px">
+      <th> Object</th>
+      <th>Property</th>
+      <th>Method()</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <td>DSX.saxComp({threshold:"value",reduction:"value",
+        knee:"value",ratio:"value:,attack:"value",release:"value"} );</td>
+      <td>saxComp.threshold.value</td>
+      <td>saxComp.connect()</td>
+    </tr>
+
+      <tr>
+      <td></td>
+      <td> saxComp.reduction.value</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td> saxComp.knee.value</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>saxComp.ratio.value</td>
+      <td></td>
+    </tr>
+      <tr>
+      <td></td>
+      <td>saxComp.attack.value</td>
+      <td></td>
+    </tr>
+
+   <tr>
+      <td></td>
+      <td>saxComp.release.value</td>
+      <td></td>
+    </tr>
+
+
+
+  </table>
+  <!-- table code set -->
+
+
+  <!-- head code set -->
+  <div class="w3-container w3-section w3-border w3-round-xlarge">
+        <p><b  style="font-size:18px">threshold range</b> : -100 to 0.&nbsp;&nbsp; <b  style="font-size:18px">reduction range</b> : -40 to 0. absolutely! </p>
+       <p><b  style="font-size:18px">knee range</b> : 0 to 40.&nbsp;&nbsp; <b  style="font-size:18px">ratio range</b> : 0 to 12. absolutely! </p>
+            <p><b  style="font-size:18px">attack range</b> : 0 to 1.&nbsp;&nbsp; <b  style="font-size:18px">release range</b> : 0 to 1. absolutely! </p>
+
+</div>
+  <!-- head code set -->
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.saxComp example code</h3>
+          <div class="w3-code jsHigh notranslate">  
+       <pre>
+var DSX = new DSX;
+
+var saxComp = new DSX.saxComp({ threshold: -70,  ratio: 12, });
+var sax_Comp1 =new DSX.valueChange("Comp1",saxComp.threshold); 
+var sax_Comp2 =new DSX.valueChange("Comp2",saxComp.reduction); 
+var sax_Comp3 =new DSX.valueChange("Comp3",saxComp.knee); 
+var sax_Comp4 =new DSX.valueChange("Comp4",saxComp.ratio); 
+var sax_Comp5 =new DSX.valueChange("Comp5",saxComp.attack); 
+var sax_Comp6 =new DSX.valueChange("Comp6",saxComp.release); 
+
+file.connect(saxComp)
+saxComp.connect(gain)
+gain.connect(DAC)
+                
+      </pre>
+
+  </div>
+    <h5 style="color:blue">Feel free to Try 
+<a href="#" onclick="window.open('examples/demo_comp.html','popup','width=80,height=500,left=0,top=0,scrollbars=no');
+ return false;">demo</a> </h5>
+            
+            
+        </div>
+        <!--code set -->  
+
+
+
+<!-- section end ------------------------------------------------------------------>
 
 
 
