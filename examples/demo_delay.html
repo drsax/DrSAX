@@ -252,7 +252,7 @@ function switch1(e) {
 var DSX = new DSX;
 
 var gain = new DSX.Amp({gain: 0.5});
-var adsr = new DSX.AkRs();
+var adsr = new DSX.ATRS();
 var saxDelay = new DSX.Delay({delayTime: 200,feedback: 0.45, });
 var ampgain = new DSX.valueChange("knob2", gain.gain);
 
