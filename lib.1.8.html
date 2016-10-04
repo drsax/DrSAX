@@ -38,40 +38,54 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   <a href="#" class="w3-hover-black"> What is DrSaX.js?</a>
   <a href="#oscstart" class="w3-hover-black">DrSaX.js Osillator</a>
   <a href="#ampstart" class="w3-hover-black">DrSaX.js Amplitude </a>
-  
-  <a href="#" class="w3-hover-black">DrSaX.js  Equalizer</a>
+    <a href="#" class="w3-hover-black">DrSaX.js  Attack and release</a>
+
+
+   <h4 ><b> Sound Synthesis </b></h4>
+
+
+   <a href="#" class="w3-hover-black">DrSaX.js FM </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  AM</a>
+  <a href="#" class="w3-hover-black">DrSaX.js Subtractive </a>
+   <h4 ><b> Sound effect</b></h4>
+
+  <a href="#eqstart" class="w3-hover-black">DrSaX.js Equalizer</a>
    <a href="#" class="w3-hover-black">DrSaX.js Compressor </a>
-  
   <a href="#panstart" class="w3-hover-black">DrSaX.js  Stereo panner</a>
    <a href="#delstart" class="w3-hover-black">DrSaX.js Delay </a>
   <a href="#revstart" class="w3-hover-black">DrSaX.js Reverb</a>
 
-   <h4 ><b> sound effect</b></h4>
-
-   <a href="#" class="w3-hover-black">DrSaX.js Low Pass Filter </a>
-  
-  <a href="#" class="w3-hover-black">DrSaX.js  Sound input</a>
-   <a href="#" class="w3-hover-black">DrSaX.js FM </a>
-  
-  <a href="#" class="w3-hover-black">DrSaX.js  AM</a>
-   <a href="#" class="w3-hover-black">DrSaX.js Frequency canvas </a>
-  
-  <a href="#" class="w3-hover-black">DrSaX.js  Amplitude canvas</a>
-   <a href="#" class="w3-hover-black">DrSaX.js Data control </a>
-  
-  <a href="#" class="w3-hover-black">DrSaX.js  Onclick</a>
-   <a href="#" class="w3-hover-black">DrSaX.js Tunner </a>
-  
+ <h4 ><b> Audio File</b></h4>
+ 
   <a href="#" class="w3-hover-black">DrSaX.js  Audio player</a>
-  <a href="#" class="w3-hover-black">DrSaX.js  Attack and release</a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Audio upload</a>
+ <a href="#" class="w3-hover-black">DrSaX.js   Audio control </a>
+
+
+
+ <h4 ><b> Sound INPUT</b></h4>
+ <a href="#" class="w3-hover-black">DrSaX.js Mic Input </a>
+  <a href="#" class="w3-hover-black">DrSaX.js Tunner </a>
+
+
+ <h4 ><b> Sound Visualization</b></h4>
+   <a href="#" class="w3-hover-black">DrSaX.js Frequency canvas </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Amplitude canvas</a>
+
+
+ <h4 ><b> Sound value control</b></h4>
+
+  <a href="#" class="w3-hover-black">DrSaX.js Data control </a>
+  <a href="#" class="w3-hover-black">DrSaX.js  Onclick</a>
+
+
+
+
   <h4 ><b> References</b></h4>
 
-   <a href="#" class="w3-hover-black">DrSaX.js  Onclick</a>
+   <a href="#" class="w3-hover-black">DrSaX.js Onclick</a>
    <a href="#" class="w3-hover-black">DrSaX.js Tunner </a>
   
-  <a href="#" class="w3-hover-black">DrSaX.js  Audio player</a>
-  <a href="#" class="w3-hover-black">DrSaX.js  Attack and release</a>
-
 
   <h4 ><b>Examples</b></h4>
 
@@ -706,6 +720,128 @@ var Delay = new DSX.Delay({ delayTime : 200, feedback: 0.45, });
 
 
 
+  <!-- section start ------------------------------------------------------------------>
+
+      <!-- head code set -->
+  <a name="eqstart"><h4 style="color:#f2f2f2"> eq </h4></a>
+<br>
+   <div class="w3-container w3-blue">
+        <h4 class="w3-text">DrSaX.js Equlizer </h4>
+        </div>
+          <h1 class="w3-text">DSX.EQ : Make a sound Equlizer</h1>
+      <!-- head code set -->
+
+
+
+
+  <!-- table code set -->
+  <table class="w3-table w3-striped w3-bordered w3-border">
+    
+    <thead>
+<tr class="w3-light-grey"  style="font-size:18px">
+      <th> Object</th>
+      <th>Property</th>
+      <th>Method()</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <td>DSX.EQ({hiGain:"value", mhiGain:"value", miGain:"value", milowGain:"value", lowGain:"value"});</td>
+      <td>EQ.hiGain.vlaue</td>
+      <td>EQ.connect()</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td> EQ.mhiGain.value</td>
+      <td></td>
+    </tr>
+      <tr>
+      <td></td>
+      <td> EQ.miGain.value</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td> EQ.milowGain.value</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td> EQ.lowGain.value</td>
+      <td></td>
+    </tr>
+
+
+
+  </table>
+  <!-- table code set -->
+
+
+
+  <!-- head code set -->
+  <div class="w3-container w3-section w3-border w3-round-xlarge">
+        <p><b style="font-size:18px">EQ gain range</b> : -20 to  20 </p>
+   
+</div>
+  <!-- head code set -->
+
+
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.Osc example code</h3>
+          <div class="w3-code jsHigh notranslate">  
+<pre> var DSX = new DSX;
+var gain = new DSX.Amp({gain: 0.5});
+var file =new DSX.BGdata("https://drsax.github.io/DrSAX/examples/life.mp3");
+
+var newEQ = new  DSX.EQ({hiGain:-10, mhiGain:-10, miGain:-10, 
+                             milowGain:-10, lowGain:-10});
+
+var sax_EQ1 =new DSX.valueChange("EQ5",newEQ.hiGain); 
+var sax_EQ2 =new DSX.valueChange("EQ4",newEQ.mhiGain); 
+var sax_EQ3 =new DSX.valueChange("EQ3",newEQ.miGain); 
+var sax_EQ4 =new DSX.valueChange("EQ2",newEQ.milowGain); 
+var sax_EQ5 =new DSX.valueChange("EQ1",newEQ.lowGain);
+
+var play = document.querySelector('.play');
+var stop = document.querySelector('.stop');
+play.onclick = function() {
+
+file.connect(newEQ)
+newEQ.connect(gain)
+gain.connect(DAC)
+
+file.start();
+}
+stop.onclick = function() {
+ 
+file.stop();
+}
+                       
+      </pre>
+
+          </div>
+            <h5 style="color:blue">Feel free to Try  
+
+
+             <a href="#" onclick="window.open('examples/demo_eq.html','popup','width=385,height=500,left=0,top=0,scrollbars=no'); return false;">demo</a> </h5>
+            
+        </div>
+        <!--code set -->  
+
+
+
+<!-- section end ------------------------------------------------------------------>
+
+
+
+
+
+ 
+
+
+
 
 
 
@@ -723,10 +859,6 @@ var Delay = new DSX.Delay({ delayTime : 200, feedback: 0.45, });
     <!--last line --------------------------------- text out -->
     
 
-
-
-
- 
 
 
 
