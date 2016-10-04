@@ -1,16 +1,14 @@
-# DrSAX
+# DrSAX.js
 
-Dr.SAXophone with web-audio/visual networking project (1.0.0 -drsax1)
-
-
+Web Audio library for Saxophone in JavaScript
 
 
 ## Introduction
 
-__DrSAX__ has developed  for web-based music application. The project aims to control and support the development of interactive web-audio/visual networking system for saxophone sound effects and artistic media works.
+__DrSAX__ has developed  for web-based music application. The project aims to control and support the development of interactive web-audio/visual networking system for saxophone  and sound effects with artistic media works.
 
 
-## Feature Highlights
+## Feature 
 
 - **Fast** - 
 - **Less code**
@@ -26,8 +24,6 @@ For using DrSAX project, this systemes requires to set up the following software
 ## Installation and getting Start
 
 If you have all the above installed, execute the following commands in the terminal to install and launch DrSAX project.
-
-~~~bash
 
 $ mkfdir
 $ git remote add origin - git remote rm origin
@@ -48,22 +44,8 @@ node drsax.js
 
 
 
-## Change Log
-
-
-
-- 1.0.0-drsax
-    + First alpha version before stable release.
-    + Dropped deprecated components from repository.
-    + New plug-in builder introduced.
-
-
 
 ## License and Contact
-
-
-
-
 
 
 MIT License. Copyright 2015-2017 [Euy shick Hong](http://drsax.kr) antaresax@gmail.com
