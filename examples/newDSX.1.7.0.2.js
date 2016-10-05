@@ -939,8 +939,8 @@
         this.activateNode.connect(this.Lowpass);
         this.Lowpass.connect(this.output);
 
-        this.frequency = properties.frequency || this.defaults.frequency.value;
         this.cutoff = properties.cutoff || this.defaults.cutoff.value;
+        this.resonance = properties.resonance || this.defaults.resonance.value;
         this.gain = properties.gain || this.defaults.gain.value;
         this.bypass = properties.bypass || false;
     };
@@ -953,7 +953,7 @@
             value: {
 
 
-                frequency: {
+                cutoff: {
                     value: 1000,
                     min: 0,
                     max: 2000,
@@ -964,10 +964,10 @@
 
 
 
-                cutoff: {
+                resonance: {
                     value: 0,
-                    min: 2000,
-                    max: 1,
+                    min: 0,
+                    max: 20,
                     automatable: false,
                     type: FLOAT
                 },
@@ -989,7 +989,7 @@
         },
 
 
-        frequency: {
+        cutoff: {
             enumerable: true,
             get: function() {
                 return this.Lowpass.frequency;
@@ -998,10 +998,10 @@
                 this.Lowpass.frequency.value = value;
             }
         },
-        cutoff: {
+        resonance: {
             enumerable: true,
             get: function() {
-                return this.lowpass.Q;
+                return this.Lowpass.Q;
             },
             set: function(value) {
                 this.Lowpass.Q.value = value;
@@ -1224,7 +1224,7 @@
     }
 
 
-
+/////////////////////////////////
 
 
     DSX.prototype.functionChange = function(c,out) {
@@ -1242,6 +1242,8 @@
 
 
     
+/////////////////////////////////
+
 
 
 
@@ -1615,22 +1617,21 @@ DSX.prototype.ATRS = function() {
         getFile_sound.responseType = "arraybuffer";
         getFile_sound.send();
 
-      getFile_sound .onload = function() {
+      getFile_sound.onload = function() {
       var audioData = getFile_sound.response;
       drsax.decodeAudioData(audioData, function(buffer) {
         myBuffer = buffer;
                                                          });
                                     }
 
-                                
-            this.BG = drsax.createBufferSource();
+           this.BG = drsax.createBufferSource();
             this.speed= this.BG.playbackRate;
-
-        this.connect = function(out) {
-   
+            this.connect = function(out) {
+    
             this.out = out;
             this.BG.connect(out);
             this.BG.buffer = myBuffer;
+       
      
            this.start = function() {
             this.BG.start(0);
