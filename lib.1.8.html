@@ -69,7 +69,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
 
  <h4 ><b> Sound Visualization</b></h4>
-   <a href="#" class="w3-hover-black">DrSaX.js Frequency canvas </a>
+   <a href="#freqstart" class="w3-hover-black">DrSaX.js Frequency canvas </a>
   <a href="#" class="w3-hover-black">DrSaX.js  Amplitude canvas</a>
 
 
@@ -1438,6 +1438,80 @@ gain.connect(DAC)
 
 
 <!-- section end ------------------------------------------------------------------>
+
+<!-- section start ------------------------------------------------------------------>
+
+
+<!-- head code set -->
+  <a name="freqstart"><h4 style="color:#f2f2f2"> sound visualization : frequency domain</h4></a>
+<br>
+   <div class="w3-container w3-blue">
+        <h4 class="w3-text">DrSaX.js sound visualization : frequency domain</h4>
+        </div>
+          <h1 class="w3-text">DSX.freqDomain : frequency domain</h1>
+<!-- head code set -->
+
+
+
+   
+  <!-- table code set -->
+  <table class="w3-table w3-striped w3-bordered w3-border">
+    
+    <thead>
+<tr class="w3-light-grey"  style="font-size:18px">
+      <th>Object</th>
+      <th>Property</th>
+      <th>Method()</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <td>DSX.freqDomain('canvas tag id', " bar color");</td>
+      <td></td>
+      <td>freqDomain.getAnalyser(soundsouce)</td>
+
+
+  </table>
+  <!-- table code set -->
+
+
+
+  <!-- head code set -->
+  <div class="w3-container w3-section w3-border w3-round-xlarge">
+        <p><b  style="font-size:18px">Mic is  ONLY possible in HTTPS, Absolutely!</b> </p>
+
+</div>
+  <!-- head code set -->
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.freqDomain example code</h3>
+          <div class="w3-code jsHigh notranslate">  
+       <pre>
+    var DSX = new DSX;
+    var gain = new DSX.Amp({gain: 0.5});
+    var saxInput = new DSX.Mic();
+    var frequrncy_canvas = new DSX.freqDomain('canv', 'red');
+        frequrncy_canvas.getAnalyser(gain);
+
+        saxInput.connect(gain);
+        gain.connect(DAC);
+                
+      </pre>
+
+  </div>
+    <h5 style="color:blue">Feel free to Try 
+<a href="#" onclick="window.open('examples/demo_mic.html','popup','width=385,height=500,left=0,top=0,scrollbars=no');
+ return false;">demo</a> </h5>
+            
+            
+        </div>
+        <!--code set -->  
+
+
+
+<!-- section end ------------------------------------------------------------------>
+
 
 
 
