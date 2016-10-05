@@ -170,8 +170,8 @@
        amp_canvas.getAnalyser(gain);
 
     var amp_gain = new DSX.valueChange("knob2", gain.gain);
-    var sound_on_off = new DSX.functionChange("switch1");
-    sound_on_off.setRange(switch1);
+      var sound_on_off = new DSX.functionChange("switch1",swit);
+
 
     function switch1(e) {
         if (e.target.value == "1") {
