@@ -143,7 +143,7 @@
 
     <div id="jb-header">
 
-        <p style="color:white;"> &nbsp; Mic Input and frequency domain
+        <p style="color:white;"> &nbsp; Mic Input and amplitude domain
         </p>
     </div>
 
@@ -160,11 +160,15 @@
 
         <pre><code>
 
- var DSX = new DSX;
-    var gain = new DSX.Amp({
-        gain: 0.5
-    });
+<<!---->canvas id="canv"></<!---->canvas>
+
+    var DSX = new DSX;
+    var gain = new DSX.Amp({gain: 0.5});
     var saxInput = new DSX.Mic();
+
+    var amp_canvas = new DSX.ampDomain('canv', "red",200,100);
+       amp_canvas.getAnalyser(gain);
+
     var amp_gain = new DSX.valueChange("knob2", gain.gain);
     var sound_on_off = new DSX.functionChange("switch1");
     sound_on_off.setRange(switch1);
@@ -173,17 +177,21 @@
         if (e.target.value == "1") {
             saxInput.connect(gain);
             gain.connect(DAC);
+      amp_canvas.getAnalyser(gain);
+
 
         }
 
         if (e.target.value == "0") {
             gain.disconnect();
+    amp_canvas.cutAnalyser(gain);
 
         }
     }
 
-    var frequrncy_canvas = new DSX.freqDomain('canv', "red"); // canvas
-    frequrncy_canvas.getAnalyser(gain);
+    var amp_canvas = new DSX.ampDomain('canv', "red",200,100); // canvas
+       amp_canvas.getAnalyser(gain);
+
 
 
 
