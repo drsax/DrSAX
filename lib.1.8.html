@@ -1683,12 +1683,12 @@ gain.connect(DAC)
 
 
 <!-- head code set -->
-  <a name="funcstart"><h4 style="color:#f2f2f2"> data toggle control</h4></a>
+  <a name="funcstart"><h4 style="color:#f2f2f2"> data function control</h4></a>
 <br>
    <div class="w3-container w3-blue">
-        <h4 class="w3-text">DrSaX.js data toggle control</h4>
+        <h4 class="w3-text">DrSaX.js data function control</h4>
         </div>
-          <h1 class="w3-text">DSX.functionChange : data toggle control</h1>
+          <h1 class="w3-text">DSX.functionChange : data function control</h1>
 <!-- head code set -->
 
 
@@ -1706,7 +1706,7 @@ gain.connect(DAC)
   </thead>
 
     <tr>
-      <td>DSX.functionChange('canvas tag id','function name');</td>
+      <td>DSX.functionChange('input tag id','function name');</td>
       <td></td>
       <td></td>
     </tr>
@@ -1766,6 +1766,97 @@ gain.connect(DAC)
 <!-- section end ------------------------------------------------------------------>
 
 
+<!-- section start ------------------------------------------------------------------>
+
+
+<!-- head code set -->
+  <a name="funcstart"><h4 style="color:#f2f2f2"> data toggle control</h4></a>
+<br>
+   <div class="w3-container w3-blue">
+        <h4 class="w3-text">DrSaX.js data toggle control</h4>
+        </div>
+          <h1 class="w3-text">DSX.valueToggle : data toggle control</h1>
+<!-- head code set -->
+
+
+   
+  <!-- table code set -->
+  <table class="w3-table w3-striped w3-bordered w3-border">
+    
+    <thead>
+<tr class="w3-light-grey"  style="font-size:18px">
+      <th>Object</th>
+      <th>Property</th>
+      <th>Method()</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <td>DSX.valueToggle('input tag id','function name');</td>
+      <td></td>
+      <td></td>
+    </tr>
+
+
+  </table>
+  <!-- table code set -->
+
+
+
+  <!-- head code set -->
+  <div class="w3-container w3-section w3-border w3-round-xlarge">
+        <p><b  style="font-size:18px">DSX.valueToggle control data with function </b> </p>
+
+</div>
+  <!-- head code set -->
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.valueToggle example code</h3>
+          <div class="w3-code jsHigh notranslate">  
+       <pre>
+
+
+    <<!---->button id="play_audio">Play<<!---->/button>
+    <<!---->button id="stop_audio">Stop<<!---->/button>
+
+
+var playing =new DSX.valueToggle('play_audio',play);
+
+function play(){
+
+file_upload.connect(gain)
+gain.connect(DAC)
+
+                }
+var play_new =new DSX.valueToggle('stop_audio',stop);
+
+function stop(){
+
+file_upload.stop();
+
+                }
+   
+      </pre>
+
+  </div>
+    <h5 style="color:blue">Feel free to Try 
+<a href="#" onclick="window.open('examples/demo_toggle.html','popup','width=385,height=500,left=0,top=0,scrollbars=no');
+ return false;">demo</a> </h5>
+            
+            
+        </div>
+        <!--code set -->  
+
+
+
+<!-- section end ------------------------------------------------------------------>
+
+
+
+
+
+ 
 
 
 
