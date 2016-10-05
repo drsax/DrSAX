@@ -241,10 +241,10 @@
     var gain = new DSX.Amp({gain: 0.5});
     var saxInput = new DSX.Mic();
     var amp_gain = new DSX.valueChange("knob2", gain.gain);
-    var sound_on_off = new DSX.functionChange("switch1");
-    sound_on_off.setRange(switch1);
+    var sound_on_off = new DSX.functionChange("switch1",swit);
 
-    function switch1(e) {
+
+    function swit(e) {
         if (e.target.value == "1") {
             saxInput.connect(gain);
             gain.connect(DAC);

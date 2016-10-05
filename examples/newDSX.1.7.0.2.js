@@ -1227,28 +1227,21 @@
 
 
 
-    DSX.prototype.functionChange = function(c) {
+    DSX.prototype.functionChange = function(c,out) {
 
 
         this.c = c;
-
-
-
-
+         this.out = out;
         this.dial_10 = document.getElementById(c);
-   
-
-        this.setRange = function(out) {
-            this.out = out;
-            this.dial_10.addEventListener("change", out, false);
+        this.dial_10.addEventListener("change", out, false);
 
         }
 
 
 
 
-    }
 
+    
 
 
 
