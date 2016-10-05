@@ -46,7 +46,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
    <a href="#" class="w3-hover-black">DrSaX.js FM </a>
   <a href="#" class="w3-hover-black">DrSaX.js  AM</a>
-  <a href="#" class="w3-hover-black">DrSaX.js Subtractive </a>
+  <a href="#substart" class="w3-hover-black">DrSaX.js Subtractive </a>
    <h4 ><b> Sound effect</b></h4>
 
   <a href="#eqstart" class="w3-hover-black">DrSaX.js Equalizer</a>
@@ -808,6 +808,109 @@ var Delay = new DSX.Delay({ delayTime : 200, feedback: 0.45, });
 
 
 <!-- section end ------------------------------------------------------------------>
+
+
+
+
+
+  <!-- section start ------------------------------------------------------------------>
+
+      <!-- head code set -->
+  <a name="substart"><h4 style="color:#f2f2f2"> subtractive synthesizer </h4></a>
+<br>
+   <div class="w3-container w3-blue">
+        <h4 class="w3-text">DrSaX.js subtractive synthesizer </h4>
+        </div>
+          <h1 class="w3-text">DSX.Subtract : Make a subtractive synthesizer</h1>
+      <!-- head code set -->
+
+
+
+  <!-- table code set -->
+  <table class="w3-table w3-striped w3-bordered w3-border">
+    
+    <thead>
+<tr class="w3-light-grey"  style="font-size:18px">
+      <th> Object</th>
+      <th>Property</th>
+      <th>Method()</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <td>DSX.Subtract({cutoff:"value", resonance:"value", gain:"value"});</td>
+      <td>Subtract.cutoff.vlaue</td>
+      <td>Subtract.connect()</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td> Subtract.resonance.vlaue</td>
+      <td></td>
+    </tr>
+      <tr>
+      <td></td>
+      <td> Subtract.gain.vlaue</td>
+      <td></td>
+    </tr>
+ 
+
+
+  </table>
+  <!-- table code set -->
+
+
+
+  <!-- head code set -->
+  <div class="w3-container w3-section w3-border w3-round-xlarge">
+        <p><b style="font-size:18px">Subtract </b></p>
+   
+</div>
+  <!-- head code set -->
+
+
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.Osc example code</h3>
+          <div class="w3-code jsHigh notranslate">  
+<pre> var sub = new DSX.Subtract({cutoff:1230, resonance:0, gain:0.8});
+var sax_EQ1 =new DSX.valueChange("EQ1",osc.freq);
+var sax_EQ2 =new DSX.valueChange("EQ2",sub.cutoff); 
+var sax_EQ3 =new DSX.valueChange("EQ3",sub.resonance); 
+var sax_EQ4 =new DSX.valueChange("EQ4",sub.gain); 
+
+osc.connect(sub)
+sub.connect(gain)
+gain.connect(DAC)
+osc.start();
+
+                       
+      </pre>
+
+          </div>
+            <h5 style="color:blue">Feel free to Try  
+
+
+             <a href="#" onclick="window.open('examples/demo_sub.html','popup','width=750,height=550,left=0,top=0,scrollbars=no'); return false;">demo</a> </h5>
+            
+        </div>
+        <!--code set -->  
+
+
+
+<!-- section end ------------------------------------------------------------------>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
