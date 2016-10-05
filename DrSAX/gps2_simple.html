@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+ 
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 30;
+        padding: 30;
+      }
+   
+    </style>
+  </head>
+  <body>
+    <p><button onclick="location.reload()">Show my Gps</button></p> 
+       <div id="out"></div>
+  
+    <div id="map" style="width:50%;height:500px"></div>
+
+
+
+    <script>
+function initMap() {
+
+   var output = document.getElementById("out");
+  var map = new google.maps.Map(document.getElementById('map'),{zoom: 10});
+  var infoWindow = new google.maps.InfoWindow({map: map});
+  
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+
+      };
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('drhong');
+      map.setCenter(pos);
+
+    output.innerHTML = '<p>Latitude is ' + pos.lat + '° <br>Longitude is ' + pos.lng + '°</p>';
+    });
+
+}
+
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgjbZwNC0Z-6vBK3YYOxyWvcRfFrippJA&signed_in=true&callback=initMap"
+        async defer>
+    </script>
+  </body>
+</html>
