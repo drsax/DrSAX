@@ -70,7 +70,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
  <h4 ><b> Sound Visualization</b></h4>
    <a href="#freqstart" class="w3-hover-black">DrSaX.js Frequency canvas </a>
-  <a href="#" class="w3-hover-black">DrSaX.js  Amplitude canvas</a>
+  <a href="#ampdomainstart" class="w3-hover-black">DrSaX.js  Amplitude canvas</a>
 
 
  <h4 ><b> Sound value control</b></h4>
@@ -1514,6 +1514,94 @@ gain.connect(DAC)
 
 
 
+<!-- section start ------------------------------------------------------------------>
+
+
+<!-- head code set -->
+  <a name="ampdomainstart"><h4 style="color:#f2f2f2"> sound visualization : amplitude domain</h4></a>
+<br>
+   <div class="w3-container w3-blue">
+        <h4 class="w3-text">DrSaX.js sound visualization : amplitude domain</h4>
+        </div>
+          <h1 class="w3-text">DSX.ampDomain : amplitude domain</h1>
+<!-- head code set -->
+
+
+
+   
+  <!-- table code set -->
+  <table class="w3-table w3-striped w3-bordered w3-border">
+    
+    <thead>
+<tr class="w3-light-grey"  style="font-size:18px">
+      <th>Object</th>
+      <th>Property</th>
+      <th>Method()</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <td>DSX.ampDomain('canvas tag id'," bar color",
+       "width","height");</td>
+      <td></td>
+      <td>ampDomain.getAnalyser()</td>
+    </tr>
+ <tr>
+      <td></td>
+      <td></td>
+      <td>ampDomain.cutAnalyser()</td>
+    </tr>
+
+  </table>
+  <!-- table code set -->
+
+
+
+  <!-- head code set -->
+  <div class="w3-container w3-section w3-border w3-round-xlarge">
+        <p><b  style="font-size:18px">"width","height" shoud set the same canvas tag  Absolutely!</b> </p>
+
+</div>
+  <!-- head code set -->
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.ampDomain example code</h3>
+          <div class="w3-code jsHigh notranslate">  
+       <pre>
+
+<<!---->canvas id="canv" ></<!---->canvas>
+    var DSX = new DSX;
+    var gain = new DSX.Amp({gain: 0.5});
+    var saxInput = new DSX.Mic();
+    var amp_gain = new DSX.valueChange("knob2", gain.gain);
+  
+    var amp_canvas = new DSX.ampDomain('canv', "red",200,100); 
+    amp_canvas.getAnalyser(gain);
+
+      saxInput.connect(gain);
+      gain.connect(DAC);
+
+     amp_canvas.cutAnalyser(gain)       
+      </pre>
+
+  </div>
+    <h5 style="color:blue">Feel free to Try 
+<a href="#" onclick="window.open('examples/demo_ampdomain.html','popup','width=385,height=500,left=0,top=0,scrollbars=no');
+ return false;">demo</a> </h5>
+            
+            
+        </div>
+        <!--code set -->  
+
+
+
+<!-- section end ------------------------------------------------------------------>
+
+
+
+
+ 
 
  
 
