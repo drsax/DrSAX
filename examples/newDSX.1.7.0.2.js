@@ -858,17 +858,10 @@
     }
 
 
-    DSX.prototype.FM = function(carrier, carrier_type, ModeFreq, FM_type, Depth, Amp) {
+    
+    DSX.prototype.FM = function(properties) {
 
-        this.carrier = carrier;
-        this.carrier_type = carrier_type;
-        this.FM_type = FM_type;
-
-
-        this.ModeFreq = ModeFreq;
-        this.Depth = Depth;
-        this.Amp = Amp;
-
+      
 
         this.CAOsc = drsax.createOscillator();
         this.FMOsc = drsax.createOscillator();
@@ -878,20 +871,7 @@
         this.mainout = drsax.createGain();
 
 
-
-
-        this.CAOsc.frequency.value = carrier;
-        this.FMOsc.frequency.value = ModeFreq;
-        this.gain1.gain.value = Depth;
-        this.mainout.gain.value = Amp;
-
-
-
-
         this.CAOsc.connect(this.mainout);
-
-
-
         this.FMOsc.connect(this.gain1);
         this.gain1.connect(this.CAOsc.frequency);
 
@@ -914,18 +894,97 @@
         this.stop = function() {
 
 
-            this.mainout.gain.value = 0;
+            this.mainout.disconnect();
 
 
         };
-
-
+   this.carrier_type =properties.carrier_type
+  this.carrier = properties.carrier;
+  this.modfreq =properties. modfreq;
+   this.mod_type = properties.mod_type;
+   this.depth =properties.depth;
+        this.gain =properties.gain;
 
 
     }
 
 
 
+         DSX.prototype.FM.prototype = Object.create(OscObject, {
+
+
+   carrier_type: {
+            enumerable: true,
+            get: function() {
+                return this.CAOsc
+            },
+            set: function(value) {
+                 this.CAOsc.type= value;
+            }
+        },
+
+
+
+        carrier: {
+            enumerable: true,
+            get: function() {
+                return this.CAOsc.frequency
+            },
+            set: function(value) {
+                 this.CAOsc.frequency.value= value;
+            }
+        },
+
+   mod_type: {
+            enumerable: true,
+            get: function() {
+                return this.FMOsc
+            },
+            set: function(value) {
+                 this.FMOsc.type= value;
+            }
+        },
+
+
+
+        modfreq: {
+            enumerable: true,
+            get: function() {
+                return this.FMOsc.frequency
+            },
+            set: function(value) {
+                 this.FMOsc.frequency.value= value;
+            }
+        },
+
+
+        depth: {
+            enumerable: true,
+            get: function() {
+                return this.gain1.gain
+            },
+            set: function(value) {
+                 this.gain1.gain.value= value;
+            }
+        },
+
+
+   gain: {
+            enumerable: true,
+            get: function() {
+                return this.mainout.gain
+            },
+            set: function(value) {
+                 this.mainout.gain.value= value;
+            }
+        }
+
+
+    });
+
+
+
+//////////////////////////////////////////////////////////////////////////////
 
     DSX.prototype.Subtract = function(properties) {
         if (!properties) {
