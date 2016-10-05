@@ -1247,23 +1247,17 @@
 
 
 
-    DSX.prototype.valueToggle = function(c) {
+    DSX.prototype.valueToggle = function(c,out) {
 
 
             this.c = c;
-
+            this.out = out;
             this.dial_10 = document.getElementById(c);
-
-
-            this.setToggle = function(out) {
-                this.out = out;
-                this.dial_10.addEventListener("click", out, false);
+            this.dial_10.addEventListener("click", out, false);
 
             }
 
-
-
-        }
+        
 
 
 
