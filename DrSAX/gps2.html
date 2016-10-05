@@ -1,63 +1,77 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <head>
+    <title>Geolocation</title>
+ 
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 30;
+        padding: 30;
+      }
+   
+    </style>
+  </head>
+  <body>
+    <p><button onclick="location.reload()">Show my Gps</button></p> <p><button onclick="stop()">stop Gps</button></p>
+       <div id="out"></div>
+  
+    <div id="map" style="width:50%;height:500px"></div>
 
-<p id="demo">Click the button to get your position.</p>
-
-<button onclick="getLocation()">Try It</button>
-
-<div id="mapholder"></div>
-
-<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
-
-<script>
-var x = document.getElementById("demo");
 
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
+    <script>
+var stop1 = setInterval(  function(){  
+
+  var output = document.getElementById("out");
+
+  function success(position) {
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+  };
+  navigator.geolocation.getCurrentPosition(success);
+
+
+  }, 1000); 
+
+function stop() {
+    clearInterval(stop1);
 }
 
-function showPosition(position) {
-    lat = position.coords.latitude;
-    lon = position.coords.longitude;
-    latlon = new google.maps.LatLng(lat, lon)
-    mapholder = document.getElementById('mapholder')
-    mapholder.style.height = '250px';
-    mapholder.style.width = '500px';
+function initMap() {
 
-    var myOptions = {
-    center:latlon,zoom:14,
-    mapTypeId:google.maps.MapTypeId.ROADMAP,
-    mapTypeControl:false,
-    navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
-    }
-    
-    var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
-    var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
+   var output = document.getElementById("out");
+  var map = new google.maps.Map(document.getElementById('map'),{zoom: 10});
+  var infoWindow = new google.maps.InfoWindow({map: map});
+  
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+
+      };
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('drhong');
+      map.setCenter(pos);
+    });
+
+
+
 }
 
-function showError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
-            break;
-        case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
-            break;
-        case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
-            break;
-        case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
-            break;
-    }
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
 }
-</script>
 
-</body>
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgjbZwNC0Z-6vBK3YYOxyWvcRfFrippJA&signed_in=true&callback=initMap"
+        async defer>
+    </script>
+  </body>
 </html>
