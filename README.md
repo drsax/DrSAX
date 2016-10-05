@@ -10,9 +10,9 @@ __DrSAX__ has developed  for web-based music application. The project aims to co
 
 ## Feature 
 
-- **Fast** - 
-- **Less code**
-
+- **Simplification and getting fast**  
+- **Make your sound and better**
+- **Create novel framworks by input**
 
 ## Prerequisites
 
