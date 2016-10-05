@@ -1024,10 +1024,10 @@
 
 
     /////// BGsound /////////////////////////////////
-    DSX.prototype.BGsound = function() {
+    DSX.prototype.BGsound = function(out) {
 
          this.speed = 1;
-    
+    this.out =out
 
 
         var uploadfile;
@@ -1036,7 +1036,7 @@
         getFile_sound.responseType = "arraybuffer";
         getFile_sound.send();
         var sound_reader = new FileReader();
-        var fileI = document.getElementById('inputS');
+        var fileI = document.getElementById(out);
         fileI.addEventListener('change', function() {
 
             sound_reader.onload = function() {
@@ -1319,19 +1319,19 @@
 
 
         ////////////////////////////////////////////////
-    DSX.prototype.ampDomain = function(out) {
+    DSX.prototype.ampDomain = function(out,color,canvasWidth,canvasHeight) {
         
      
 
         this.out = out;
-  
+    this.color =color;
      
         var Analyser_CANVAS1 = drsax.createAnalyser();
        
 
 
 
-        this.getAnalyser1 = function(out) {
+        this.getAnalyser = function(out) {
             
             this.out = out;
      
@@ -1344,8 +1344,8 @@
 
    var ampDomain_data;
     var column = 0;
-    var canvasWidth  = 800;
-    var canvasHeight = 256;
+    this.canvasWidth  = canvasWidth;
+    this.canvasHeight = canvasHeight;
 
      var canvas2 = document.getElementById(out);
      var ctx_amp = canvas2.getContext('2d');
@@ -1375,7 +1375,7 @@
 
       var y_lo = canvasHeight - (canvasHeight * minValue) - 1;
       var y_hi = canvasHeight - (canvasHeight * maxValue) - 1;
-       ctx_amp.fillStyle = '#ffffff';
+       ctx_amp.fillStyle = color;
        ctx_amp.fillRect(column,y_lo, 1, y_hi - y_lo);
         // loop around the canvas when we reach the end
         column += 1;
