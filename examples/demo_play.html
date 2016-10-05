@@ -160,46 +160,11 @@
         <h3>Programing code</h3>
 
         <pre><code>
-var DSX = new DSX;
+<<!---->input type="file" id="upload">
+<<!---->audio id="sound" controls ><<!---->/audio>
 
-var gain = new DSX.Amp({
-    gain: 0.5
-});
-var adsr = new DSX.ATRS();
-var saxDelay = new DSX.Delay({
-    delayTime: 200,
-    feedback: 0.45,
-});
-var ampgain = new DSX.valueChange("knob2", gain.gain);
-
-var sax_delay = new DSX.valueChange("delay_time", saxDelay.delayTime);
-var sax_feedback = new DSX.valueChange("feed_back", saxDelay.feedback);
-
-var sound_on_off = new DSX.functionChange("switch1");
-sound_on_off.setRange(switch1);
-
-
-
-function switch1(e) {
-
-
-    if (e.target.value == "1") {
-        var osc = new DSX.Osc("sawtooth", 0);
-        osc.start();
-        adsr.soundfrom(osc, 0.1, 0.2);
-        adsr.connect(gain);
-        gain.connect(saxDelay);
-        saxDelay.connect(DAC);
-
-
-        var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
-    }
-
-
-
-}
-
-
+var playing =new DSX.musicPlayer();
+playing.load("upload","sound");   
 
  </code></pre>
 
