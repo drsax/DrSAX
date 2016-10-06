@@ -44,8 +44,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
    <h4 ><b> Sound Synthesis </b></h4>
 
 
-   <a href="#" class="w3-hover-black">DrSaX.js FM </a>
-  <a href="#" class="w3-hover-black">DrSaX.js  AM</a>
+   <a href="#fmstart" class="w3-hover-black">DrSaX.js FM </a>
+  <a href="#amstart" class="w3-hover-black">DrSaX.js  AM</a>
   <a href="#substart" class="w3-hover-black">DrSaX.js Subtractive </a>
    <h4 ><b> Sound effect</b></h4>
 
@@ -83,17 +83,10 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
 
 
-  <h4 ><b> References</b></h4>
+  <h4 ><b>Web application works</b></h4>
 
-   <a href="#" class="w3-hover-black">DrSaX.js Onclick</a>
-   <a href="#" class="w3-hover-black">DrSaX.js Tunner </a>
-  
-
-  <h4 ><b>Examples</b></h4>
-
-  <a href="#" class="w3-hover-black">DrSaX.js  Audio player</a>
-  <a href="#" class="w3-hover-black">DrSaX.js  Attack and release</a>
-
+   <a href="#" class="w3-hover-black">DrSaX.js works</a>
+   
 
 <br><br><br><br><br>
 </nav>
@@ -148,7 +141,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
   <h4> Sound analysis </h4><br>
   <i class="fa fa-diamond w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
 
-  <p> Create novel framworks by input </p>
+  <p> Create novel framworks  </p>
   <p> Easy to use</p>
 
   </div>
@@ -808,6 +801,109 @@ var Delay = new DSX.Delay({ delayTime : 200, feedback: 0.45, });
 
 
 <!-- section end ------------------------------------------------------------------>
+
+
+
+
+  <!-- section start ------------------------------------------------------------------>
+
+      <!-- head code set -->
+  <a name="amstart"><h4 style="color:#f2f2f2"> AM synthesizer </h4></a>
+<br>
+   <div class="w3-container w3-blue">
+        <h4 class="w3-text">DrSaX.js AM synthesizer </h4>
+        </div>
+          <h1 class="w3-text">DSX.AM : Make a AM synthesizer</h1>
+      <!-- head code set -->
+
+
+
+  <!-- table code set -->
+  <table class="w3-table w3-striped w3-bordered w3-border">
+    
+    <thead>
+<tr class="w3-light-grey"  style="font-size:18px">
+      <th> Object</th>
+      <th>Property</th>
+      <th>Method()</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <td>DSX.AM({mod_type :"type",modfreq:"value",
+        depth:"value",gain:"value"});</td>
+      <td>AM.mod_type</td>
+      <td>AM.connect()</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td> AM.modfreq.value</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td> AM.depth.value</td>
+      <td></td>
+    </tr>
+   <tr>
+      <td></td>
+      <td> AM.gain.value</td>
+      <td></td>
+    </tr>
+
+
+  </table>
+  <!-- table code set -->
+
+
+
+  <!-- head code set -->
+  <div class="w3-container w3-section w3-border w3-round-xlarge">
+        <p><b style="font-size:18px">AM synthesizer </b></p>
+   
+</div>
+  <!-- head code set -->
+
+
+
+        <!-- code set -->
+        <div class="w3-example">
+           <h3>DSX.AM example code</h3>
+          <div class="w3-code jsHigh notranslate">  
+<pre> 
+var osc = new DSX.Osc({type:"sine",freq:700});
+var am = new  DSX.AM({mod_type :"sine",modfreq:200,depth:0.5,gain:0.5});
+var sax_am1 =new DSX.valueChange("am1",osc.freq);
+var sax_am2 =new DSX.valueChange("am2",am.modfreq); 
+var sax_am3 =new DSX.valueChange("am3",am.depth); 
+var sax_am4 =new DSX.valueChange("am4",am.gain); 
+
+am.get(osc)
+am.connect(gain)
+gain.connect(DAC)
+osc.start();
+
+
+am.stop();
+
+
+                       
+      </pre>
+
+          </div>
+            <h5 style="color:blue">Feel free to Try  
+
+
+             <a href="#" onclick="window.open('examples/demo_am.html','popup','width=750,height=550,left=0,top=0,scrollbars=no'); return false;">demo</a> </h5>
+            
+        </div>
+        <!--code set -->  
+
+
+
+<!-- section end ------------------------------------------------------------------>
+
+
 
 
 
