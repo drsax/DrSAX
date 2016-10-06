@@ -794,40 +794,28 @@
     /////////////////////////////////////
 
 
+DSX.prototype.AM = function(properties) {
 
-    DSX.prototype.AM = function(type, ModeFreq, Depth, Amp) {
-
-        this.type = type;
-        this.ModeFreq = ModeFreq;
-        this.Depth = Depth;
-        this.Amp = Amp;
-
+       
 
 
         this.AMOsc = drsax.createOscillator();
         this.gain1 = drsax.createGain();
         this.mainout = drsax.createGain();
-        this.depth = drsax.createGain();
+        this.depth_gain = drsax.createGain();
 
-        this.AMOsc.type = type;
+    
 
-        this.AMOsc.frequency.value = ModeFreq;
-        this.gain1.gain.value = Depth;
-
-        this.depth.gain.value = 1 - Depth;
-        this.mainout.gain.value = Amp;
-
-
-
+      
 
         this.AMOsc.connect(this.gain1);
         this.gain1.connect(this.mainout.gain);
-        this.depth.connect(this.mainout.gain);
+        this.depth_gain.connect(this.mainout.gain);
+
+         this.AMOsc.start(0);
 
 
-
-
-        this.from = function(dat) {
+        this.get = function(dat) {
 
             this.dat = dat;
 
@@ -842,22 +830,80 @@
             this.out = out;
 
             this.mainout.connect(out);
-            this.AMOsc.start(0);
+        
 
         };
-        this.disconnect = function(dis) {
+        this.stop = function() {
 
-            this.dis = dis;
-
-            this.mainout.disconnect(dis);
+            this.mainout.disconnect();
 
 
         };
 
+
+      this.modfreq =properties. modfreq;
+      this.mod_type = properties.mod_type;
+      this.depth =properties.depth;
+      this.gain =properties.gain;
 
     }
 
 
+
+         DSX.prototype.AM.prototype = Object.create(OscObject, {
+
+
+
+   mod_type: {
+            enumerable: true,
+            get: function() {
+                return this.AMOsc
+            },
+            set: function(value) {
+                 this.AMOsc.type= value;
+            }
+        },
+
+
+
+        modfreq: {
+            enumerable: true,
+            get: function() {
+                return this.AMOsc.frequency;
+            },
+            set: function(value) {
+                 this.AMOsc.frequency.value= value;
+            }
+        },
+
+
+        depth: {
+            enumerable: true,
+            get: function() {
+                return this.gain1.gain;
+            },
+            set: function(value) {
+                 this.gain1.gain.value= value;
+            }
+        },
+
+
+   gain: {
+            enumerable: true,
+            get: function() {
+                return this.mainout.gain
+            },
+            set: function(value) {
+                 this.mainout.gain.value= value;
+            }
+        }
+
+
+    });
+
+
+
+//////////////////////////////////////////////////////////
     
     DSX.prototype.FM = function(properties) {
 
