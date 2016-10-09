@@ -1752,13 +1752,86 @@ DSX.prototype.ATRS = function() {
 }
 
 
-
-
-
     };
 
 
+DSX.prototype.pitchShift = function(pitchRatio, overlapRatio) {
 
+
+
+    this.pitchRatio = pitchRatio;
+    this.overlapRatio = overlapRatio;
+
+
+
+
+    hannWindow = function() {
+
+        var window = new Float32Array(512);
+        for (var i = 0; i < 512; i++) {
+            window[i] = 0.5 * (1 - Math.cos(2 * Math.PI * i / (512 - 1)));
+        }
+        return window;
+    };
+
+    this.pitchShifterProcessor = drsaxContext.createScriptProcessor(512, 1, 1);
+    this.pitchShifterProcessor.buffer = new Float32Array(512 * 2);
+    this.pitchShifterProcessor.grainWindow = hannWindow();
+
+    this.connect = function(out) {
+        this.out = out;
+        this.pitchShifterProcessor.connect(out);
+
+
+    }
+
+
+    this.get = function(dat) {
+
+        this.dat = dat;
+
+
+        this.dat.connect(this.pitchShifterProcessor);
+
+    };
+
+    this.pitchShifterProcessor.onaudioprocess = function(event) {
+
+
+
+        var inputData = event.inputBuffer.getChannelData(0);
+        var outputData = event.outputBuffer.getChannelData(0);
+
+
+        for (i = 0; i < inputData.length; i++) {
+
+            inputData[i] *= this.grainWindow[i];
+            this.buffer[i] = this.buffer[i + 512];
+            this.buffer[i + 512] = 0.0;
+        }
+
+
+        var grainData = new Float32Array(512 * 2);
+        for (var i = 0, j = 0.0; i < 512; i++, j += pitchRatio) {
+
+            var index = Math.floor(j) % 512;
+            var a = inputData[index];
+            var b = inputData[(index + 1) % 512];
+            grainData[i] += a + (b - a) * (j % 1.0) * this.grainWindow[i];
+        }
+
+        for (i = 0; i < 512; i += Math.round(512 * (1 - overlapRatio))) {
+            for (j = 0; j <= 512; j++) {
+                this.buffer[i + j] += grainData[j];
+            }
+        }
+        for (i = 0; i < 512; i++) {
+            outputData[i] = this.buffer[i];
+        }
+
+    }
+
+};
 
 
 
