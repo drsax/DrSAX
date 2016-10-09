@@ -1755,13 +1755,15 @@ DSX.prototype.ATRS = function() {
     };
 
 
-DSX.prototype.pitchShift = function(pitchRatio, overlapRatio) {
+DSX.prototype.pitchShift = function(overlapRatio,pitchRatio) {
 
 
 
     this.pitchRatio = pitchRatio;
-    this.overlapRatio = overlapRatio;
 
+
+    this.overlapRatio = overlapRatio;
+ 
 
 
 
@@ -1837,6 +1839,90 @@ DSX.prototype.pitchShift = function(pitchRatio, overlapRatio) {
 
 
 /////////////////////////////
+
+ DSX.prototype.DelayPipe = function(properties) {
+        if (!properties) {
+            properties = this.getDefaults();
+        }
+        this.input = drsaxContext.createGain();
+        this.activateNode = drsaxContext.createGain();
+
+        this.Delay = drsax.createDelay(10);
+        this.output = drsaxContext.createGain();
+
+        this.activateNode.connect(this.Delay);
+        this.Delay.connect(this.output);
+
+        this.delayTime = properties.delayTime|| this.defaults.delayTime.value;
+        this.bypass = properties.bypass || false;
+    };
+    DSX.prototype.DelayPipe.prototype = Object.create(Super, {
+        name: {
+            value: "DelayPipe"
+        },
+        defaults: {
+            writable: true,
+            value: {
+                delayTime: {
+                    value: 0,
+                    min: 0,
+                    max: 1,
+                    automatable: false,
+                    type: FLOAT
+                },
+
+
+            }
+        },
+        delayTime: {
+            enumerable: true,
+            get: function() {
+                return this.Delay.delayTime;
+            },
+            set: function(value) {
+                this.Delay.delayTime.value = value;
+            }
+        }
+
+
+    });
+
+
+    //////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     DSX.get = function(a, b) {

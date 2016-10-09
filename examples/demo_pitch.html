@@ -230,20 +230,40 @@ function switch1(e) {
 
         var osc = new DSX.Osc({type:"sawtooth",freq:700});
         var gain = new DSX.Amp({gain: 0.5});
-        var DS= new DSX.pitchShift(2);
-        
+        var DS= new DSX.pitchShift(0.9,1.7);
+        var DD= new DSX.pitchShift(0.4,1);
+        var SS= new DSX.pitchShift(0.0,0.5);
+        var qqw = new DSX.DelayPipe({delayTime:1});
+        var www = new DSX.DelayPipe({delayTime:3});
+        var ttt = new DSX.DelayPipe({delayTime:5});
+     
      
 
         DS.get(osc);
-        DS.connect(gain);
+        DS.connect(qqw);
+        qqw.connect(gain);
+
+
+
+        DD.get(osc);
+        DS.connect(www);
+        www.connect(gain);
+
+
+
+        SS.get(osc);
+       DS.connect(ttt);
+        ttt.connect(gain);
+
+
         gain.connect(DAC);
 
 
 
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
-        var ampgain = new DSX.valueChange("knob2", gain.gain);
+        var ampgain = new DSX.functionChange("knob2", switch2);
         var sound_on_off = new DSX.functionChange("switch1",switch1);
-
+    
 
         function switch1(e) {
             if (e.target.value == "1") {
@@ -256,12 +276,14 @@ function switch1(e) {
             }
         }
 
-function qqq(){
 
 
-    var DS= new DSX.pitchShift(0.5);
-}
+        function switch2(qa) {
+          DS.over=qa.target.value;
 
+          
+            }
+       
 
         function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
