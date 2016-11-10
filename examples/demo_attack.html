@@ -259,12 +259,12 @@ var ampgain = new DSX.valueChange("knob2", gain.gain);
 var sax_delay = new DSX.valueChange("attack", adsr.attack);
 var sax_feedback = new DSX.valueChange("release", adsr.release);
 
-var sound_on_off = new DSX.functionChange("switch1");
-sound_on_off.setToggle(switch1);
+var sound_on_off = new DSX.functionChange("switch1",swit);
 
 
 
-function switch1(e) {
+
+function swit(e) {
 
 
     if (e.target.value == "1") {
