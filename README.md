@@ -14,12 +14,8 @@ __DrSAX__ has developed  for web-based music application. The project aims to co
 - **Make your sound and better**
 - **Create novel framworks by input**
 
-## Prerequisites
 
-For using DrSAX project, this systemes requires to set up the following software. Make sure they are installed with appropriate scope and permission.
 
-- [Git](http://git-scm.com/) - [Installation](http://git-scm.com/downloads)
-- [Node.js](http://nodejs.org/) - [Installation](http://nodejs.org/)
 
 ## Installation and getting Start
 
