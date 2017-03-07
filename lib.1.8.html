@@ -365,7 +365,7 @@ var DSX = new DSX; /<!--x-->/  declare on the top, ablove all "DSX"
         <div class="w3-example">
            <h3>DSX.Osc example code</h3>
           <div class="w3-code jsHigh notranslate">  
-<pre>  var osc = new  DSX.Osc("sawtooth",700);  
+<pre>  var osc = new DSX.Osc({type:"sawtooth",freq: 700}); 
   [osillator type is "sawtooth" and frequency is 700Hz]
 
   var gain = new DSX.Amp({ gain: 0.1}); 
@@ -449,7 +449,7 @@ var DSX = new DSX; /<!--x-->/  declare on the top, ablove all "DSX"
         <div class="w3-example">
            <h3>DSX.Amp example code</h3>
           <div class="w3-code jsHigh notranslate">  
-<pre>  var osc = new  DSX.Osc("sawtooth",700);  
+<pre>  var osc = new DSX.Osc({type:"sawtooth",freq: 700}); 
   [osillator type is "sawtooth" and frequency is 700Hz]
 
   var gain = new DSX.Amp({ gain: 0.1}); 
