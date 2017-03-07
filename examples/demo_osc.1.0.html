@@ -162,7 +162,7 @@
         <pre><code>
 var DSX = new DSX;
 
-var osc = new DSX.Osc("sawtooth", 700);
+var osc = new DSX.Osc({type:"sawtooth",freq: 700}); 
 var gain = new DSX.Amp({gain: 0.5});
 
 osc.connect(gain);
@@ -225,11 +225,11 @@ function switch1(e) {
 
 
 
-    <script src="newDSX.1.6.9.8.js"></script>
+   <script src="newDSX.1.7.0.1.js"></script>
 
     <script>
         var DSX = new DSX;
-        var osc = new DSX.Osc("sawtooth", 700);
+       var osc = new DSX.Osc({type:"sawtooth",freq: 700}); 
         var gain = new DSX.Amp({gain: 0.5});
         osc.connect(gain);
         gain.connect(DAC);
