@@ -160,7 +160,7 @@
         <h3>Programing code</h3>
 
         <pre><code>
-v
+
 var DSX = new DSX;
 
 var gain = new DSX.Amp({gain: 0.5});
@@ -264,8 +264,8 @@ var DSX = new DSX;
 var gain = new DSX.Amp({gain: 0.5});
 
 
-        var osc = new DSX.Osc({type:"sawtooth",freq: 500});
- var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
+var osc = new DSX.Osc({type:"sawtooth",freq: 500});
+var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
 var ampgain = new DSX.valueChange("knob2", gain.gain);
 
 var stereoPan = new DSX.stereoPan({ pan: -1,});
@@ -278,31 +278,19 @@ sound_on_off.setRange(switch1);
 
 function switch1(e) {
 
-
     if (e.target.value == "1") {
  
         osc.start();
-  
         osc.connect(gain);
         gain.connect(stereoPan);
         stereoPan.connect(DAC);
-      
-  
     }
-
 
   if (e.target.value == "0") {
 
-        osc.disconnect();
-      
+        osc.stop();
     }
-
-
-
 }
-
-
-
 
         function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
@@ -317,8 +305,6 @@ function switch1(e) {
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.classList.add("active");
         }
-
-
 
 
     </script>
