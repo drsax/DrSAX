@@ -1112,6 +1112,7 @@
         // navigator.webkitGetUserMedia({
         //     audio: true
         // }, mic_stream, mic_null);
+        //123
 
         navigator.getUserMedia = (navigator.getUserMedia ||
                             navigator.webkitGetUserMedia ||
@@ -1119,7 +1120,7 @@
                             navigator.msGetUserMedia);
        if (navigator.mediaDevices.getUserMedia) {
 
-          var p = navigator.mediaDevices.getUserMedia({ audio: { latency: 0.02, echoCancellation: true, noiseSuppression: true, autoGainControl: true} });
+          var p = navigator.mediaDevices.getUserMedia({ audio: { latency: 0, echoCancellation: false, noiseSuppression: true, autoGainControl: true} });
           p.then(function(stream) {
            mic_stream(stream);
           });
