@@ -173,7 +173,7 @@ var ampgain = new DSX.valueChange("knob2", gain.gain);
 var stereoPan = new DSX.stereoPan({ pan: -1,});
 var osc_pan =new DSX.valueChange("pan",stereoPan.pan);
 
-var sound_on_off = new DSX.functionChange("switch1");
+var sound_on_off = new DSX.valueChange("switch1");
 sound_on_off.setRange(switch1);
 
 
@@ -271,10 +271,8 @@ var ampgain = new DSX.valueChange("knob2", gain.gain);
 var stereoPan = new DSX.stereoPan({ pan: -1,});
 var osc_pan =new DSX.valueChange("pan",stereoPan.pan);
 
-var sound_on_off = new DSX.functionChange("switch1");
+var sound_on_off = new DSX.valueChange("switch1");
 sound_on_off.setRange(switch1);
-
-
 
 function switch1(e) {
 

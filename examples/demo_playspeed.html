@@ -1,4 +1,4 @@
-<!-- 
+<!--
  The MIT License (MIT)
   Copyright (c) 2016  Euyshick Hong(Dr.Hong)
   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -16,7 +16,7 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-  
+
 -->
 
 
@@ -51,7 +51,7 @@
             border: 2px solid #484848;
             border-radius: 25px;
         }
-        
+
         #jb-content {
             width: 670px;
             padding: 20px;
@@ -60,7 +60,7 @@
             border: 4px solid black;
             border-radius: 40px;
         }
-        
+
         #jb-sidebar {
             width: 670px;
             padding: 20px;
@@ -69,7 +69,7 @@
             border: 1px solid #484848;
             border-radius: 25px;
         }
-        
+
         @media screen and (max-width:480px) {
             #jb-header {
                 width: auto;
@@ -88,7 +88,7 @@
         body {
             font-family: "Lato", sans-serif;
         }
-        
+
         ul.tab {
             list-style-type: none;
             margin: 0;
@@ -99,13 +99,13 @@
             border-radius: 10px;
         }
         /* Float the list items side by side */
-        
+
         ul.tab li {
             float: left;
             border: 2px solid black;
         }
         /* Style the links inside the list items */
-        
+
         ul.tab li a {
             display: inline-block;
             color: white;
@@ -116,18 +116,18 @@
             font-size: 17px;
         }
         /* Change background color of links on hover */
-        
+
         ul.tab li a:hover {
             background-color: black;
         }
         /* Create an active/current tablink class */
-        
+
         ul.tab li a:focus,
         .active {
             background-color: gray;
         }
         /* Style the tab content */
-        
+
         .tabcontent {
             display: none;
             padding: 6px 12px;
@@ -165,8 +165,8 @@ var gain = new DSX.Amp({gain: 0.5});
 var adsr = new DSX.ATRS();
 var ampgain = new DSX.valueChange("knob2", gain.gain);
 var saxReverb =new DSX.Reverb({gain:0.6});
-var sax_reverbtime =new DSX.valueChange("reverbtime",saxReverb.gain); 
-var sound_on_off = new DSX.functionChange("switch1");
+var sax_reverbtime =new DSX.valueChange("reverbtime",saxReverb.gain);
+var sound_on_off = new DSX.valueChange("switch1");
 sound_on_off.setRange(switch1);
 function switch1(e) {
     if (e.target.value == "0") {
@@ -174,10 +174,10 @@ function switch1(e) {
         osc.start();
         adsr.soundfrom(osc, 0.1, 0.2);
         adsr.connect(gain);
-     
+
         saxReverb.getfrom(gain);
         saxReverb.connect(DAC);
-      
+
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
     }
   if (e.target.value == "1") {
@@ -185,10 +185,10 @@ function switch1(e) {
         osc.start();
         adsr.soundfrom(osc, 0.8, 0.2);
         adsr.connect(gain);
-     
+
         saxReverb.getfrom(gain);
         saxReverb.connect(DAC);
-  
+
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
     }
 }
@@ -233,7 +233,7 @@ function switch1(e) {
 
 
 <font style="display:inline-block; margin:0px;" color="black" size="3">
-    <pre>  play speed time         </pre> 
+    <pre>  play speed time         </pre>
 <br>
     It is possible that on/off a sound with sithch and <br> user can control a frequency and amplitude gain with dial.
     </p>
@@ -259,7 +259,7 @@ file.connect(DAC)
 file.start();
 }
 stop.onclick = function() {
- 
+
 file.stop();
 }
 
