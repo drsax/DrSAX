@@ -225,11 +225,11 @@ function switch1(e) {
 
 
 
-   <script src="https://drwebsax.github.io/DrSax.js/js/drsax.1.9.1.21.js"></script>
+    <script src="https://drwebsax.github.io/DrSax.js/js/drsax.1.9.1.21.js"></script>
 
     <script>
         var DSX = new DSX;
-       var osc = new DSX.Osc({type:"sawtooth",freq: 700}); 
+        var osc = new DSX.Osc({type:"sawtooth",freq: 700}); 
         var gain = new DSX.Amp({gain: 0.5});
         osc.connect(gain);
         gain.connect(DAC);
