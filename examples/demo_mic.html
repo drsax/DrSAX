@@ -233,7 +233,7 @@
     var gain = new DSX.Amp({gain: 0.5});
     var saxInput = new DSX.Mic();
     var amp_gain = new DSX.valueChange("knob2", gain.gain);
-    var sound_on_off = new DSX.functionChange("switch1");
+    var sound_on_off = new DSX.valueChange("switch1");
     sound_on_off.setRange(switch1);
 
     function switch1(e) {
