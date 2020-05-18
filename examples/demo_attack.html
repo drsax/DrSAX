@@ -30,12 +30,12 @@
     <link rel="import" href="cont/webcomponents/controls.html">
     <meta charset="utf-8">
 
-<!--start code highlight -->
+    <!--start code highlight -->
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- code highlight end -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- code highlight end -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -51,7 +51,7 @@
             border: 2px solid #484848;
             border-radius: 25px;
         }
-        
+
         #jb-content {
             width: 670px;
             padding: 20px;
@@ -60,7 +60,7 @@
             border: 4px solid black;
             border-radius: 40px;
         }
-        
+
         #jb-sidebar {
             width: 670px;
             padding: 20px;
@@ -69,15 +69,17 @@
             border: 1px solid #484848;
             border-radius: 25px;
         }
-        
+
         @media screen and (max-width:480px) {
             #jb-header {
                 width: auto;
             }
+
             #jb-content {
                 float: none;
                 width: auto;
             }
+
             #jb-sidebar {
                 float: none;
                 width: auto;
@@ -88,7 +90,7 @@
         body {
             font-family: "Lato", sans-serif;
         }
-        
+
         ul.tab {
             list-style-type: none;
             margin: 0;
@@ -98,14 +100,16 @@
             background-color: black;
             border-radius: 10px;
         }
+
         /* Float the list items side by side */
-        
+
         ul.tab li {
             float: left;
             border: 2px solid black;
         }
+
         /* Style the links inside the list items */
-        
+
         ul.tab li a {
             display: inline-block;
             color: white;
@@ -115,19 +119,22 @@
             transition: 0.3s;
             font-size: 17px;
         }
+
         /* Change background color of links on hover */
-        
+
         ul.tab li a:hover {
             background-color: black;
         }
+
         /* Create an active/current tablink class */
-        
+
         ul.tab li a:focus,
         .active {
             background-color: gray;
         }
+
         /* Style the tab content */
-        
+
         .tabcontent {
             display: none;
             padding: 6px 12px;
@@ -140,26 +147,20 @@
 </head>
 
 <body>
-
     <div id="jb-header">
-
-        <p style="color:white;"> &nbsp; Delay and Attack and release 
+        <p style="color:white;"> &nbsp; Delay and Attack and release
         </p>
     </div>
-
-
     <ul class="tab">
         <li><a href="#" class="tablinks" onclick="openCity(event, 'code')">JavaScript code</a></li>
 
         <li><a href="#" class="tablinks" onclick="openCity(event, 'Close')">Close</a></li>
     </ul>
-
-
-
     <div id="code" class="tabcontent">
         <h3>Programing code</h3>
 
-        <pre><code>
+        <pre>
+            <code>
 var DSX = new DSX;
 
 var gain = new DSX.Amp({
@@ -178,8 +179,6 @@ var sax_feedback = new DSX.valueChange("feed_back", saxDelay.feedback);
 var sound_on_off = new DSX.functionChange("switch1");
 sound_on_off.setToggle(switch1);
 
-
-
 function switch1(e) {
 
 
@@ -194,97 +193,69 @@ function switch1(e) {
 
         var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
     }
-
-
-
 }
 
-
-
- </code></pre>
-
-
-
+            </code>
+        </pre>
     </div>
-
-
-
-
-
-    </div>
-
 
     <div id="jb-content">
-
         <p style="color:white;"> &nbsp; Delay and Attack and release Demo </p>
-
-
-</body>
-
-<webaudio-knob id="knob1" style="display:inline-block; margin:0px;" src="cont/img/ver.png" value="0" max="2000" step="1" diameter="110" sprites="50"></webaudio-knob>
-
-<webaudio-knob id="knob2" style="display:inline-block; margin:0px;" src="cont/img/ver.png" value="0" max="1" step="0.05" diameter="110" sprites="50"></webaudio-knob>
-
-<webaudio-switch id="switch1" style="display:inline-block; margin:0px;" src="cont/img/switch_toggle.png" value="0" max="1" width="60" height="60"></webaudio-switch>
-
-
-
-<font style="display:inline-block; margin:0px;" color="black" size="3">
-    <pre> osc frequency      gain        on/off     </pre> 
-
-
-<webaudio-knob id="attack" style="display:inline-block; margin:0px;" src="cont/img/ver.png" value="0" max="1" step="0.01" diameter="110" sprites="50"></webaudio-knob>
-
-<webaudio-knob id="release" style="display:inline-block; margin:0px;" src="cont/img/ver.png" value="0" max="1" step="0.01" diameter="110" sprites="50"></webaudio-knob><br>
-
-<font style="display:inline-block; margin:0px;" color="black" size="3">
-    <pre>  attack         release    </pre> 
-
-    It is possible that on/off a sound with sithch and <br> user can control a frequency and amplitude gain with dial.
-    </p>
     </div>
 
+    <webaudio-knob id="knob1" style="display:inline-block; margin:0px;" src="cont/img/ver.png" value="0" max="2000"
+        step="1" diameter="110" sprites="50"></webaudio-knob>
 
+    <webaudio-knob id="knob2" style="display:inline-block; margin:0px;" src="cont/img/ver.png" value="0" max="1"
+        step="0.05" diameter="110" sprites="50"></webaudio-knob>
+
+    <webaudio-switch id="switch1" style="display:inline-block; margin:0px;" src="cont/img/switch_toggle.png" value="0"
+        max="1" width="60" height="60"></webaudio-switch>
+
+    <div style="display:inline-block; margin:0px;">
+        <pre> osc frequency      gain        on/off     </pre>
+    </div>
+
+    <webaudio-knob id="attack" style="display:inline-block; margin:0px;" src="cont/img/ver.png" value="0" max="1"
+        step="0.01" diameter="110" sprites="50"></webaudio-knob>
+
+    <webaudio-knob id="release" style="display:inline-block; margin:0px;" src="cont/img/ver.png" value="0" max="1"
+        step="0.01" diameter="110" sprites="50"></webaudio-knob><br>
+
+    <div style="display:inline-block; margin:0px;">
+        <pre>  attack         release    </pre>
+
+        It is possible that on/off a sound with sithch and <br> user can control a frequency and amplitude gain with
+        dial.
+        </p>
+    </div>
 
     <script src="https://drsax.github.io/drsaxCore/js/drsax.js"></script>
 
     <script>
-var DSX = new DSX;
+        var DSX = new DSX;
 
-var gain = new DSX.Amp({gain: 0.5});
-var adsr = new DSX.ATRS();
-var saxDelay = new DSX.Delay({delayTime: 200,feedback: 0.45, });
-var ampgain = new DSX.valueChange("knob2", gain.gain);
+        var gain = new DSX.Amp({ gain: 0.5 });
+        var adsr = new DSX.ATRS();
+        var saxDelay = new DSX.Delay({ delayTime: 200, feedback: 0.45, });
+        var ampgain = new DSX.valueChange("knob2", gain.gain);
 
-var sax_delay = new DSX.valueChange("attack", adsr.attack);
-var sax_feedback = new DSX.valueChange("release", adsr.release);
+        var sax_delay = new DSX.valueChange("attack", adsr.attack);
+        var sax_feedback = new DSX.valueChange("release", adsr.release);
+        var sound_on_off = new DSX.functionChange("switch1", swit);
 
-var sound_on_off = new DSX.functionChange("switch1",swit);
+        function swit(e) {
 
-
-
-
-function swit(e) {
-
-
-    if (e.target.value == "1") {
-        var osc = new DSX.Osc({type:"sawtooth",freq:0});
-        osc.start();
-        adsr.soundfrom(osc, 0.1, 0.2);
-        adsr.connect(gain);
-        gain.connect(saxDelay);
-        saxDelay.connect(DAC);
-
-
-        var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
-    }
-
-
-
-}
-
-
-
+            if (e.target.value == "1") {
+                var osc = new DSX.Osc({ type: "sawtooth", freq: 0 });
+                osc.start();
+                adsr.soundfrom(osc, 0.1, 0.2);
+                adsr.connect(gain);
+                gain.connect(saxDelay);
+                saxDelay.connect(DAC);
+                var oscfrequency = new DSX.valueChange("knob1", osc.frequency);
+            }
+        }
 
         function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
@@ -299,13 +270,6 @@ function swit(e) {
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.classList.add("active");
         }
-
-
-
-
     </script>
-
-
-
-
+</body>
 </html>

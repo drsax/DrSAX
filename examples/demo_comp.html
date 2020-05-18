@@ -1,4 +1,3 @@
-
 <!-- 
  The MIT License (MIT)
   Copyright (c) 2016  Euyshick Hong(Dr.Hong)
@@ -25,290 +24,248 @@
 <!doctype html>
 <html lang="ko">
 
-<head>
-    <script src="cont/js/platform.js"></script>
-    <link rel="import" href="cont/webcomponents/polymer.html">
-    <link rel="import" href="cont/webcomponents/controls.html">
-    <meta charset="utf-8">
+    <head>
+        <script src="cont/js/platform.js"></script>
+        <link rel="import" href="cont/webcomponents/polymer.html">
+        <link rel="import" href="cont/webcomponents/controls.html">
+        <meta charset="utf-8">
 
-<!--start code highlight -->
+        <!--start code highlight -->
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- code highlight end -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            background-color: gray;
-        }
-    </style>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <!-- code highlight end -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                background-color: gray;
+            }
+        </style>
 
-    <style>
-        #jb-header {
-            width: 670px;
-            padding: 0px;
-            margin-bottom: 0px;
-            border: 2px solid #484848;
-            border-radius: 25px;
-        }
-        
-        #jb-content {
-            width: 670px;
-            padding: 20px;
-            margin-bottom: 20px;
-            float: left;
-            border: 4px solid black;
-            border-radius: 40px;
-        }
-        
-        #jb-sidebar {
-            width: 670px;
-            padding: 20px;
-            margin-right: 0px;
-            float: right;
-            border: 1px solid #484848;
-            border-radius: 25px;
-        }
-        
-        @media screen and (max-width:480px) {
+        <style>
             #jb-header {
-                width: auto;
+                width: 670px;
+                padding: 0px;
+                margin-bottom: 0px;
+                border: 2px solid #484848;
+                border-radius: 25px;
             }
+
             #jb-content {
-                float: none;
-                width: auto;
+                width: 670px;
+                padding: 20px;
+                margin-bottom: 20px;
+                float: left;
+                border: 4px solid black;
+                border-radius: 40px;
             }
+
             #jb-sidebar {
-                float: none;
-                width: auto;
+                width: 670px;
+                padding: 20px;
+                margin-right: 0px;
+                float: right;
+                border: 1px solid #484848;
+                border-radius: 25px;
             }
-        }
-    </style>
-    <style>
-        body {
-            font-family: "Lato", sans-serif;
-        }
-        
-        ul.tab {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            border: 0.1px solid black;
-            background-color: black;
-            border-radius: 10px;
-        }
-        /* Float the list items side by side */
-        
-        ul.tab li {
-            float: left;
-            border: 2px solid black;
-        }
-        /* Style the links inside the list items */
-        
-        ul.tab li a {
-            display: inline-block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 17px;
-        }
-        /* Change background color of links on hover */
-        
-        ul.tab li a:hover {
-            background-color: black;
-        }
-        /* Create an active/current tablink class */
-        
-        ul.tab li a:focus,
-        .active {
-            background-color: gray;
-        }
-        /* Style the tab content */
-        
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #484848;
-            border-top: none;
-            border-radius: 25px;
-        }
-    </style>
 
-</head>
-
-<body>
-
-    <div id="jb-header">
-
-        <p style="color:white;"> &nbsp; Compressor 
-        </p>
-    </div>
-
-
-    <ul class="tab">
-        <li><a href="#" class="tablinks" onclick="openCity(event, 'code')">JavaScript code</a></li>
-
-        <li><a href="#" class="tablinks" onclick="openCity(event, 'Close')">Close</a></li>
-    </ul>
-
-
-
-    <div id="code" class="tabcontent">
-        <h3>Programing code</h3>
-
-        <pre><code>
-var DSX = new DSX;
-var gain = new DSX.Amp({gain: 0.5});
-var file =new DSX.BGdata("https://drsax.github.io/DrSAX/examples/life.mp3");
-var newEQ = new  DSX.EQ({hiGain:-10, mhiGain:-10, miGain:-10, milowGain:-10, lowGain:-10});
-var sax_EQ1 =new DSX.valueChange("EQ5",newEQ.hiGain); 
-var sax_EQ2 =new DSX.valueChange("EQ4",newEQ.mhiGain); 
-var sax_EQ3 =new DSX.valueChange("EQ3",newEQ.miGain); 
-var sax_EQ4 =new DSX.valueChange("EQ2",newEQ.milowGain); 
-var sax_EQ5 =new DSX.valueChange("EQ1",newEQ.lowGain); 
-var play = document.querySelector('.play');
-var stop = document.querySelector('.stop');
-play.onclick = function() {
-
-file.connect(newEQ)
-newEQ.connect(gain)
-gain.connect(DAC)
-
-file.start();
-}
-stop.onclick = function() {
- 
-file.stop();
-}
-
-
-
-
-
-
-
-
-
- </code></pre>
-
-
-
-    </div>
-
-
-
-
-
-    </div>
-
-
-    <div id="jb-content">
-
-        <p style="color:white;"> &nbsp; Compressor </p>
-
-
-</body>
-
-    <button class="play">Play</button>
-    <button class="stop">Stop</button>
-
-
-
-
-
-
-
-   <webaudio-knob id="Comp1" style=" position:absolute;left :120px;  top: 156px; " src="cont/img/cehi.png" value="-70" min="-100"  max="0" step="1" diameter="90" sprites="49"></webaudio-knob><!-- treshold-->
-  
-    <webaudio-knob id="Comp2" style=" position:absolute;left :224px;  top: 150px; " src="cont/img/cehi.png" value="-20" min="-40" max="0" step="1" diameter="70" sprites="49"></webaudio-knob><!-- reduction-->
-  
-
-
-    <webaudio-knob id="Comp5" style=" position:absolute;left :500px;  top: 150px; " src="cont/img/cehi.png" value="0" min="0"  max="1" step="0.01" diameter="70" sprites="49"></webaudio-knob><!-- attack-->
-    <webaudio-knob id="Comp3" style=" position:absolute;left :315px;  top: 150px; " src="cont/img/cehi.png" value="0" max="40" step="1" diameter="70" sprites="49"></webaudio-knob><!-- knee-->
-
-
-   <webaudio-knob id="Comp6" style=" position:absolute;left :585px;  top: 150px; " src="cont/img/cehi.png" value="0" min="0" max="1" step="0.01" diameter="70" sprites="49"></webaudio-knob><!-- release-->
-
-   <webaudio-knob id="Comp4" style=" position:absolute;left :410px;  top: 150px; " src="cont/img/cehi.png" value="0" min="0" max="12" step="1" diameter="70" sprites="49"></webaudio-knob><!-- ratio-->
-
-
-
-
-<br>
-<br>
-
-<font style="display:inline-block; margin:0px;" color="black" size="3">
-    <pre>             treshold   reduction     knee        ratio       attack     release      </pre> 
-
- <pre>  loading time of sound file will take a second. </pre> 
-
-    </div>
-
-
-
-    <script src="https://drsax.github.io/drsaxCore/js/drsax.js"></script>
-
-    <script>
-var DSX = new DSX;
-var gain = new DSX.Amp({gain: 0.5});
-var file =new DSX.BGdata("https://drsax.github.io/DrSAX/examples/life.mp3");
-var saxComp = new DSX.saxComp({ threshold: -70,  ratio: 12, });
-
-
-var sax_Comp1 =new DSX.valueChange("Comp1",saxComp.threshold); 
-var sax_Comp2 =new DSX.valueChange("Comp2",saxComp.reduction); 
-var sax_Comp3 =new DSX.valueChange("Comp3",saxComp.knee); 
-var sax_Comp4 =new DSX.valueChange("Comp4",saxComp.ratio); 
-var sax_Comp5 =new DSX.valueChange("Comp5",saxComp.attack); 
-var sax_Comp6 =new DSX.valueChange("Comp6",saxComp.release); 
-
-
-
-
-var play = document.querySelector('.play');
-var stop = document.querySelector('.stop');
-play.onclick = function() {
-
-file.connect(saxComp)
-saxComp.connect(gain)
-gain.connect(DAC)
-
-file.start();
-}
-stop.onclick = function() {
- 
-file.stop();
-}
-
-
-
-
-
-
-
-
-        function openCity(evt, cityName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+            @media screen and (max-width:480px) {
+                #jb-header {
+                    width: auto;
+                }
+
+                #jb-content {
+                    float: none;
+                    width: auto;
+                }
+
+                #jb-sidebar {
+                    float: none;
+                    width: auto;
+                }
             }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tabcontent.length; i++) {
-                tablinks[i].classList.remove("active");
+        </style>
+        <style>
+            body {
+                font-family: "Lato", sans-serif;
             }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.classList.add("active");
-        }
 
-    </script>
+            ul.tab {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                border: 0.1px solid black;
+                background-color: black;
+                border-radius: 10px;
+            }
+
+            /* Float the list items side by side */
+
+            ul.tab li {
+                float: left;
+                border: 2px solid black;
+            }
+
+            /* Style the links inside the list items */
+
+            ul.tab li a {
+                display: inline-block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+            /* Change background color of links on hover */
+
+            ul.tab li a:hover {
+                background-color: black;
+            }
+
+            /* Create an active/current tablink class */
+
+            ul.tab li a:focus,
+            .active {
+                background-color: gray;
+            }
+
+            /* Style the tab content */
+
+            .tabcontent {
+                display: none;
+                padding: 6px 12px;
+                border: 1px solid #484848;
+                border-top: none;
+                border-radius: 25px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div id="jb-header">
+            <p style="color:white;"> &nbsp; Compressor
+            </p>
+        </div>
+        <ul class="tab">
+            <li><a href="#" class="tablinks" onclick="openCity(event, 'code')">JavaScript code</a></li>
+
+            <li><a href="#" class="tablinks" onclick="openCity(event, 'Close')">Close</a></li>
+        </ul>
+
+        <div id="code" class="tabcontent">
+            <h3>Programing code</h3>
+
+            <pre>
+                <code>
+    var DSX = new DSX;
+    var gain = new DSX.Amp({gain: 0.5});
+    var file =new DSX.BGdata("https://drsax.github.io/DrSAX/examples/life.mp3");
+    var newEQ = new  DSX.EQ({hiGain:-10, mhiGain:-10, miGain:-10, milowGain:-10, lowGain:-10});
+    var sax_EQ1 =new DSX.valueChange("EQ5",newEQ.hiGain); 
+    var sax_EQ2 =new DSX.valueChange("EQ4",newEQ.mhiGain); 
+    var sax_EQ3 =new DSX.valueChange("EQ3",newEQ.miGain); 
+    var sax_EQ4 =new DSX.valueChange("EQ2",newEQ.milowGain); 
+    var sax_EQ5 =new DSX.valueChange("EQ1",newEQ.lowGain); 
+    var play = document.querySelector('.play');
+    var stop = document.querySelector('.stop');
+    play.onclick = function() {
+
+    file.connect(newEQ)
+    newEQ.connect(gain)
+    gain.connect(DAC)
+
+    file.start();
+    }
+    stop.onclick = function() {
+    
+    file.stop();
+    }
 
 
+                </code>
+            </pre>
+        </div>
+        <div id="jb-content">
+            <p style="color:white;"> &nbsp; Compressor </p>
+        </div>
+
+        <button class="play">Play</button>
+        <button class="stop">Stop</button>
+
+        <webaudio-knob id="Comp1" style=" position:absolute;left :120px;  top: 156px; " src="cont/img/cehi.png" value="-70"
+            min="-100" max="0" step="1" diameter="90" sprites="49"></webaudio-knob><!-- treshold-->
+
+        <webaudio-knob id="Comp2" style=" position:absolute;left :224px;  top: 150px; " src="cont/img/cehi.png" value="-20"
+            min="-40" max="0" step="1" diameter="70" sprites="49"></webaudio-knob><!-- reduction-->
+
+        <webaudio-knob id="Comp5" style=" position:absolute;left :500px;  top: 150px; " src="cont/img/cehi.png" value="0"
+            min="0" max="1" step="0.01" diameter="70" sprites="49"></webaudio-knob><!-- attack-->
+        <webaudio-knob id="Comp3" style=" position:absolute;left :315px;  top: 150px; " src="cont/img/cehi.png" value="0"
+            max="40" step="1" diameter="70" sprites="49"></webaudio-knob><!-- knee-->
+
+        <webaudio-knob id="Comp6" style=" position:absolute;left :585px;  top: 150px; " src="cont/img/cehi.png" value="0"
+            min="0" max="1" step="0.01" diameter="70" sprites="49"></webaudio-knob><!-- release-->
+
+        <webaudio-knob id="Comp4" style=" position:absolute;left :410px;  top: 150px; " src="cont/img/cehi.png" value="0"
+            min="0" max="12" step="1" diameter="70" sprites="49"></webaudio-knob><!-- ratio-->
+        <br>
+        <br>
+
+        <div style="display:inline-block; margin:0px;" color="black" size="3">
+            <pre>             treshold   reduction     knee        ratio       attack     release      </pre>
+            <pre>  loading time of sound file will take a second. </pre>
+        </div>
+
+        <script src="https://drsax.github.io/drsaxCore/js/drsax.js"></script>
+
+        <script>
+            var DSX = new DSX;
+            var gain = new DSX.Amp({ gain: 0.5 });
+            var file = new DSX.BGdata("https://drsax.github.io/DrSAX/examples/life.mp3");
+            var saxComp = new DSX.saxComp({ threshold: -70, ratio: 12, });
 
 
+            var sax_Comp1 = new DSX.valueChange("Comp1", saxComp.threshold);
+            var sax_Comp2 = new DSX.valueChange("Comp2", saxComp.reduction);
+            var sax_Comp3 = new DSX.valueChange("Comp3", saxComp.knee);
+            var sax_Comp4 = new DSX.valueChange("Comp4", saxComp.ratio);
+            var sax_Comp5 = new DSX.valueChange("Comp5", saxComp.attack);
+            var sax_Comp6 = new DSX.valueChange("Comp6", saxComp.release);
+
+            var play = document.querySelector('.play');
+            var stop = document.querySelector('.stop');
+            play.onclick = function () {
+
+                file.connect(saxComp)
+                saxComp.connect(gain)
+                gain.connect(DAC)
+
+                file.start();
+            }
+            stop.onclick = function () {
+
+                file.stop();
+            }
+
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tablinks[i].classList.remove("active");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.classList.add("active");
+            }
+
+        </script>
+    </body>
 </html>
