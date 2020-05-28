@@ -71,7 +71,7 @@
       },
       getTotalCount : function () {
 
-        $.get("http://antaresax.cafe24.com/app/api/drsaxtuto/getTotalCount",function(data, status){
+        $.get("https://antaresax.cafe24.com/app/api/drsaxtuto/getTotalCount",function(data, status){
 
             if (status === "success"){
                 TOTAL_COUNT = data.user_count;
