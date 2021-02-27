@@ -228,6 +228,14 @@
             var play = document.querySelector('.play');
             var stop = document.querySelector('.stop');
 
+            var userInput = prompt("Select number -> 1:FM, 2:AM, 3:Substractive");
+
+            if(Number(userInput) == 2){
+                window.location.href = "https://drsax.github.io/DrSAX/examples/demo_am.html"
+            }else if(Number(userInput) == 3){
+                window.location.href = "https://drsax.github.io/DrSAX/examples/demo_sub.html"
+            }
+
             play.onclick = function () {
                 fm.connect(gain)
                 gain.connect(DAC)
