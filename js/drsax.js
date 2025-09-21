@@ -17,7 +17,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-const DrSax_revision = "worked_2020_12_25_r1";
+const DrSax_revision = "worked_2020_12_25_r2";
 
 (function (window, Constructor, undefined) {
   DRSAX_INIT = {};
@@ -186,16 +186,6 @@ const DrSax_revision = "worked_2020_12_25_r1";
   drsax = new AudioContext();
   drSaxInitSet.audioContextCheck();
   window.DSX = DSX;
-
-  /*
-   * @ module exports
-   *
-   */
-  // if (typeof module !== "undefined" && module.exports) {
-  //   module.exports = DSX;
-  // } else {
-  //   window.DSX = DSX;
-  // }
 
   function DSX() {
     if (!(this instanceof DSX)) return new DSX();
