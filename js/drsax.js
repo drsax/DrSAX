@@ -52,17 +52,17 @@ const DrSax_revision = "worked_2020_12_25_r2";
     requiredDataCheck.getUserInfo();
     if (
       !requiredDataCheck.checkHttpsForMediaStream(
-        requiredDataCheck.getLocationHref()
+        requiredDataCheck.getLocationHref(),
       )
     ) {
       console.error(
         ">>>>>> http is not able MediaStream  " +
-          requiredDataCheck.getLocationHref()
+          requiredDataCheck.getLocationHref(),
       );
     } else {
       console.warn(
         ">>>>>> https is able MediaStream  " +
-          requiredDataCheck.getLocationHref()
+          requiredDataCheck.getLocationHref(),
       );
     }
   })();
@@ -95,7 +95,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
       that.primary.defalutCheck(
         !typeof window.drsax === "object" &&
           !Number(drsax.sampleRate) === 48000,
-        "drsax"
+        "drsax",
       );
     },
     /*
@@ -105,7 +105,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
     destinationCheck: function () {
       that.primary.defalutCheck(
         !typeof DAC === "object" && !Number(DAC.context.sampleRate) === 48000,
-        "DAC"
+        "DAC",
       );
     },
     /*
@@ -349,11 +349,11 @@ const DrSax_revision = "worked_2020_12_25_r2";
       this.gain.gain.setValueAtTime(0, this.now);
       this.gain.gain.linearRampToValueAtTime(
         1,
-        this.now + 0.01 + this.attack.value
+        this.now + 0.01 + this.attack.value,
       );
       this.gain.gain.linearRampToValueAtTime(
         0,
-        this.now + 0.02 + this.attack.value + this.release.value
+        this.now + 0.02 + this.attack.value + this.release.value,
       );
     };
 
@@ -959,7 +959,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
     this.delayTime = properties.delayTime || this.defaults.delayTime.value;
     this.feedback = drSaxInitSet.userDefaultData(
       properties.feedback,
-      this.defaults.feedback.value
+      this.defaults.feedback.value,
     );
   };
   DSX.prototype.Delay.prototype = Object.create(ConstructorInit, {
@@ -1024,8 +1024,8 @@ const DrSax_revision = "worked_2020_12_25_r2";
 
     revebRequest.open(
       "GET",
-      "https://drsax.github.io/drsaxCore/import/rvb.wav",
-      true
+      "https://drsax.github.io/DrSAX/import/rvb.wav",
+      true,
     );
     revebRequest.responseType = "arraybuffer";
     revebRequest.send();
@@ -1039,7 +1039,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
         },
         function (e) {
           console.log("Error with decoding audio " + e.err);
-        }
+        },
       );
     };
 
@@ -1127,7 +1127,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
           audio: true,
         },
         mic_stream,
-        mic_null
+        mic_null,
       );
     }
 
@@ -1193,7 +1193,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
     function centsOffFromPitch(frequency, note) {
       return Math.floor(
         (1200 * Math.log(frequency / frequencyFromNoteNumber(note))) /
-          Math.log(2)
+          Math.log(2),
       );
     }
     var MIN_SAMPLES = 0;
@@ -1432,7 +1432,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
     color,
     canvasWidth,
     canvasHeight,
-    callback
+    callback,
   ) {
     this.out = out;
     this.color = color;
@@ -1518,7 +1518,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
 
         sound_reader.readAsArrayBuffer(this.files[0]);
       },
-      false
+      false,
     );
 
     this.connect = function (out) {
