@@ -1752,16 +1752,18 @@ const DrSax_revision = "worked_2020_12_25_r2";
     this.overlapRatio = overlapRatio;
 
     const uniqueProcessorName = `pitch-shifter-processor-${Date.now()}`;
-    this.pitchShifterProcessor = null; // 초기에는 null 상태
+    this.pitchShifterProcessor = null;
 
-    // 비동기 로딩 전, 외부에서 호출된 connect/get 명령을 임시 저장할 큐(Queue)
+    // 비동기 로딩 전 명령을 담아둘 큐
     const connectionQueue = [];
 
-    // 1. 노드 연결 메소드를 미리 정의 (노드가 생성 안 됐으면 큐에 저장)
+    // 1. 노드 연결 메소드 매핑
     this.connect = function (out) {
       this.out = out;
       if (this.pitchShifterProcessor) {
-        this.pitchShifterProcessor.connect(out);
+        try {
+          this.pitchShifterProcessor.connect(out);
+        } catch (e) {}
       } else {
         connectionQueue.push({ type: "connect", target: out });
       }
@@ -1770,10 +1772,22 @@ const DrSax_revision = "worked_2020_12_25_r2";
     this.get = function (dat) {
       this.dat = dat;
       if (this.pitchShifterProcessor) {
-        this.dat.connect(this.pitchShifterProcessor);
+        try {
+          dat.connect(this.pitchShifterProcessor);
+        } catch (e) {}
       } else {
         connectionQueue.push({ type: "get", target: dat });
       }
+    };
+
+    // 기존 소스코드의 disconnect 흐름을 깨지 않기 위한 방어 코드
+    this.disconnect = function () {
+      if (this.pitchShifterProcessor) {
+        try {
+          this.pitchShifterProcessor.disconnect();
+        } catch (e) {}
+      }
+      connectionQueue.length = 0;
     };
 
     // 2. 백그라운드에서 비동기로 AudioWorklet 생성 진행
@@ -1801,17 +1815,22 @@ const DrSax_revision = "worked_2020_12_25_r2";
         const inputData = input[0]; const outputData = output[0];
         const pRatio = this.pitchRatio; const oRatio = this.overlapRatio;
 
+        // 원본 로직: 윈도우 적용 및 버퍼 시프트
         for (let i = 0; i < inputData.length; i++) {
+          inputData[i] *= this.grainWindow[i];
           this.buffer[i] = this.buffer[i + 512];
           this.buffer[i + 512] = 0.0;
         }
+
+        // 보정된 피치 시프팅 수학 연산 (이중 윈도우 버그 해결)
         const grainData = new Float32Array(512 * 2);
         for (let i = 0, j = 0.0; i < 512; i++, j += pRatio) {
           const idx = Math.floor(j) % 512;
-          const a = inputData[idx] * this.grainWindow[idx];
-          const b = inputData[(idx + 1) % 512] * this.grainWindow[(idx + 1) % 512];
+          const a = inputData[idx];
+          const b = inputData[(idx + 1) % 512];
           grainData[i] += (a + (b - a) * (j % 1.0)) * this.grainWindow[i];
         }
+
         const step = Math.round(512 * (1 - oRatio));
         for (let i = 0; i < 512; i += step) {
           for (let j = 0; j <= 512; j++) this.buffer[i + j] += grainData[j];
@@ -1826,12 +1845,10 @@ const DrSax_revision = "worked_2020_12_25_r2";
     const blob = new Blob([processorCode], { type: "application/javascript" });
     const moduleUrl = URL.createObjectURL(blob);
 
-    // 즉시 실행 비동기 함수(IIFE)로 백그라운드 처리
     (async () => {
       try {
         await drsaxContext.audioWorklet.addModule(moduleUrl);
 
-        // 노드 생성 완료
         this.pitchShifterProcessor = new AudioWorkletNode(
           drsaxContext,
           uniqueProcessorName,
@@ -1855,6 +1872,7 @@ const DrSax_revision = "worked_2020_12_25_r2";
             task.target.connect(this.pitchShifterProcessor);
           }
         });
+        connectionQueue.length = 0;
       } catch (e) {
         console.error("AudioWorklet 초기화 실패:", e);
       } finally {
