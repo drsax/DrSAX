@@ -1696,56 +1696,171 @@ const DrSax_revision = "worked_2020_12_25_r2";
    *
    */
 
+  // DSX.prototype.pitchShift = function (overlapRatio, pitchRatio) {
+  //   this.pitchRatio = pitchRatio;
+  //   this.overlapRatio = overlapRatio;
+
+  //   hannWindow = function () {
+  //     var window = new Float32Array(512);
+  //     for (var i = 0; i < 512; i++) {
+  //       window[i] = 0.5 * (1 - Math.cos((2 * Math.PI * i) / (512 - 1)));
+  //     }
+  //     return window;
+  //   };
+
+  //   this.pitchShifterProcessor = drsaxContext.createScriptProcessor(512, 1, 1);
+  //   this.pitchShifterProcessor.buffer = new Float32Array(512 * 2);
+  //   this.pitchShifterProcessor.grainWindow = hannWindow();
+
+  //   this.connect = function (out) {
+  //     this.out = out;
+  //     this.pitchShifterProcessor.connect(out);
+  //   };
+
+  //   this.get = function (dat) {
+  //     this.dat = dat;
+  //     this.dat.connect(this.pitchShifterProcessor);
+  //   };
+  //   this.pitchShifterProcessor.onaudioprocess = function (event) {
+  //     var inputData = event.inputBuffer.getChannelData(0);
+  //     var outputData = event.outputBuffer.getChannelData(0);
+  //     for (i = 0; i < inputData.length; i++) {
+  //       inputData[i] *= this.grainWindow[i];
+  //       this.buffer[i] = this.buffer[i + 512];
+  //       this.buffer[i + 512] = 0.0;
+  //     }
+  //     var grainData = new Float32Array(512 * 2);
+  //     for (var i = 0, j = 0.0; i < 512; i++, j += pitchRatio) {
+  //       var index = Math.floor(j) % 512;
+  //       var a = inputData[index];
+  //       var b = inputData[(index + 1) % 512];
+  //       grainData[i] += a + (b - a) * (j % 1.0) * this.grainWindow[i];
+  //     }
+
+  //     for (i = 0; i < 512; i += Math.round(512 * (1 - overlapRatio))) {
+  //       for (j = 0; j <= 512; j++) {
+  //         this.buffer[i + j] += grainData[j];
+  //       }
+  //     }
+  //     for (i = 0; i < 512; i++) {
+  //       outputData[i] = this.buffer[i];
+  //     }
+  //   };
+  // };
   DSX.prototype.pitchShift = function (overlapRatio, pitchRatio) {
     this.pitchRatio = pitchRatio;
     this.overlapRatio = overlapRatio;
 
-    hannWindow = function () {
-      var window = new Float32Array(512);
-      for (var i = 0; i < 512; i++) {
-        window[i] = 0.5 * (1 - Math.cos((2 * Math.PI * i) / (512 - 1)));
-      }
-      return window;
-    };
+    const uniqueProcessorName = `pitch-shifter-processor-${Date.now()}`;
+    this.pitchShifterProcessor = null; // 초기에는 null 상태
 
-    this.pitchShifterProcessor = drsaxContext.createScriptProcessor(512, 1, 1);
-    this.pitchShifterProcessor.buffer = new Float32Array(512 * 2);
-    this.pitchShifterProcessor.grainWindow = hannWindow();
+    // 비동기 로딩 전, 외부에서 호출된 connect/get 명령을 임시 저장할 큐(Queue)
+    const connectionQueue = [];
 
+    // 1. 노드 연결 메소드를 미리 정의 (노드가 생성 안 됐으면 큐에 저장)
     this.connect = function (out) {
       this.out = out;
-      this.pitchShifterProcessor.connect(out);
+      if (this.pitchShifterProcessor) {
+        this.pitchShifterProcessor.connect(out);
+      } else {
+        connectionQueue.push({ type: "connect", target: out });
+      }
     };
 
     this.get = function (dat) {
       this.dat = dat;
-      this.dat.connect(this.pitchShifterProcessor);
+      if (this.pitchShifterProcessor) {
+        this.dat.connect(this.pitchShifterProcessor);
+      } else {
+        connectionQueue.push({ type: "get", target: dat });
+      }
     };
-    this.pitchShifterProcessor.onaudioprocess = function (event) {
-      var inputData = event.inputBuffer.getChannelData(0);
-      var outputData = event.outputBuffer.getChannelData(0);
-      for (i = 0; i < inputData.length; i++) {
-        inputData[i] *= this.grainWindow[i];
-        this.buffer[i] = this.buffer[i + 512];
-        this.buffer[i + 512] = 0.0;
-      }
-      var grainData = new Float32Array(512 * 2);
-      for (var i = 0, j = 0.0; i < 512; i++, j += pitchRatio) {
-        var index = Math.floor(j) % 512;
-        var a = inputData[index];
-        var b = inputData[(index + 1) % 512];
-        grainData[i] += a + (b - a) * (j % 1.0) * this.grainWindow[i];
-      }
 
-      for (i = 0; i < 512; i += Math.round(512 * (1 - overlapRatio))) {
-        for (j = 0; j <= 512; j++) {
-          this.buffer[i + j] += grainData[j];
+    // 2. 백그라운드에서 비동기로 AudioWorklet 생성 진행
+    const processorCode = `
+    class PitchShifterProcessor extends AudioWorkletProcessor {
+      constructor() {
+        super();
+        this.buffer = new Float32Array(512 * 2);
+        this.grainWindow = this.hannWindow();
+        this.pitchRatio = 1.0;
+        this.overlapRatio = 0.5;
+        this.port.onmessage = (e) => {
+          if (e.data.pitchRatio !== undefined) this.pitchRatio = e.data.pitchRatio;
+          if (e.data.overlapRatio !== undefined) this.overlapRatio = e.data.overlapRatio;
+        };
+      }
+      hannWindow() {
+        const w = new Float32Array(512);
+        for (let i = 0; i < 512; i++) w[i] = 0.5 * (1 - Math.cos((2 * Math.PI * i) / 511));
+        return w;
+      }
+      process(inputs, outputs) {
+        const input = inputs[0]; const output = outputs[0];
+        if (!input || input.length === 0 || !input[0]) return true;
+        const inputData = input[0]; const outputData = output[0];
+        const pRatio = this.pitchRatio; const oRatio = this.overlapRatio;
+
+        for (let i = 0; i < inputData.length; i++) {
+          this.buffer[i] = this.buffer[i + 512];
+          this.buffer[i + 512] = 0.0;
         }
+        const grainData = new Float32Array(512 * 2);
+        for (let i = 0, j = 0.0; i < 512; i++, j += pRatio) {
+          const idx = Math.floor(j) % 512;
+          const a = inputData[idx] * this.grainWindow[idx];
+          const b = inputData[(idx + 1) % 512] * this.grainWindow[(idx + 1) % 512];
+          grainData[i] += (a + (b - a) * (j % 1.0)) * this.grainWindow[i];
+        }
+        const step = Math.round(512 * (1 - oRatio));
+        for (let i = 0; i < 512; i += step) {
+          for (let j = 0; j <= 512; j++) this.buffer[i + j] += grainData[j];
+        }
+        for (let i = 0; i < 512; i++) outputData[i] = this.buffer[i];
+        return true;
       }
-      for (i = 0; i < 512; i++) {
-        outputData[i] = this.buffer[i];
+    }
+    registerProcessor('${uniqueProcessorName}', PitchShifterProcessor);
+  `;
+
+    const blob = new Blob([processorCode], { type: "application/javascript" });
+    const moduleUrl = URL.createObjectURL(blob);
+
+    // 즉시 실행 비동기 함수(IIFE)로 백그라운드 처리
+    (async () => {
+      try {
+        await drsaxContext.audioWorklet.addModule(moduleUrl);
+
+        // 노드 생성 완료
+        this.pitchShifterProcessor = new AudioWorkletNode(
+          drsaxContext,
+          uniqueProcessorName,
+          {
+            numberOfInputs: 1,
+            numberOfOutputs: 1,
+            outputChannelCount: [1],
+          },
+        );
+
+        this.pitchShifterProcessor.port.postMessage({
+          pitchRatio: this.pitchRatio,
+          overlapRatio: this.overlapRatio,
+        });
+
+        // 3. 노드가 준비되었으니 밀려있던 connect/get 명령을 순서대로 실행
+        connectionQueue.forEach((task) => {
+          if (task.type === "connect") {
+            this.pitchShifterProcessor.connect(task.target);
+          } else if (task.type === "get") {
+            task.target.connect(this.pitchShifterProcessor);
+          }
+        });
+      } catch (e) {
+        console.error("AudioWorklet 초기화 실패:", e);
+      } finally {
+        URL.revokeObjectURL(moduleUrl);
       }
-    };
+    })();
   };
 
   /*
